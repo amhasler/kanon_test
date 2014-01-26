@@ -1,3 +1,9 @@
-- provide(:title, "Home")
-%h1 Project Page One
-%p This is the home page for Kanon, which right now is a work in progress.
+.center.hero-unit
+	%h1 Project Page One
+	%h2 Here's a paragraph telling you why it's great
+	=image_tag "rails.png", alt: "Rails"
+
+	%h2 What work from intellectual and cultural history means the most to you?
+	=form_tag do
+		=text_field_tag "q"
+		=submit_tag "Explore", class: "btn btn-large btn-primary"
