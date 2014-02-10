@@ -15,5 +15,11 @@ namespace :db do
                    password: password,
                    password_confirmation: password)
     end
+
+    users = User.all(limit: 6)
+    50.times do |n|
+      name = "The Republic Chapter #{n+1}"
+      users.each { |user| user.artobjects.create!(name: name) }
+    end
   end
 end

@@ -9,4 +9,9 @@ FactoryGirl.define do
       admin true
     end
   end
+
+  factory :artobject do
+    sequence(:name) { |n| "The Republic chapter #{n}" }
+    user
+  end
 end

@@ -16,6 +16,7 @@ describe User do
   it { should respond_to(:remember_token) }
   it { should respond_to(:authenticate) }
   it { should respond_to(:admin) }
+  it { should respond_to(:artobjects) }
 
   it { should be_valid }
   it { should_not be_admin }
@@ -112,5 +113,20 @@ describe User do
   describe "remember token" do
     before { @user.save }
     its(:remember_token) { should_not be_blank }
+  end
+
+  describe "artobject associations" do
+
+    before { @user.save }
+    let!(:older_artobject) do
+      FactoryGirl.create(:artobject, user: @user, created_at: 1.day.ago)
+    end
+    let!(:newer_artobject) do
+      FactoryGirl.create(:artobject, user: @user, created_at: 1.hour.ago)
+    end
+
+    it "should have the right artobjects in the right order" do
+      expect(@user.artobjects.to_a).to eq [newer_artobject, older_artobject]
+    end
   end
 end

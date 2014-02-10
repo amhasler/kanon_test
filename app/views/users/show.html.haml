@@ -6,3 +6,11 @@
       %h1
         = gravatar_for @user
         = @user.name
+
+  .span8
+    - if @user.artobjects.any?
+      %h3 Art objects (#{ @user.artobjects.count })
+      %ol.artobjects
+        = render @artobjects
+
+      = will_paginate @artobjects
