@@ -44,39 +44,27 @@ describe "ArtobjectPages" do
 	    end
 	  end
 
-
-    describe "pagination" do
-
-	    before(:all) { 30.times { FactoryGirl.create(:artobject) } }
-	    after(:all)  { Artobject.delete_all }
-
-	    it { should have_selector('div.pagination') }
-
-	    it "should list each user" do
-	      Artobject.paginate(page: 1).each do |artobject|
-	        expect(page).to have_selector('li', text: artobject.name)
-	      end
-	    end
-	  end
-
 	  describe "delete links" do
 
       it { should_not have_link('delete') }
 
       describe "as an admin user" do
         let(:admin) { FactoryGirl.create(:admin) }
+
         before do
           sign_in admin
           visit artobjects_path
-          FactoryGirl.create(:artobject, user: admin) 
         end
 
         it { should have_link('delete', href: artobject_path(Artobject.first)) }
         
-        it "should delete an artobject" do
-          expect { click_link "delete" }.to change(Artobject, :count).by(-1)
+        it "should be able to delete art object" do
+          expect do
+            click_link('delete', match: :first)
+          end.to change(Artobject, :count).by(-1)
         end
       end
+
     end
 
   end

@@ -8,6 +8,7 @@ class ArtobjectsController < ApplicationController
       flash[:success] = "Art object created!"
       redirect_to artobjects_url
     else
+      @artobjects = Artobject.paginate(page: params[:page])
       render 'index'
     end
   end
