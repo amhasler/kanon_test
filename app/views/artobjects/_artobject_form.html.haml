@@ -2,4 +2,15 @@
   = render 'shared/error_messages', object: f.object
   .field
     = f.text_field :name, placeholder: "Name the art object"
-  = f.submit "Create", class: "btn btn-large btn-primary"
+  .field
+    = f.text_field :minyear, value: @artobject.minyear ? @artobject.minyear.abs : nil
+    .checkbox
+      %label
+        = check_box_tag :min_bce, @artobject.minyear && @artobject.minyear<0, @artobject.minyear && @artobject.minyear<0
+        BCE
+    = f.text_field :maxyear, value: @artobject.maxyear ? @artobject.maxyear.abs : nil
+    .checkbox
+      %label
+        = check_box_tag :max_bce, @artobject.maxyear && @artobject.maxyear<0, @artobject.maxyear && @artobject.maxyear<0
+        BCE
+  = f.submit "Go", class: "btn btn-large btn-primary"

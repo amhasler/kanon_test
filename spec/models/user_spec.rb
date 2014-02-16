@@ -119,10 +119,10 @@ describe User do
 
     before { @user.save }
     let!(:older_artobject) do
-      FactoryGirl.create(:artobject, user: @user, created_at: 1.day.ago)
+      FactoryGirl.create(:artobject, user: @user, name: "Nighthawks", minyear:1923, created_at: 1.day.ago)
     end
     let!(:newer_artobject) do
-      FactoryGirl.create(:artobject, user: @user, created_at: 1.hour.ago)
+      FactoryGirl.create(:artobject, user: @user, name: "Nighthawks", minyear:1923, created_at: 1.hour.ago)
     end
 
     it "should have the right artobjects in the right order" do

@@ -12,6 +12,7 @@ FactoryGirl.define do
 
   factory :artobject do
     sequence(:name) { |n| "The Republic chapter #{n}" }
+    sequence(:minyear) { 1800 }
     user
   end
 end

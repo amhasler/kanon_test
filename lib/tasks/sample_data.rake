@@ -19,7 +19,8 @@ namespace :db do
     users = User.all(limit: 6)
     50.times do |n|
       name = "The Republic Chapter #{n+1}"
-      users.each { |user| user.artobjects.create!(name: name) }
+      mindate = 1170
+      users.each { |user| user.artobjects.create!(name: name, minyear: mindate) }
     end
   end
 end

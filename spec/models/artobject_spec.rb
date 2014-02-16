@@ -3,24 +3,26 @@ require 'spec_helper'
 describe Artobject do
 
   let(:user) { FactoryGirl.create(:user) }
-  before { @artobject = user.artobjects.build(name: "The Republic") }
+  before { @artobject = user.artobjects.build(name: "The Republic", minyear: 1170) }
 
   subject { @artobject }
 
   it { should respond_to(:name) }
   it { should respond_to(:user_id) }
   it { should respond_to(:user) }
+  it { should respond_to(:minyear) }
+  it { should respond_to(:image) }
   its(:user) { should eq user }
 
   it { should be_valid }
-
-  describe "when user_id is not present" do
-    before { @artobject.user_id = nil }
+  
+  describe "with blank name" do
+    before { @artobject.name = " " }
     it { should_not be_valid }
   end
-  
-  describe "with blank content" do
-    before { @artobject.name = " " }
+
+  describe "with blank date" do
+    before { @artobject.minyear = " " }
     it { should_not be_valid }
   end
 

@@ -1,6 +1,16 @@
 %li
   %span.name= artobject.name
-  %span.timestamp Created #{ time_ago_in_words(artobject.created_at) } ago.
+  |
+  - if artobject.user_id.nil?
+    %span.added_by User deleted
+  - else
+    %span.added_by= artobject.user.name
+  |
+  %span.timestamp= date_maker(artobject)
+
   - if signed_in?
+    
     - if current_user.admin?
+      = link_to "edit", artobjects_path(id:artobject)
+      |
       = link_to "delete", artobject, method: :delete, data: { confirm: "You sure?" }, title: artobject.name

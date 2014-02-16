@@ -40,7 +40,15 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    User.find(params[:id]).destroy
+    logger.debug('fire1')
+    @user = User.find(params[:id])
+    if @user.artobjects.count > 0
+      logger.debug('fire2')
+      @user.artobjects.each do |a|
+        a.update_attributes(user_id:nil)
+      end
+    end
+    @user.destroy
     flash[:success] = "User deleted."
     redirect_to users_url
   end
