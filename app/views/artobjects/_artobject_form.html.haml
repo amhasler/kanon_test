@@ -3,14 +3,24 @@
   .field
     = f.text_field :name, placeholder: "Name the art object"
   .field
-    = f.text_field :minyear, value: @artobject.minyear ? @artobject.minyear.abs : nil
+    = f.text_field :minyear, value: @artobject.minyear ? @artobject.minyear.abs : nil, placeholder: "Minimum date"
     .checkbox
       %label
         = check_box_tag :min_bce, @artobject.minyear && @artobject.minyear<0, @artobject.minyear && @artobject.minyear<0
         BCE
-    = f.text_field :maxyear, value: @artobject.maxyear ? @artobject.maxyear.abs : nil
+    = f.text_field :maxyear, value: @artobject.maxyear ? @artobject.maxyear.abs : nil, placeholder: "Maximum date"
     .checkbox
       %label
         = check_box_tag :max_bce, @artobject.maxyear && @artobject.maxyear<0, @artobject.maxyear && @artobject.maxyear<0
         BCE
+    .fileinput.fileinput-exists{ :data => {:provides => "fileinput"} }
+      .fileinput-preview.thumbnail{ style: "width: 200px; height: 200px;", :data => {:trigger => "fileinput"} }
+        -if @artobject.image_url != "default.png"
+          =image_tag @artobject.image_url(:index).to_s
+      %div
+        %span.btn.btn-default.btn-file
+          %span.fileinput-new Select image
+          %span.fileinput-exists Change
+          =f.file_field :image
+        %a.btn.btn-default.fileinput-exists{ href:"#", :data => {:dismiss => "fileinput"} } Remove
   = f.submit "Go", class: "btn btn-large btn-primary"

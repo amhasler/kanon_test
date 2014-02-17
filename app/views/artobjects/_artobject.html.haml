@@ -1,4 +1,5 @@
 %li
+  =image_tag artobject.image_url(:index).to_s, class: "artobject_image"
   %span.name= artobject.name
   |
   - if artobject.user_id.nil?

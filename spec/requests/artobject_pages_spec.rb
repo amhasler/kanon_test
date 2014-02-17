@@ -57,15 +57,18 @@ describe "ArtobjectPages" do
 
   	      let(:name)  { "Laws" }
           let(:minyear) { 300 }
+
           before do
-            fill_in "artobject_name",             with: name
-            fill_in "artobject_minyear",            with: minyear
+            fill_in "artobject_name", with: name
+            fill_in "artobject_minyear", with: minyear
+            fixture_file_upload(Rails.root + 'spec/fixtures/images/test_image.jpg', 'image/png')     
             click_button "Go"
           end
 
           it { should have_selector('div.alert.alert-success') }
           it { should have_content(name) }
           it { should have_content(minyear) }
+          it { should have_xpath("//img")}
   	    end
   	  end
 

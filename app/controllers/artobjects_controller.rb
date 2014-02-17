@@ -33,12 +33,14 @@ class ArtobjectsController < ApplicationController
     if @artobject.update_attributes(artobject_params)
       if params[:min_bce]
         @artobject.minyear = @artobject.minyear*-1
-        @artobject.save
       end
       if params[:max_bce]
         @artobject.maxyear = @artobject.maxyear*-1
-        @artobject.save
       end
+      if params[:image].nil?
+        @artobject.image = File.open("#{Rails.root}/app/assets/images/default.png")
+      end
+      @artobject.save
       flash[:success] = "Art object updated"
       redirect_to artobjects_url
     else
@@ -55,7 +57,7 @@ class ArtobjectsController < ApplicationController
   private
 
     def artobject_params
-      params.require(:artobject).permit(:name, :minyear, :maxyear)
+      params.require(:artobject).permit(:name, :minyear, :maxyear, :image)
     end
 
     def admin_user
