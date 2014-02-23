@@ -19,14 +19,16 @@
     = f.text_field :location_list, placeholder: "Locations"
     = f.text_field :society_list, placeholder: "Society, Culture, and Politics"
     = f.text_field :medium_list, placeholder: "Media"
-    .fileinput.fileinput-exists{ :data => {:provides => "fileinput"} }
-      .fileinput-preview.thumbnail{ style: "width: 200px; height: 200px;", :data => {:trigger => "fileinput"} }
+    .fileinput{ :class => (@artobject.image_url != "default.png" ? "fileinput-exists" : "fileinput-new"), :data => {:provides => "fileinput", :name => "myimage"} }
+      .fileinput-new.thumbnail{ style: "width: 200px; height: 200px;" }
+      .fileinput-preview.fileinput-exists.thumbnail{ style: "width: 200px; height: 200px;"}
         -if @artobject.image_url != "default.png"
           =image_tag @artobject.image_url(:index).to_s
       %div
-        %span.btn.btn-default.btn-file
+        %span.btn.btn-file
           %span.fileinput-new Select image
           %span.fileinput-exists Change
           =f.file_field :image
+      -unless @artobject.image?
         %a.btn.btn-default.fileinput-exists{ href:"#", :data => {:dismiss => "fileinput"} } Remove
   = f.submit "Go", class: "btn btn-large btn-primary"

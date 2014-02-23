@@ -51,9 +51,6 @@ class ArtobjectsController < ApplicationController
       if params[:max_bce]
         @artobject.maxyear = @artobject.maxyear*-1
       end
-      if params[:image].nil?
-        @artobject.image = File.open("#{Rails.root}/app/assets/images/default.png")
-      end
       @artobject.save
       flash[:success] = "Art object updated"
       redirect_to artobjects_url
