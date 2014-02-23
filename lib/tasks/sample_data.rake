@@ -18,15 +18,15 @@ namespace :db do
 
     images = []
     7.times do |n|
-      images[n] = File.new(Rails.root + "spec/fixtures/images/image#{n+1}.jpg")
+      images << File.new(Rails.root + "spec/fixtures/images/image#{n+1}.jpg")
     end
 
-    users = User.all(limit: 6)
-    50.times do |n|
+    tags = ["Plato", "Socrates", "Greece", "Athens", "Attica", "Rhetoric", "Writing"]
+
+    users = User.all(limit: 10)
+    20.times do |n|
       name = "The Republic Chapter #{n+1}"
-      mindate = 1170
-      image = images[rand(7)]
-      users.each { |user| user.artobjects.create!(name: name, minyear: mindate, image: image) }
+      users.each { |user| user.artobjects.create!(name: name, minyear: -400 + rand(1000), image: images[rand(7)], creator_list: tags[rand(6)], location_list: tags[rand(6)], society_list: tags[rand(6)], language_list: tags[rand(6)], medium_list: tags[rand(6)]) }
     end
   end
 end

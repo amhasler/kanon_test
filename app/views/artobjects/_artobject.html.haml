@@ -1,4 +1,4 @@
-%li
+%li.art_object
   =image_tag artobject.image_url(:index).to_s, class: "artobject_image"
   %span.name= artobject.name
   |
@@ -8,10 +8,12 @@
     %span.added_by= artobject.user.name
   |
   %span.timestamp= date_maker(artobject)
-
+  |
+  %span.tags= raw tag_mix(artobject)
   - if signed_in?
-    
-    - if current_user.admin?
+    - if current_user.admin? or current_user == artobject.user
+      |
       = link_to "edit", artobjects_path(id:artobject)
+    - if current_user.admin?
       |
       = link_to "delete", artobject, method: :delete, data: { confirm: "You sure?" }, title: artobject.name

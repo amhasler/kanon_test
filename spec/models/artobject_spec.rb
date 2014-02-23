@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Artobject do
 
   let(:user) { FactoryGirl.create(:user) }
-  before { @artobject = user.artobjects.build(name: "The Republic", minyear: 1170, image: File.new('spec/fixtures/images/test_image.jpg'))}
+  before { @artobject = user.artobjects.build(name: "The Republic", minyear: 1170, image: File.new('spec/fixtures/images/test_image.jpg'), creator_list: "Plato", language_list: "Greek, Attic", location_list: "Greece, Athens, Attica", society_list: "Athens", medium_list: "Rhetoric, Philosophy, Writing")}
 
   subject { @artobject }
 
@@ -12,6 +12,11 @@ describe Artobject do
   it { should respond_to(:user) }
   it { should respond_to(:minyear) }
   it { should respond_to(:image) }
+  it { should respond_to(:creator_list)}
+  it { should respond_to(:language_list)}
+  it { should respond_to(:location_list)}
+  it { should respond_to(:society_list)}
+  it { should respond_to(:medium_list)}
   its(:user) { should eq user }
 
   it { should be_valid }

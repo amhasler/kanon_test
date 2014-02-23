@@ -10,4 +10,6 @@ class Artobject < ActiveRecord::Base
 		:file_size => { 
 	    :maximum => 4.megabytes.to_i 
 	}
+
+	acts_as_taggable_on :creators, :locations, :languages, :societies, :mediums
 end

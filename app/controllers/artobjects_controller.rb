@@ -20,7 +20,21 @@ class ArtobjectsController < ApplicationController
   end
 
   def index
-  	@artobjects = Artobject.paginate(page: params[:page])
+    @artobjects = Artobject.paginate(page: params[:page])
+
+    if params[:tags] && !params[:tags].empty?
+      @artobjects = @artobjects.tagged_with(params[:tags]).paginate(page: params[:page])
+    end
+
+    if params[:ascending]
+      if params[:ascending] == "false"
+        @artobjects = @artobjects.reorder('minyear DESC').paginate(page: params[:page])
+      elsif params[:ascending] == "true"
+        @artobjects = @artobjects.reorder('minyear ASC').paginate(page: params[:page])
+      end
+    end
+
+
     if params[:id]
       @artobject = Artobject.find(params[:id])
     else
@@ -57,7 +71,7 @@ class ArtobjectsController < ApplicationController
   private
 
     def artobject_params
-      params.require(:artobject).permit(:name, :minyear, :maxyear, :image)
+      params.require(:artobject).permit(:name, :minyear, :maxyear, :image, :creator_list, :language_list, :location_list, :society_list, :medium_list)
     end
 
     def admin_user

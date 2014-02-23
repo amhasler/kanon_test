@@ -1,9 +1,22 @@
 - provide(:title, "Art objects")
 
 .row
-  %aside.span12
+  %aside.span6
     - if signed_in?
+      %h1 New art object
       = render 'artobject_form'
+    - else
+      %h1 #{link_to "Sign in", signin_path} or #{link_to "Sign up", signup_path} to add an art object.
+  %aside.span6
+    %h1 Filter art objects
+    = form_for :artobject, :url => { :action => "index" }, html: {method: :get} do |f|
+      = text_field_tag :tags, nil, placeholder: "Add tags separated by comma"
+      =f.submit "Filter", class: "btn btn-large btn-primary"
+      =link_to "Reset", artobjects_path(tags: ''), class: "btn btn-large btn-primary"
+
+    = link_to "Sort Ascending", artobjects_path(params.merge(ascending: 'true')), class: "btn btn-large btn-primary"
+    = link_to "Sort Descending", artobjects_path(params.merge(ascending: 'false')), class: "btn btn-large btn-primary"
+
 
 .row
   .span12

@@ -16,6 +16,7 @@ gem 'turbolinks', '1.1.1'
 gem 'jbuilder', '1.0.2'
 gem 'haml', '4.0.3'
 gem "mini_magick", "~> 3.7.0"
+gem 'acts-as-taggable-on'
 
 
 group :development, :test do

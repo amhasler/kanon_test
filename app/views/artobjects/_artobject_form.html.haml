@@ -13,6 +13,12 @@
       %label
         = check_box_tag :max_bce, @artobject.maxyear && @artobject.maxyear<0, @artobject.maxyear && @artobject.maxyear<0
         BCE
+  .field
+    = f.text_field :creator_list, placeholder: "Creators"
+    = f.text_field :language_list, placeholder: "Languages"
+    = f.text_field :location_list, placeholder: "Locations"
+    = f.text_field :society_list, placeholder: "Society, Culture, and Politics"
+    = f.text_field :medium_list, placeholder: "Media"
     .fileinput.fileinput-exists{ :data => {:provides => "fileinput"} }
       .fileinput-preview.thumbnail{ style: "width: 200px; height: 200px;", :data => {:trigger => "fileinput"} }
         -if @artobject.image_url != "default.png"
