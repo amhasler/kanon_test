@@ -17,7 +17,7 @@
     = f.text_field :creator_list, placeholder: "Creators"
     = f.text_field :language_list, placeholder: "Languages"
     = f.text_field :location_list, placeholder: "Locations"
-    = f.text_field :society_list, placeholder: "Society, Culture, and Politics"
+    = f.text_field :society_list, placeholder: "Genres and periods"
     = f.text_field :medium_list, placeholder: "Media"
     .fileinput{ :class => (@artobject.image_url != "default.png" ? "fileinput-exists" : "fileinput-new"), :data => {:provides => "fileinput", :name => "myimage"} }
       .fileinput-new.thumbnail{ style: "width: 200px; height: 200px;" }
