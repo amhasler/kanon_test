@@ -14,15 +14,16 @@
       =f.submit "Filter", class: "btn btn-large btn-primary"
       =link_to "Reset", artobjects_path(tags: ''), class: "btn btn-large btn-primary"
 
-    = link_to "Sort Ascending", artobjects_path(params.merge(ascending: 'true')), class: "btn btn-large btn-primary"
-    = link_to "Sort Descending", artobjects_path(params.merge(ascending: 'false')), class: "btn btn-large btn-primary"
+    = link_to "Sort by date (ascending)", artobjects_path(params.merge(ascending: 'true'))
+    |
+    = link_to "Sort by date (descending)", artobjects_path(params.merge(ascending: 'false'))
 
 
 .row
   .span12
     %h3 Art objects (#{ @artobjects.count })
     = will_paginate
-    
+
     %ol.artobjects
       = render @artobjects
 
