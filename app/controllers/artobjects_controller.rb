@@ -1,6 +1,7 @@
 class ArtobjectsController < ApplicationController
 	before_action :signed_in_user, only: [:create, :destroy]
-	before_action :admin_user, only: [:destroy, :update]
+	before_action :admin_user, only: :destroy
+  before_action :object_editor, only: :update
 
   def create
   	@artobject = current_user.artobjects.build(artobject_params)
@@ -74,6 +75,11 @@ class ArtobjectsController < ApplicationController
     def admin_user
       @artobject = Artobject.find_by(id: params[:id])
       redirect_to(artobjects_url) unless current_user.admin?
+    end
+
+    def object_editor
+      @artobject = Artobject.find_by(id: params[:id])
+      redirect_to(artobjects_url) unless current_user.id == @artobject.user_id || current_user.admin?
     end
 
 end

@@ -21,7 +21,7 @@ class UsersController < ApplicationController
     if @user.save
       sign_in @user
     	flash[:success] = "Welcome to Project Page One!"
-      redirect_to @user
+      redirect_to artobjects_url
     else
       render 'new'
     end

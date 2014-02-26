@@ -21,6 +21,8 @@
 .row
   .span12
     %h3 Art objects (#{ @artobjects.count })
+    = will_paginate
+    
     %ol.artobjects
       = render @artobjects
 

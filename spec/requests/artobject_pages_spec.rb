@@ -54,7 +54,6 @@ describe "ArtobjectPages" do
       
 
       describe "art object creation" do
-  	    before { visit artobjects_path }
 
   	    describe "with invalid information" do
 
@@ -107,11 +106,11 @@ describe "ArtobjectPages" do
             
             before do
               click_link('edit', match: :first)
-              fill_in "artobject_name", with: "Symposium"
+              fill_in "artobject_name", with: "BOOM"
               click_button "Go"
             end
 
-            it { should have_content("Symposium") }
+            it { should have_content("BOOM") }
           end
   	    end
   	  end
