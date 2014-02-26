@@ -10,13 +10,13 @@
   %aside.span6
     %h1 Filter art objects
     = form_for :artobject, :url => { :action => "index" }, html: {method: :get} do |f|
-      = text_field_tag :tags, nil, placeholder: "Add tags separated by comma"
+      = text_field_tag :tags, @tags ? @tags : nil, placeholder: "Add tags separated by comma"
       =f.submit "Filter", class: "btn btn-large btn-primary"
-      =link_to "Reset", artobjects_path(tags: ''), class: "btn btn-large btn-primary"
+      =link_to "Reset", artobjects_path, class: "btn btn-large btn-primary"
 
-    = link_to "Sort by date (ascending)", artobjects_path(params.merge(ascending: 'true'))
+    = link_to "Sort oldest to newest", artobjects_path(params.merge(ascending: 'true'))
     |
-    = link_to "Sort by date (descending)", artobjects_path(params.merge(ascending: 'false'))
+    = link_to "Sort newest to oldest", artobjects_path(params.merge(ascending: 'false'))
 
 
 .row

@@ -24,6 +24,7 @@ class ArtobjectsController < ApplicationController
     @artobjects = Artobject.paginate(page: params[:page])
 
     if params[:tags] && !params[:tags].empty?
+      @tags = params[:tags]
       @artobjects = @artobjects.tagged_with(params[:tags]).paginate(page: params[:page])
     end
 
