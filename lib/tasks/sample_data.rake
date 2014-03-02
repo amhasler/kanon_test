@@ -23,10 +23,17 @@ namespace :db do
 
     tags = ["Plato", "Socrates", "Greece", "Athens", "Attica", "Rhetoric", "Writing"]
 
-    users = User.all(limit: 10)
-    20.times do |n|
-      name = "The Republic Chapter #{n+1}"
-      users.each { |user| user.artobjects.create!(name: name, minyear: -400 + rand(1000), image: images[rand(7)], creator_list: tags[rand(6)], location_list: tags[rand(6)], society_list: tags[rand(6)], language_list: tags[rand(6)], medium_list: tags[rand(6)]) }
+    User.all.each do |n|
+      n.artobjects.create!(
+        name: "The Republic Chapter #{n.id}", 
+        minyear: -400 + rand(1000), 
+        image: images[rand(7)], 
+        creator_list: tags[rand(6)], 
+        location_list: tags[rand(6)], 
+        society_list: tags[rand(6)], 
+        language_list: tags[rand(6)], 
+        medium_list: tags[rand(6)]
+      )
     end
   end
 end

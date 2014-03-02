@@ -30,12 +30,21 @@ describe "ArtobjectPages" do
         it { should have_css(".art_object", count: 1) }
       end
 
-      describe "sorted" do
-        before { click_link "Sort Ascending" }
+      describe "sought" do
+        before do
+          fill_in "tags", with: "Iliad"
+          click_button "Filter"
+        end
 
-        it { should have_selector("ol li:nth-child(1)", text: "#{m1.minyear.abs} BCE") }
-        it { should have_selector("ol li:nth-child(2)", text: "#{m2.minyear.abs} BCE") }
+        it { should have_css(".art_object", count: 1) }
       end
+
+      #describe "sorted" do
+      #  before { click_link "Sort oldest to newest" }
+
+      #  it { should have_selector("ol li:nth-child(1)", text: "#{m1.minyear.abs} BCE") }
+      #  it { should have_selector("ol li:nth-child(2)", text: "#{m2.minyear.abs} BCE") }
+      #end
     end
 
     describe "when not logged in" do

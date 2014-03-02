@@ -22,26 +22,31 @@ class ArtobjectsController < ApplicationController
 
   def index
     @artobjects = Artobject.paginate(page: params[:page])
-
-    if params[:tags] && !params[:tags].empty?
-      @tags = params[:tags]
-      @artobjects = @artobjects.tagged_with(params[:tags]).paginate(page: params[:page])
-    end
-
-    if params[:ascending]
-      if params[:ascending] == "false"
-        @artobjects = @artobjects.reorder('minyear DESC').paginate(page: params[:page])
-      elsif params[:ascending] == "true"
-        @artobjects = @artobjects.reorder('minyear ASC').paginate(page: params[:page])
-      end
-    end
-
-
     if params[:id]
       @artobject = Artobject.find(params[:id])
     else
   	  @artobject = current_user.artobjects.build if signed_in?
     end
+    if params[:tags] && !params[:tags].empty?
+      @tags = params[:tags].split(', ');
+      @tags.each do |t|
+        logger.debug(t)
+        if Artobject.search(t).count > 0
+          @tags.delete_at(@tags.find_index(t))
+          @artobjects = Artobject.search(t).paginate(page: params[:page])
+          @query = t
+        end   
+      end
+      if !@tags.empty?
+        @artobjects = @artobjects.tagged_with(@tags).paginate(page: params[:page])
+      end
+      if @query 
+        @tags << @query
+        @tags = @tags.join(', ')
+      end
+    end
+
+    render 'index'
   end
 
   def update

@@ -1,19 +1,80 @@
-%li.art_object
-  =image_tag artobject.image_url(:index).to_s, class: "artobject_image"
-  %span.name= artobject.name
-  |
-  - if artobject.user_id.nil?
-    %span.added_by User deleted
-  - else
-    %span.added_by= artobject.user.name
-  |
-  %span.timestamp= date_maker(artobject)
-  |
-  %span.tags= raw tag_mix(artobject)
-  - if signed_in?
-    - if current_user.admin? or current_user == artobject.user
-      |
-      = link_to "edit", artobjects_path(id:artobject)
-    - if current_user.admin?
-      |
-      = link_to "delete", artobject, method: :delete, data: { confirm: "You sure?" }, title: artobject.name
+%li.span4
+  .artobject.flip 
+    .card 
+      .face.front
+        .text-container
+          .inner-text-container
+            .center
+              - if signed_in?        
+                - if current_user.admin?
+                  = link_to "delete", artobject, method: :delete, data: { confirm: "You sure?" }, title: artobject.name
+              %p.name= artobject.name
+              %p.timestamp= date_maker(artobject)
+          .bottom-link-box
+            %a.flip_back See more details
+            - if signed_in?
+              - if current_user.admin? or current_user == artobject.user
+                = link_to "edit", artobjects_path(id:artobject), class: "pull-right"
+        .image-container
+          =image_tag artobject.image_url(:index).to_s, class: "artobject_image"
+      .face.back
+        .tag-container
+          .menu-tag-group
+            %ul.nav.nav-tabs
+              %li.active
+                
+                %a{href:"#creators#{artobject.id}", data: {toggle: "tab"}}
+                  %i.fa.fa-users
+              %li
+                
+                %a{href:"#languages#{artobject.id}", data: {toggle:"tab"}}
+                  %i.fa.fa-comments
+              %li
+                
+                %a{href:"#locations#{artobject.id}", data: {toggle:"tab"}}
+                  %i.fa.fa-compass
+              %li
+                
+                %a{href:"#society#{artobject.id}", data: {toggle:"tab"}}
+                  %i.fa.fa-music
+              %li
+                
+                %a{href:"#media#{artobject.id}", data: {toggle:"tab"}}
+                  %i.fa.fa-book
+            .inner-tag-container.tab-content
+              .tab-pane.fade.in.active{id:"creators#{artobject.id}"}
+                .title
+                  %p.rotate Creators
+                .tags
+                  - artobject.creator_list.each do |t|
+                    = link_to t, artobjects_path(params.merge(:tags => t)), class: "creator-list-tag"
+              .tab-pane{id:"society#{artobject.id}"}
+                .title
+                  %p.rotate Genres &amp; Periods
+                .tags
+                  -artobject.society_list.each do |t|
+                    =link_to t, artobjects_path(params.merge(:tags => t)), class: "society-list-tag"
+              .tab-pane{id:"languages#{artobject.id}"}
+                .title
+                  %p.rotate Culture &amp; Languages
+                .tags
+                  - artobject.language_list.each do |t|
+                    =link_to t, artobjects_path(params.merge(:tags => t)), class: "language-list-tag"
+              .tab-pane{id:"locations#{artobject.id}"}
+                .title
+                  %p.rotate Locations
+                .tags
+                  - artobject.location_list.each do |t|
+                    = link_to t, artobjects_path(params.merge(:tags => t)), class: "location-list-tag"
+              .tab-pane{id:"media#{artobject.id}"}
+                .title
+                  %p.rotate Media &amp; Methods
+                .tags
+                  - artobject.medium_list.each do |t|
+                    = link_to t, artobjects_path(params.merge(:tags => t)), class: "media-list-tag"
+        .empty-container
+          .to-front
+            %a.flip_front.pull-right Front
+
+        
+        

@@ -9,22 +9,17 @@
       %h1 #{link_to "Sign in", signin_path} or #{link_to "Sign up", signup_path} to add an art object.
   %aside.span6
     %h1 Filter art objects
-    = form_for :artobject, :url => { :action => "index" }, html: {method: :get} do |f|
+    = form_for :artobject, :url => { :action => "index" }, html: { method: :get } do |f|
       = text_field_tag :tags, @tags ? @tags : nil, placeholder: "Add tags separated by comma"
       =f.submit "Filter", class: "btn btn-large btn-primary"
       =link_to "Reset", artobjects_path, class: "btn btn-large btn-primary"
 
-    = link_to "Sort oldest to newest", artobjects_path(params.merge(ascending: 'true'))
-    |
-    = link_to "Sort newest to oldest", artobjects_path(params.merge(ascending: 'false'))
-
-
 .row
   .span12
-    %h3 Art objects (#{ @artobjects.count })
+    %h2 Art objects (#{ @artobjects.count })
     = will_paginate
+.row
+  %ol.tile-container#artobject_container
+    = render @artobjects
 
-    %ol.artobjects
-      = render @artobjects
-
-    = will_paginate
+  = will_paginate

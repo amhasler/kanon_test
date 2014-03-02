@@ -16,7 +16,11 @@ module ArtobjectsHelper
 	end
 
 	def tag_mix(artobject)
-		tag_list = artobject.creator_list.map { |t| link_to t, artobjects_path(params.merge(:tags => t)), class: "creator-list-tag" } + artobject.location_list.map { |t| link_to t, artobjects_path(params.merge(:tags => t)), class: "location-list-tag" } + artobject.language_list.map { |t| link_to t, artobjects_path(params.merge(:tags => t)), class: "language-list-tag" } + artobject.medium_list.map { |t| link_to t, artobjects_path(params.merge(:tags => t)), class: "creator-list-tag" } + artobject.society_list.map { |t| link_to t, artobjects_path(params.merge(:tags => t)), class: "creator-list-tag" }
+		tag_list = artobject.creator_list.map { |t| link_to t, artobjects_path(params.merge(:tags => t)), class: "creator-list-tag" } + 
+			artobject.location_list.map { |t| link_to t, artobjects_path(params.merge(:tags => t)), class: "location-list-tag" } + 
+			artobject.language_list.map { |t| link_to t, artobjects_path(params.merge(:tags => t)), class: "language-list-tag" } + 
+			artobject.medium_list.map { |t| link_to t, artobjects_path(params.merge(:tags => t)), class: "media-list-tag" } + 
+			artobject.society_list.map { |t| link_to t, artobjects_path(params.merge(:tags => t)), class: "society-list-tag" }
 		return tag_list.join(' ')
 	end
 end
