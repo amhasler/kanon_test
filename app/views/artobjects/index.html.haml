@@ -1,25 +1,37 @@
 - provide(:title, "All works")
 
 .row
-  %aside.span6
-    
-    - if !signed_in?
-      %h1 #{link_to "Sign in", signin_path} or #{link_to "Sign up", signup_path} to add an art object.
-  %aside.span6
-    %h1 Filter works
-    = form_for :artobject, :url => { :action => "index" }, html: { method: :get } do |f|
-      = text_field_tag :tags, @tags ? @tags : nil, placeholder: "Add tags separated by comma"
-      =f.submit "Filter", class: "btn btn-large btn-primary"
-      =link_to "Reset", artobjects_path, class: "btn btn-large btn-primary"
+  %aside.span8.offset2
+    .search-box
+      %h1 Find and browse works
+      = form_for :artobject, :url => { :action => "index" }, html: { method: :get } do |f|
+        .input-append
+          = text_field_tag :tags, @tags ? @tags : nil, placeholder: "Add tags separated by comma"
+          = f.submit "Submit", class: "add-on"
+          = link_to "Reset", artobjects_path, class: "add-on"
 
 .row
   .span12.top-bar
-    %h2{id:"count"} Works (#{ @artobjects.count })
+    #count
+      %h2 Displaying #{ @artobjects.count } works
     = will_paginate
 .row
   %ol.tile-container#artobject_container
     - if signed_in?
       = render 'artobject_form'
+    - else
+      %li.span4
+        .artobject.flip 
+          .card 
+            .face.front
+              .text-container
+                .inner-text-container
+                  .center
+                    %h2 #{link_to "Sign up", signup_path} or #{link_to "Log in", signin_path}
+                    %p Add your favorite works now
+                  
+              .image-container
     = render @artobjects
-
-  = will_paginate
+.row
+  .span12
+    = will_paginate

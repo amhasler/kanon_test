@@ -580,3 +580,56 @@ ol.tile-container {
   }
 }
 
+.top-bar {
+  height:50px;
+  margin-bottom:30px;
+  div {
+    float: left;
+    display:inline-block;
+  }
+  #count {
+    width:20%;
+    h2 {
+      margin:0px;
+      line-height:3.25em;
+    }
+  }
+  .pagination {
+    width: 60%;
+  }
+}
+
+.pagination {
+  text-align:center;
+}
+
+.search-box {
+  background: $yellow;
+  padding:5px 20px;
+  margin:50px 0px 50px;
+  .input-append {
+    width: 70%;
+    input[type="submit"].add-on {
+        padding:4px 5px;
+        border-right:1px solid #fff;
+        border-top:1px solid $darkBlue;
+        border-bottom:1px solid $darkBlue;
+        border-left:1px solid $darkBlue;
+      }
+    a.add-on {
+      padding:3px 5px 5px;
+      border-right:1px solid $darkBlue;
+      border-top:1px solid $darkBlue;
+      border-bottom:1px solid $darkBlue;
+      border-left:none;
+    }
+    a.add-on, input[type="submit"].add-on {
+      background: $darkBlue;
+      color:#fff;
+      width:20%;
+      text-decoration:none;
+      font-size:18px;
+    }
+  }
+}
+
