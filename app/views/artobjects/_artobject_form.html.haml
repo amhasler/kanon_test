@@ -1,34 +1,93 @@
-= form_for(@artobject)  do |f|
-  = render 'shared/error_messages', object: f.object
-  .field
-    = f.text_field :name, placeholder: "Name the art object"
-  .field
-    = f.text_field :minyear, value: @artobject.minyear ? @artobject.minyear.abs : nil, placeholder: "Minimum date"
-    .checkbox
-      %label
-        = check_box_tag :min_bce, @artobject.minyear && @artobject.minyear<0, @artobject.minyear && @artobject.minyear<0
-        BCE
-    = f.text_field :maxyear, value: @artobject.maxyear ? @artobject.maxyear.abs : nil, placeholder: "Maximum date"
-    .checkbox
-      %label
-        = check_box_tag :max_bce, @artobject.maxyear && @artobject.maxyear<0, @artobject.maxyear && @artobject.maxyear<0
-        BCE
-  .field
-    = f.text_field :creator_list, placeholder: "Creators"
-    = f.text_field :language_list, placeholder: "Languages"
-    = f.text_field :location_list, placeholder: "Locations"
-    = f.text_field :society_list, placeholder: "Genres and periods"
-    = f.text_field :medium_list, placeholder: "Media"
-    .fileinput{ :class => (@artobject.image_url != "default.png" ? "fileinput-exists" : "fileinput-new"), :data => {:provides => "fileinput", :name => "myimage"} }
-      .fileinput-new.thumbnail{ style: "width: 200px; height: 200px;" }
-      .fileinput-preview.fileinput-exists.thumbnail{ style: "width: 200px; height: 200px;"}
-        -if @artobject.image_url != "default.png"
-          =image_tag @artobject.image_url(:index).to_s
-      %div
-        %span.btn.btn-file
-          %span.fileinput-new Select image
-          %span.fileinput-exists Change
-          =f.file_field :image
-      -unless @artobject.image?
-        %a.btn.btn-default.fileinput-exists{ href:"#", :data => {:dismiss => "fileinput"} } Remove
-  = f.submit "Go", class: "btn btn-large btn-primary"
+= form_for(@artobject) do |f|
+  %li.span4
+    .artobject.flip 
+      .card 
+        .face.front
+          .text-container
+            .form-text-container
+              %p.center Add a new work
+              .field
+                = f.text_field :name, placeholder: "Name or title"
+              .date-fields
+                .date-field.min-date
+                  = f.text_field :minyear, value: @artobject.minyear ? @artobject.minyear.abs : nil, placeholder: "Year"
+                  .checkbox
+                    %label
+                      = check_box_tag :min_bce, @artobject.minyear && @artobject.minyear<0, @artobject.minyear && @artobject.minyear<0
+                      BCE
+                .date-field#max-date
+                  = link_to "Range?", "#", id: "max-date-trigger"
+            .bottom-link-box
+              %a.flip_back See more details
+          .image-container
+            .fileinput{ :class => (@artobject.image_url != "default.png" ? "fileinput-exists" : "fileinput-new"), :data => {:provides => "fileinput", :name => "myimage"} }
+              .fileinput-new.thumbnail
+                
+              .fileinput-preview.fileinput-exists.thumbnail
+                -if @artobject.image?
+                  =image_tag @artobject.image_url(:index).to_s, class: "artobject_image"
+              %div
+                %span.btn-file
+                  %a.fileinput-new Select image
+                  %a.fileinput-exists Change
+                  =f.file_field :image
+
+
+        .face.back
+          .tag-container
+            .menu-tag-group
+              %ul.nav.nav-tabs
+                %li.active
+                  
+                  %a{href:"#creators", data: {toggle: "tab"}}
+                    %i.fa.fa-users
+                %li
+                  
+                  %a{href:"#languages", data: {toggle:"tab"}}
+                    %i.fa.fa-comments
+                %li
+                  
+                  %a{href:"#locations", data: {toggle:"tab"}}
+                    %i.fa.fa-compass
+                %li
+                  
+                  %a{href:"#society", data: {toggle:"tab"}}
+                    %i.fa.fa-music
+                %li
+                  
+                  %a{href:"#media", data: {toggle:"tab"}}
+                    %i.fa.fa-book
+              .inner-tag-container.tab-content
+                .tab-pane.fade.in.active{id:"creators"}
+                  .title
+                    %p.rotate Creators
+                  .tags
+                    = f.text_area :creator_list
+                .tab-pane{id:"society"}
+                  .title
+                    %p.rotate Genres &amp; Periods
+                  .tags
+                    = f.text_area :society_list
+                .tab-pane{id:"languages"}
+                  .title
+                    %p.rotate Culture &amp; Languages
+                  .tags
+                    = f.text_area :language_list
+                .tab-pane{id:"locations"}
+                  .title
+                    %p.rotate Locations
+                  .tags
+                    = f.text_area :location_list
+                .tab-pane{id:"media"}
+                  .title
+                    %p.rotate Media &amp; Methods
+                  .tags
+                    = f.text_area :medium_list
+          .empty-container
+            .to-front
+              .circle-element.arrow
+                %i.fa.fa-arrow-up
+                %a.flip_front Front
+              .circle-element.done
+                = f.submit "Done"
+        

@@ -11,6 +11,8 @@ class Artobject < ActiveRecord::Base
 	    :maximum => 4.megabytes.to_i 
 	}
 
+	self.per_page = 14
+
 	acts_as_taggable_on :creators, :locations, :languages, :societies, :mediums
 
 	def self.search(query)

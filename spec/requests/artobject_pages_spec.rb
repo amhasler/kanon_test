@@ -12,8 +12,8 @@ describe "ArtobjectPages" do
     let!(:m4) { FactoryGirl.create(:artobject, user: user, name: "The Republic", minyear: -150, maxyear: -250, creator_list: "Plato", society_list: "Classical Athens") }
     before { visit artobjects_path }
 
-    it { should have_title('Art objects') }
-    it { should have_content('Art objects') }
+    it { should have_title('All works') }
+    it { should have_content('Filter works') }
 
     describe "artobjects" do
       it { should have_content(m1.name) }
@@ -27,7 +27,7 @@ describe "ArtobjectPages" do
           click_button "Filter"
         end
 
-        it { should have_css(".art_object", count: 1) }
+        it { should have_css(".art_object", count: 2) }
       end
 
       describe "sought" do
@@ -36,7 +36,7 @@ describe "ArtobjectPages" do
           click_button "Filter"
         end
 
-        it { should have_css(".art_object", count: 1) }
+        it { should have_css(".art_object", count: 2) }
       end
 
       #describe "sorted" do
@@ -51,7 +51,7 @@ describe "ArtobjectPages" do
 
       it { should_not have_css("#new_artobject")}
 
-      it { should_not have_link('edit', href: artobjects_path(id:Artobject.first)) }
+      it { should_not have_link('Edit', href: artobjects_path(id:Artobject.first)) }
 
     end
 
@@ -67,11 +67,11 @@ describe "ArtobjectPages" do
   	    describe "with invalid information" do
 
   	      it "should not create an artobject" do
-  	        expect { click_button "Go" }.not_to change(Artobject, :count)
+  	        expect { click_button "Done" }.not_to change(Artobject, :count)
   	      end
 
   	      describe "error messages" do
-  	        before { click_button "Go" }
+  	        before { click_button "Done" }
   	        it { should have_content('error') }
   	      end
   	    end
@@ -95,7 +95,7 @@ describe "ArtobjectPages" do
             fill_in "artobject_society_list", with: societies
             fill_in "artobject_medium_list", with: media
             fixture_file_upload(Rails.root + 'spec/fixtures/images/test_image.jpg', 'image/png')     
-            click_button "Go"
+            click_button "Done"
           end
 
           it { should have_selector('div.alert.alert-success') }
@@ -114,9 +114,9 @@ describe "ArtobjectPages" do
             describe "should be able to edit art object" do
             
             before do
-              click_link('edit', match: :first)
+              click_link('Edit', match: :first)
               fill_in "artobject_name", with: "BOOM"
-              click_button "Go"
+              click_button "Done"
             end
 
             it { should have_content("BOOM") }
@@ -135,14 +135,14 @@ describe "ArtobjectPages" do
             visit artobjects_path
           end
 
-          it { should have_link('edit', href: artobjects_path(id:Artobject.first)) }
+          it { should have_link('Edit', href: artobjects_path(id:Artobject.first)) }
 
           describe "should be able to edit art object" do
             
             before do
-              click_link('edit', match: :first)
+              click_link('Edit', match: :first)
               fill_in "artobject_name", with: new_name
-              click_button "Go"
+              click_button "Done"
             end
 
             it { should have_content(new_name) }
@@ -154,7 +154,7 @@ describe "ArtobjectPages" do
 
   	  describe "delete links" do
 
-        it { should_not have_link('delete') }
+        it { should_not have_link('X') }
 
         describe "as an admin user" do
           let(:admin) { FactoryGirl.create(:admin) }
@@ -164,11 +164,11 @@ describe "ArtobjectPages" do
             visit artobjects_path
           end
 
-          it { should have_link('delete', href: artobject_path(Artobject.first)) }
+          it { should have_link('X', href: artobject_path(Artobject.first)) }
           
           it "should be able to delete art object" do
             expect do
-              click_link('delete', match: :first)
+              click_link('X', match: :first)
             end.to change(Artobject, :count).by(-1)
           end
         end

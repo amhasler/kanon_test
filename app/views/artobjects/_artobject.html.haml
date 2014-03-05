@@ -5,16 +5,11 @@
         .text-container
           .inner-text-container
             .center
-              - if signed_in?        
-                - if current_user.admin?
-                  = link_to "delete", artobject, method: :delete, data: { confirm: "You sure?" }, title: artobject.name
               %p.name= artobject.name
               %p.timestamp= date_maker(artobject)
           .bottom-link-box
             %a.flip_back See more details
-            - if signed_in?
-              - if current_user.admin? or current_user == artobject.user
-                = link_to "edit", artobjects_path(id:artobject), class: "pull-right"
+            
         .image-container
           =image_tag artobject.image_url(:index).to_s, class: "artobject_image"
       .face.back
@@ -74,7 +69,18 @@
                     = link_to t, artobjects_path(params.merge(:tags => t)), class: "media-list-tag"
         .empty-container
           .to-front
-            %a.flip_front.pull-right Front
+            .circle-element.arrow
+              %i.fa.fa-arrow-up
+              %a.flip_front Front
+            - if signed_in?
+              - if current_user.admin? or current_user == artobject.user
+                .circle-element.done
+                  = link_to "Edit", artobjects_path(id:artobject)      
+              - if current_user.admin?
+                .circle-element.delete
+                  = link_to "X", artobject, method: :delete, data: { confirm: "You sure?" }, title: artobject.name
+
+
 
         
         

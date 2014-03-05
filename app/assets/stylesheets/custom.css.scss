@@ -45,7 +45,7 @@ textarea {
 
 /* Typography */
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6, p {
   line-height: 1;
 }
 
@@ -69,10 +69,9 @@ h2 {
   color: #999;
 }
 
-p, a, label, li {
+p, a, label, li, input[type=submit], input[type=text] {
   font-family: 'Montserrat', sans-serif;
   font-weight: 400;
-  line-height: 1em;
   font-size:1em;
 }
 
@@ -229,17 +228,19 @@ ol.tile-container {
   list-style:none;
   & > li {
     margin-bottom: 20px;
-    .image-container {
-      width:40%;
-      height:100%;
-      display:block;
-      float:left;
-    }
-    .text-container {
-      display:block;
-      float:left;
-    }
   }
+}
+
+.text-container {
+  display:block;
+  float:left;
+}
+
+.image-container {
+  width:40%;
+  height:100%;
+  display:block;
+  float:left;
 }
 
 
@@ -280,9 +281,20 @@ ol.tile-container {
 /* Jasny file upload */
 
 .btn-file {
-  position: relative;
+  position: absolute;
   overflow: hidden;
   vertical-align: middle;
+  margin-top: -25%;
+  height:100%;
+  width:40%;
+  text-align:center;
+  padding-top:5px;
+  a {
+    color:white;
+    background:$darkBlue;
+    padding:5px;
+    text-decoration:none;
+  }
 }
 
 .btn-file > input {
@@ -342,14 +354,30 @@ ol.tile-container {
           border-radius: 0 3px 3px 0;
 }
 
+.thumbnail {
+  padding:0px;
+  border:none;
+}
+
+.tab-content > .tab-pane {
+  width: 100%;
+  height:100%;
+}
 /* Art objects index */
 
 .artobject {
   height:150px; /* This will require some changes in media query */
+  #max-date-trigger {
+    padding: 5px;
+    line-height:1.75em;
+  }
   .timestamp, .title p {
     color: #999;
   }
   .image-container {
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
     img {
       border-radius: 50%;
       -webkit-border-radius: 50%;
@@ -357,16 +385,48 @@ ol.tile-container {
       height:100%;
     }
     margin-left:-20%;
+    background-color:$yellow;
   }
+  .fileinput.fileinput-new {
+    height:100%;
+    width:100%;
+    .fileinput-new.thumbnail {
+      border-radius: 50%;
+      -webkit-border-radius: 50%;
+      -moz-border-radius: 50%;
+      height:100%;
+      width:100%;
+    }
+  }
+  
   .text-container {
     background:$grayMediumLight;
     width:80%;
     height:100%;
     .inner-text-container {
-      padding:0px 25% 0px 5px;
+      padding:0px 28% 0px 5px;
       margin-top:12%;
     }
+    .form-text-container {
+      padding: 5px 28% 0px 5px;
+      p {
+        margin-bottom:5px;
+      }
+      .date-fields {
+        .date-field {
+          float:left;
+          width:48%;
+          input[type="text"] {
+            margin-bottom:5px;
+          }
+        }
+        .date-field.min-date {
+          margin-right:4%;
+        }
+      }
+    }
   }
+  
   .tag-container {
     background:$grayMediumLight;
     width:80%;
@@ -375,7 +435,7 @@ ol.tile-container {
   .bottom-link-box {
     bottom:0;
     position:absolute;
-    padding-left:5px;
+    padding-left:10%;
     padding-bottom:5px;
   }
   .menu-tag-group {
@@ -418,8 +478,7 @@ ol.tile-container {
     }
     
     .inner-tag-container {
-      width:80%;
-      padding:0px 20px;
+      width:100%;
       height:100%;
       a {
         background:$red;
@@ -442,6 +501,11 @@ ol.tile-container {
         float: left;
         display:block;
         margin-left:50px;
+        width:80%;
+        height:100%;
+        textarea {
+          height:80%;
+        }
       }
     }
   }
@@ -459,13 +523,44 @@ ol.tile-container {
     display:block;
     float:left;
     .to-front {
-      margin-top:43%;
-      padding-right:10px;
-      a {
-        color:white;
-        background:$darkBlue;
-        padding:5px;
-        text-decoration:none;
+      margin-left:52%;
+      height:100%;
+      .circle-element {
+        display:block;
+        a, input[type=submit] {
+          text-align:center;
+        }
+        input[type=submit], &.done a {
+          color:white;
+          background:$darkBlue;
+          text-decoration:none;
+          float:none;
+          display:block;
+        }
+        input[type=submit] {
+          padding:5px;
+        }
+        a {
+          padding:5px;
+          width:50px;
+        }
+        &.arrow {
+          margin-top:30%;
+          color:$red;
+          i {
+            margin-left:28%;
+          }
+          a {
+            margin-left:8%;
+          }
+          
+        }
+        &.done, &.delete {
+          margin-top:10%;
+        }
+        &.delete {
+          margin-left:20px;
+        }
       }
     }
   }
