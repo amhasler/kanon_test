@@ -94,7 +94,7 @@ describe "ArtobjectPages" do
             fill_in "artobject_language_list", with: languages
             fill_in "artobject_society_list", with: societies
             fill_in "artobject_medium_list", with: media
-            fixture_file_upload(Rails.root + 'spec/fixtures/images/test_image.jpg', 'image/png')     
+            #fixture_file_upload(Rails.root + 'spec/fixtures/images/test_image.jpg', 'image/png')     
             click_button "Done"
           end
 
