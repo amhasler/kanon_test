@@ -609,6 +609,9 @@ ol.tile-container {
   margin:50px 0px 50px;
   .input-append {
     width: 70%;
+    .add-on {
+      text-shadow:none;
+    }
     input[type="submit"].add-on {
         padding:4px 5px;
         border-right:1px solid #fff;
