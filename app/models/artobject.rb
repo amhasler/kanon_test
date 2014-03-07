@@ -16,6 +16,6 @@ class Artobject < ActiveRecord::Base
 	acts_as_taggable_on :creators, :locations, :languages, :societies, :mediums
 
 	def self.search(query)
-	  where("name like ?", "%#{query}%") 
+	  where("lower(name) LIKE ?", "%#{query.downcase}%") 
 	end
 end
