@@ -18,16 +18,19 @@ namespace :db do
 
     images = []
     7.times do |n|
-      images << File.new(Rails.root + "spec/fixtures/images/image#{n+1}.jpg")
+      images << ImageUploader.new()
     end
 
     tags = ["Plato", "Socrates", "Greece", "Athens", "Attica", "Rhetoric", "Writing"]
 
     User.all.each do |n|
+      @uploader = ImageUploader.new(n.artobjects, :image)
+      @uploader.cache!(File.open(Rails.root + "spec/fixtures/images/image#{(n.id+6)%7}.jpg"))
+
       n.artobjects.create!(
         name: "The Republic Chapter #{n.id}", 
         minyear: -400 + rand(1000), 
-        image: images[rand(7)], 
+        image: @uploader, 
         creator_list: tags[rand(6)], 
         location_list: tags[rand(6)], 
         society_list: tags[rand(6)], 

@@ -5,7 +5,7 @@ class Artobject < ActiveRecord::Base
 	mount_uploader :image, ImageUploader
 	validates :name, presence: true, length: { maximum: 40 }
 	validates :minyear, presence: true, length: { maximum: 5}
-	default_scope -> { order('minyear ASC') }
+	# default_scope -> { order('minyear ASC') }
 	validates :image, 
 		:file_size => { 
 	    :maximum => 4.megabytes.to_i 
