@@ -1,4 +1,7 @@
 - provide(:title, @user.name)
+- flash.each do |key, value|
+  .alert{ class: "alert-#{ key }" }
+    = value
 
 .row
   %aside.span4

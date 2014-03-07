@@ -15,6 +15,15 @@
     #count
       %h2 Displaying #{ @artobjects.count } works
     = will_paginate
+
+.row
+  .span12
+    - if signed_in?
+      - flash.each do |key, value|
+        .alert{ class: "alert-#{ key }" }
+          = value
+      = render 'shared/error_messages', object: @artobject
+
 .row
   %ol.tile-container#artobject_container
     - if signed_in?

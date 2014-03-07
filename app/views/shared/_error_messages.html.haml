@@ -2,6 +2,6 @@
   #error_explanation
     .alert.alert-error
       The form contains #{pluralize(object.errors.count, "error")}.
-    %ul
-    - object.errors.full_messages.each do |msg|
-      %li #{ msg }
+      %ul
+      - object.errors.full_messages.each do |msg|
+        %li #{ msg }

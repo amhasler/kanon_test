@@ -69,7 +69,7 @@ h2 {
   color: #999;
 }
 
-p, a, label, li, input[type=submit], input[type=text] {
+p, a, label, li, .alert, input[type=submit], input[type=text] {
   font-family: 'Montserrat', sans-serif;
   font-weight: 400;
 }
@@ -86,8 +86,36 @@ a {
   }
 }
 
-/* Colors */
+/* Alerts */
 
+.alert-danger, .alert-error {
+  background-color: rgba(215,25,32, .2);
+  color:#333;
+  border-radius:0px;
+  border:none;
+  text-align:center;
+}
+
+.alert-success {
+  background-color: rgba(59,77,129, .4);
+  color:#333;
+  border-radius:0px;
+  border:none;
+  text-align:center;
+}
+
+#error_explanation {
+  ul {
+    list-style: none;
+    margin: 0 0 18px 0;
+  }
+}
+
+.field_with_errors {
+  @extend .control-group;
+  @extend .error;
+  margin-bottom: 0px;
+}
 
 /* Header */
 
@@ -189,19 +217,6 @@ input, textarea, select, .uneditable-input {
 
 input {
   height: auto !important;
-}
-
-#error_explanation {
-  color: #f00;
-  ul {
-    list-style: none;
-    margin: 0 0 18px 0;
-  }
-}
-
-.field_with_errors {
-  @extend .control-group;
-  @extend .error;
 }
 
 /* Users index */

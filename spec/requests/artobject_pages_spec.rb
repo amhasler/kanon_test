@@ -27,7 +27,10 @@ describe "ArtobjectPages" do
           click_button "Submit"
         end
 
-        it { should have_css(".art_object", count: 2) }
+        it { should_not have_content "Iliad" }
+        it { should_not have_content "Odyssey" }
+        it { should have_content "Symposium" }
+        it { should_not have_content "The Republic" }
       end
 
       describe "sought" do
@@ -36,7 +39,10 @@ describe "ArtobjectPages" do
           click_button "Submit"
         end
 
-        it { should have_css(".art_object", count: 2) }
+        it { should have_content "Iliad" }
+        it { should_not have_content "Odyssey" }
+        it { should_not have_content "Symposium" }
+        it { should_not have_content "The Republic" }
       end
 
       #describe "sorted" do

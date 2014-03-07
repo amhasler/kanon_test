@@ -1,4 +1,8 @@
 - provide(:title, "Edit user")
+- flash.each do |key, value|
+  .alert{ class: "alert-#{ key }" }
+    = value
+    
 %h1 Update your profile
 
 .row

@@ -11,13 +11,11 @@
   <![endif]-->
   <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
   <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
   <%= render "layouts/header" %>
   <div class="container">
-    <% flash.each do |key, value| %>
-      <div class="alert alert-<%= key %>"><%= value %></div>
-    <% end %>
     <%= yield %>
     <%= render "layouts/footer" %>
     <%= debug(params) if Rails.env.development? %>
