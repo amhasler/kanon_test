@@ -3,7 +3,7 @@ require 'file_size_validator'
 class Artobject < ActiveRecord::Base
 	belongs_to :user
 	mount_uploader :image, ImageUploader
-	validates :name, presence: true, uniqueness: true, length: { maximum: 40 }
+	validates :name, presence: true, length: { maximum: 40 }
 	validates :minyear, presence: true, length: { maximum: 5}
 	default_scope -> { order('minyear ASC') }
 	validates :image, 

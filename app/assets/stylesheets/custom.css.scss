@@ -72,6 +72,9 @@ h2 {
 p, a, label, li, input[type=submit], input[type=text] {
   font-family: 'Montserrat', sans-serif;
   font-weight: 400;
+}
+
+p, a, label, li, input[type=submit] {
   font-size:1em;
 }
 
@@ -549,9 +552,6 @@ ol.tile-container {
           color:$red;
           i {
             margin-left:28%;
-          }
-          a {
-            margin-left:8%;
           }
           
         }

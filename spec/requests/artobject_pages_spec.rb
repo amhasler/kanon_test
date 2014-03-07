@@ -13,7 +13,7 @@ describe "ArtobjectPages" do
     before { visit artobjects_path }
 
     it { should have_title('All works') }
-    it { should have_content('Filter works') }
+    it { should have_content('Find and browse works') }
 
     describe "artobjects" do
       it { should have_content(m1.name) }
@@ -24,7 +24,7 @@ describe "ArtobjectPages" do
       describe "filtered" do
         before do
           fill_in "tags", with: "Plato, Rhetoric"
-          click_button "Filter"
+          click_button "Submit"
         end
 
         it { should have_css(".art_object", count: 2) }
@@ -33,7 +33,7 @@ describe "ArtobjectPages" do
       describe "sought" do
         before do
           fill_in "tags", with: "Iliad"
-          click_button "Filter"
+          click_button "Submit"
         end
 
         it { should have_css(".art_object", count: 2) }
