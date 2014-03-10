@@ -5,12 +5,12 @@ class Artobject < ActiveRecord::Base
 	mount_uploader :image, ImageUploader
 	validates :name, presence: true, length: { maximum: 40 }
 	validates :minyear, presence: true, length: { maximum: 5}
-	# default_scope -> { order('minyear ASC') }
+	default_scope -> { order('created_at DESC') }
 	validates :image, 
 		:file_size => { 
 	    :maximum => 4.megabytes.to_i 
 	}
-
+	
 	self.per_page = 14
 
 	acts_as_taggable_on :creators, :locations, :languages, :societies, :mediums

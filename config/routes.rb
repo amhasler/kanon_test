@@ -1,4 +1,6 @@
 KanonTest::Application.routes.draw do
+  get "artobjects/tags" => "artobjects#tags", :as => :tags
+
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
   resources :artobjects, only: [:create, :destroy, :index, :update]

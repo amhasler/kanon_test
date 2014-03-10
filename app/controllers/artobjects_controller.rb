@@ -72,6 +72,21 @@ class ArtobjectsController < ApplicationController
     redirect_to artobjects_url
   end
 
+  def tags
+    query = params[:q]
+
+    tags = ActsAsTaggableOn::Tag.where("tags.name LIKE ?", "%#{query}%")
+    if tags.empty?
+      respond_to do |format|
+        format.json { render json: [{id: "#{query}", name: "New: \"#{query}\""}] }
+      end
+    else
+      respond_to do |format|
+        format.json { render :json => tags.map{|t| {:id => t.name, :name => t.name }}}
+      end
+    end
+  end
+
   private
 
     def artobject_params

@@ -14,3 +14,12 @@ jQuery ->
   				BCE
   			</label>
   		</div>')
+
+
+  $(".artobject_tags").tokenInput("/artobjects/tags.json", {
+    prePopulate:       $(".artobject_tags").data("pre"),
+    preventDuplicates: true,
+    animateDropdown:   false,
+    theme: "facebook"
+    hintText: "Choose an existing entry or create a new one"
+  });

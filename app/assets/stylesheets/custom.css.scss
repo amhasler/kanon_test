@@ -86,6 +86,17 @@ a {
   }
 }
 
+textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+  box-shadow:none;
+  &:focus {
+    box-shadow:none;
+  }
+}
+
+input[type="text"] {
+  border-radius:0px;
+}
+
 /* Alerts */
 
 .alert-danger, .alert-error {
@@ -118,17 +129,38 @@ a {
 }
 
 /* Header */
+.navbar-fixed-top {
+  top:10px;
+}
+
+.navbar-inverse .navbar-inner {
+  background-color:transparent;
+  background-image:none;
+  border-bottom:none;
+  box-shadow:none;
+  a {
+    font-size:1.4em;
+  }
+  .nav > li > a {
+    color: #fff;
+    text-shadow:none; 
+    background-color:$red;
+    padding:8px;
+    margin-left:5px;
+  }
+} 
 
 #logo {
   float: left;
   margin-right: 10px;
   font-size: 1.7em;
   color: #fff;
+  padding:8px;
   text-transform: uppercase;
   letter-spacing: -1px;
-  padding-top: 9px;
+  background-color:$darkBlue;
   font-weight: bold;
-  line-height: 1;
+
   &:hover {
     color: #fff;
     text-decoration: none;
@@ -462,7 +494,7 @@ ol.tile-container {
       float: left;
       display: block;
     }
-    ul {
+    ul.nav {
       list-style: none;
       margin:0px 0px 5px;
       border-bottom:none;
@@ -503,10 +535,7 @@ ol.tile-container {
         color:white;
         line-height: 2em;
         padding:10px;
-      }
-      p, .tags {
-        float:left;
-        display:block;
+        text-decoration:none;
       }
       .title {
         position:absolute;
@@ -626,6 +655,7 @@ ol.tile-container {
     width: 70%;
     .add-on {
       text-shadow:none;
+      border-radius:0px;
     }
     input[type="submit"].add-on {
         padding:4px 5px;

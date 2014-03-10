@@ -40,7 +40,14 @@
                     %p Add your favorite works now
                   
               .image-container
-    = render @artobjects
+    - if @artobjects.empty?
+      .span8
+        %h1 We didn't find anything that matched your search.
+        %p This is your chance to add a work that we're missing! Or you can always #{ link_to "start over", artobjects_path }.
+
+    - else
+      = render @artobjects
+
 .row
   .span12
     = will_paginate

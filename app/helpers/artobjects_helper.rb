@@ -11,6 +11,8 @@ module ArtobjectsHelper
 		new_year = "#{year.abs}"
 		if year < 0
 			new_year = new_year + " BCE"
+		else
+			new_year = new_year + " CE"
 		end
 		return new_year
 	end
