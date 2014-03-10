@@ -16,10 +16,12 @@ jQuery ->
   		</div>')
 
 
-  $(".artobject_tags").tokenInput("/artobjects/tags.json", {
-    prePopulate:       $(".artobject_tags").data("pre"),
-    preventDuplicates: true,
-    animateDropdown:   false,
-    theme: "facebook"
-    hintText: "Choose an existing entry or create a new one"
-  });
+  $(".artobject_tags").each -> 
+    el = $(this);
+    el.tokenInput("/artobjects/tags.json", {
+      crossDomain: false,
+      prePopulate: el.data("pre"),
+      preventDuplicates: true,
+      theme: "facebook"
+      hintText: "Choose an existing entry or create a new one"
+    })

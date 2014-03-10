@@ -58,31 +58,32 @@
                   %a{href:"#media", data: {toggle:"tab"}}
                     %i.fa.fa-book
               .inner-tag-container.tab-content
+
                 .tab-pane.fade.in.active{id:"creators"}
                   .title
                     %p.rotate Creators
                   .tags
-                    = f.text_field :creator_list, :class => "artobject_tags", data: { pre: @artobject.creator_list.map {|tag| {:id => tag, :name => tag } }.to_json }
+                    = f.text_field :creator_list, class: "artobject_tags", data: { pre: @artobject.creator_list.map {|tag| {:id => tag, :name => tag } }.to_json }
                 .tab-pane{id:"society"}
                   .title
                     %p.rotate Genres &amp; Periods
                   .tags
-                    = f.text_area :society_list, :class => "artobject_tags", data: { pre: @artobject.society_list.map {|tag| {:id => tag, :name => tag } }.to_json }
+                    = f.text_field :society_list, :class => "artobject_tags", data: { pre: @artobject.society_list.map {|tag| {:id => tag, :name => tag } }.to_json }
                 .tab-pane{id:"languages"}
                   .title
                     %p.rotate Culture &amp; Languages
                   .tags
-                    = f.text_area :language_list, :class => "artobject_tags", data: { pre: @artobject.language_list.map{|tag| {:id => tag, :name => tag } }.to_json }
+                    = f.text_field :language_list, :class => "artobject_tags", data: { pre: @artobject.language_list.map{|tag| {:id => tag, :name => tag } }.to_json }
                 .tab-pane{id:"locations"}
                   .title
                     %p.rotate Locations
                   .tags
-                    = f.text_area :location_list, :class => "artobject_tags", data: { pre: @artobject.location_list.map{|tag| {:id => tag, :name => tag } }.to_json }
+                    = f.text_field :location_list, :class => "artobject_tags", data: { pre: @artobject.location_list.map{|tag| {:id => tag, :name => tag } }.to_json }
                 .tab-pane{id:"media"}
                   .title
                     %p.rotate Media &amp; Methods
                   .tags
-                    = f.text_area :medium_list, :class => "artobject_tags", data: { pre: @artobject.medium_list.map{|tag| {:id => tag, :name => tag } }.to_json }
+                    = f.text_field :medium_list, :class => "artobject_tags", data: { pre: @artobject.medium_list.map{|tag| {:id => tag, :name => tag } }.to_json }
           .empty-container
             .to-front
               .circle-element.arrow
