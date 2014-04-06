@@ -5,15 +5,16 @@
     .search-box
       %h1 Find and browse works
       = form_for :artobject, :url => { :action => "index" }, html: { method: :get } do |f|
-        .input-append
-          = text_field_tag :tags, @tags ? @tags : nil, placeholder: "Add tags separated by comma"
-          = f.submit "Submit", class: "add-on"
-          = link_to "Reset", artobjects_path, class: "add-on"
+        = text_field_tag :tags, @tags ? @tags : nil, placeholder: "Add tags separated by comma"
+        %div
+          = f.submit "Submit"
+          = link_to "Reset", artobjects_path
+      %h2#count Displaying #{ @artobjects.count } works
 
-.row
-  .span12.top-bar
-    #count
-      %h2 Displaying #{ @artobjects.count } works
+
+    
+.row.top-bar
+  .span12   
     = will_paginate
 
 .row

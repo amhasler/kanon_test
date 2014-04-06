@@ -15,6 +15,11 @@ $red: rgb(215,25,32);
   box-sizing: border-box;
 }
 
+@mixin art-object-size($size) {
+  font-size: $size + px;
+  font-size: ($size / 10) + rem;
+}
+
 /* Universal */
 
 html {
@@ -416,7 +421,7 @@ ol.tile-container {
 /* Art objects index */
 
 .artobject {
-  height:150px; /* This will require some changes in media query */
+  height:150px;
   #max-date-trigger {
     padding: 5px;
     line-height:1.75em;
@@ -625,59 +630,96 @@ ol.tile-container {
 }
 
 .top-bar {
-  height:50px;
-  margin-bottom:30px;
   div {
     float: left;
     display:inline-block;
   }
-  #count {
-    width:20%;
-    h2 {
-      margin:0px;
-      line-height:3.25em;
+  h2 {
+    line-height:3.25em;
+    &#sort {
+      text-align:right;
     }
-  }
-  .pagination {
-    width: 60%;
   }
 }
 
 .pagination {
   text-align:center;
+  width:100%;
+  margin:0px auto;
 }
 
 .search-box {
   background: $yellow;
   padding:5px 20px;
   margin:50px 0px 50px;
-  .input-append {
-    width: 70%;
-    .add-on {
-      text-shadow:none;
-      border-radius:0px;
-    }
-    input[type="submit"].add-on {
-        padding:4px 5px;
-        border-right:1px solid #fff;
-        border-top:1px solid $darkBlue;
-        border-bottom:1px solid $darkBlue;
-        border-left:1px solid $darkBlue;
-      }
-    a.add-on {
-      padding:3px 5px 5px;
-      border-right:1px solid $darkBlue;
-      border-top:1px solid $darkBlue;
-      border-bottom:1px solid $darkBlue;
-      border-left:none;
-    }
-    a.add-on, input[type="submit"].add-on {
-      background: $darkBlue;
-      color:#fff;
-      width:20%;
-      text-decoration:none;
-      font-size:18px;
-    }
+  div {
+    width:200px;
+    margin:0px auto;
+    padding-left:50px;
+  }
+  input[type="submit"] {
+      padding:4px 5px;
+      border:1px solid $darkBlue;
+      margin-bottom:0px;
+      margin-left:auto;
+  }
+  a {
+
+    padding:2px 5px 4px;
+    border:1px solid $darkBlue;
+  }
+  a, input[type="submit"] {
+    background: $darkBlue;
+    color:#fff;
+    text-decoration:none;
+    font-size:18px;
+  }
+  #count{
+    text-align:center;
   }
 }
+
+/* responsive tiles */
+@media (min-width: 1200px) {
+  .artobject {
+    height:230px;
+  }
+}
+
+/* Normal desktop */
+@media (min-width: 980px) and (max-width: 1199px) {
+  .artobject {
+    height:185px;
+  }
+}
+
+
+/* Portrait tablet to landscape and desktop */
+@media (min-width: 768px) and (max-width: 979px) {
+  body {
+    padding-top:0px;
+  }
+}
+ 
+/* Landscape phone to portrait tablet */
+@media (max-width: 767px) {
+  body {
+    padding-top:0px;
+  }
+  .artobject {
+    height:150px;
+    width:352px;
+    margin:0px auto;
+  }
+  .pagination {
+    ul > li {  
+      display: none;
+      &.active,&.prev,&.next {
+        display: inline;
+      }
+    }
+    margin-bottom:20px;
+  }
+}
+ 
 
