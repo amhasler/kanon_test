@@ -59,13 +59,14 @@ describe "ArtobjectPages" do
 
       it { should_not have_link('Edit', href: artobjects_path(id:Artobject.first)) }
 
+      it { should_not have_css("#make_favorite")}
+
     end
 
     describe "when logged in" do
 
       before { sign_in user }
       before { visit artobjects_path }
-
       
 
       describe "art object creation" do

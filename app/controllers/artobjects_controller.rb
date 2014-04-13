@@ -87,6 +87,11 @@ class ArtobjectsController < ApplicationController
     end
   end
 
+  def users
+    @artobject = Artobject.find(params[:id])
+    @users = @artobject.favorited
+  end
+
   private
 
     def artobject_params

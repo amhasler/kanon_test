@@ -2,6 +2,8 @@ require 'file_size_validator'
 
 class Artobject < ActiveRecord::Base
 	belongs_to :user
+	has_many :favorites, dependent: :destroy
+	has_many :favorited, through: :favorites, source: :user
 	mount_uploader :image, ImageUploader
 	validates :name, presence: true, length: { maximum: 40 }
 	validates :minyear, presence: true, length: { maximum: 5}

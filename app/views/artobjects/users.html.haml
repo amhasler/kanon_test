@@ -1,0 +1,10 @@
+- provide(:title, 'Fans')
+- flash.each do |key, value|
+  .alert{ class: "alert-#{ key }" }
+    = value
+
+%h1 All fans
+
+
+%ul.users
+  = render @users

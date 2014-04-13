@@ -53,6 +53,11 @@ class UsersController < ApplicationController
     redirect_to users_url
   end
 
+  def artobjects
+    @user = User.find(params[:id])
+    @artobjects = @user.favorite_objects
+  end
+
   private
 
     def user_params

@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
   has_many :artobjects
+  has_many :favorites, dependent: :destroy
+  has_many :favorite_objects, through: :favorites, source: :artobject 
 	before_save { self.email = email.downcase }
 	before_create :create_remember_token
 

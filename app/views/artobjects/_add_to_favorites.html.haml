@@ -1,0 +1,16 @@
+= javascript_tag do
+  $(".favorite_box").bind('change', function(){
+  if (this.checked) {
+  $.ajax({
+  url: '/favorites/',
+  type: 'POST',
+  data: {"artobject": this.id, "user": #{current_user.id} }
+  });
+  } else {
+  $.ajax({
+  url: '/favorites/' + this.id,
+  type: 'DELETE',
+  data: {"artobject": this.id, "user": #{current_user.id} }
+  });
+  }
+  });

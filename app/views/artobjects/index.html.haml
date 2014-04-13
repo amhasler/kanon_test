@@ -30,7 +30,7 @@
     - if signed_in?
       = render 'artobject_form'
     - else
-      %li.span4
+      %li.span6
         .artobject.flip 
           .card 
             .face.front
@@ -52,3 +52,20 @@
 .row
   .span12
     = will_paginate
+
+= javascript_tag do
+  $(".favorite_box").bind('change', function(){
+  if (this.checked) {
+  $.ajax({
+  url: '/favorites/',
+  type: 'POST',
+  data: {"artobject": this.id, "user": #{current_user.id} }
+  });
+  } else {
+  $.ajax({
+  url: '/favorites/' + this.id,
+  type: 'DELETE',
+  data: {"artobject": this.id, "user": #{current_user.id} }
+  });
+  }
+  });
