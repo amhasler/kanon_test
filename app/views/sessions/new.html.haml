@@ -1,8 +1,13 @@
-- provide(:title, "Sign in")
-%h1 Sign in
+- provide(:title, "Log in")
+- flash.each do |key, value|
+  .alert{ class: "alert-#{ key }" }
+    = value
+
+%h1 Log in
 
 .row
   .span6.offset3
+
     = form_for(:session, url: sessions_path) do |f|
 
       = f.label :email
@@ -11,6 +16,6 @@
       = f.label :password
       = f.password_field :password
 
-      = f.submit "Sign in", class: "btn btn-large btn-primary"
+      = f.submit "Log in", class: "button-primary"
 
     %p New user? #{ link_to "Sign up now!", signup_path }

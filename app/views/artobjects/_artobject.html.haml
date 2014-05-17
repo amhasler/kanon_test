@@ -5,11 +5,11 @@
         .text-container
           .top-text-container
             - if signed_in?
-              #make_favorite
+              .make_favorite
                 = check_box_tag "favorite", :favorite, Favorite.where(user_id:current_user.id, artobject_id:artobject.id).exists?, id: "#{artobject.id}", class: "favorite_box"
           .inner-text-container
             .center
-              %p.name= artobject.name
+              = link_to artobject.name, users_artobject_path(artobject), class: "name" 
               %p.timestamp= date_maker(artobject)
           .bottom-link-box
             %a.flip_back See more details

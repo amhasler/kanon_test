@@ -13,7 +13,7 @@ describe "ArtobjectPages" do
     before { visit artobjects_path }
 
     it { should have_title('All works') }
-    it { should have_content('Find and browse works') }
+    it { should have_content('Discover Works') }
 
     describe "artobjects" do
       it { should have_content(m1.name) }
@@ -55,81 +55,24 @@ describe "ArtobjectPages" do
 
     describe "when not logged in" do
 
-      it { should_not have_css("#new_artobject")}
+      it { should have_css("#new_artobject") }
 
       it { should_not have_link('Edit', href: artobjects_path(id:Artobject.first)) }
 
-      it { should_not have_css("#make_favorite")}
+      it { should_not have_css(".make_favorite") }
+
+
 
     end
 
     describe "when logged in" do
 
-      before { sign_in user }
+      before { log_in user }
       before { visit artobjects_path }
-      
 
-      describe "art object creation" do
+      it { should have_css("#new_artobject") }
 
-  	    describe "with invalid information" do
-
-  	      it "should not create an artobject" do
-  	        expect { click_button "Done" }.not_to change(Artobject, :count)
-  	      end
-
-  	      describe "error messages" do
-  	        before { click_button "Done" }
-  	        it { should have_content('error') }
-  	      end
-  	    end
-
-  	    describe "with valid information" do
-
-  	      let(:name)  { "Laws" }
-          let(:minyear) { 300 }
-          let(:creators) { "Plato, Socrates" }
-          let(:locations) { "Greece, Athens, Attica" }
-          let(:languages) { "Greek, Attic" }
-          let(:societies) { "Ancient Greece, Athens" }
-          let(:media) { "Rhetoric, Writing" }
-
-          before do
-            fill_in "artobject_name", with: name
-            fill_in "artobject_minyear", with: minyear
-            fill_in "artobject_creator_list", with: creators
-            fill_in "artobject_location_list", with: locations
-            fill_in "artobject_language_list", with: languages
-            fill_in "artobject_society_list", with: societies
-            fill_in "artobject_medium_list", with: media
-            #fixture_file_upload(Rails.root + 'spec/fixtures/images/test_image.jpg', 'image/png')     
-            click_button "Done"
-          end
-
-          it { should have_selector('div.alert.alert-success') }
-          it { should have_content(name) }
-          it { should have_content(minyear) }
-          it { should have_link("Plato") }
-          it { should have_link("Socrates") }
-          it { should have_link("Attica") }
-          it { should have_link("Greece")}
-          it { should have_link("Greek") }
-          it { should have_link("Athens") }
-          it { should have_link("Writing") }
-          it { should have_xpath("//img")}
-
-          describe "edit links as art object owner"
-            describe "should be able to edit art object" do
-            
-            before do
-              click_link('Edit', match: :first)
-              fill_in "artobject_name", with: "BOOM"
-              click_button "Done"
-            end
-
-            it { should have_content("BOOM") }
-          end
-  	    end
-  	  end
+      it { should have_css(".make_favorite") }
 
       describe "edit links" do
 
@@ -138,22 +81,11 @@ describe "ArtobjectPages" do
           let(:admin) { FactoryGirl.create(:admin) }
 
           before do
-            sign_in admin
+            log_in admin
             visit artobjects_path
           end
 
           it { should have_link('Edit', href: artobjects_path(id:Artobject.first)) }
-
-          describe "should be able to edit art object" do
-            
-            before do
-              click_link('Edit', match: :first)
-              fill_in "artobject_name", with: new_name
-              click_button "Done"
-            end
-
-            it { should have_content(new_name) }
-          end
 
         end
 
@@ -167,7 +99,7 @@ describe "ArtobjectPages" do
           let(:admin) { FactoryGirl.create(:admin) }
 
           before do
-            sign_in admin
+            log_in admin
             visit artobjects_path
           end
 
@@ -183,6 +115,91 @@ describe "ArtobjectPages" do
       end
     end
 
+  end
+
+  describe "new" do
+    let(:user) { FactoryGirl.create(:user) }
+
+    before do
+      log_in user
+      visit new_artobject_path
+    end
+
+    describe "art object creation" do
+
+      describe "with invalid information" do
+
+        it "should not create an artobject" do
+          expect { click_button "Done" }.not_to change(Artobject, :count)
+        end
+
+        describe "error messages" do
+          before { click_button "Done" }
+          it { should have_content('error') }
+        end
+      end
+
+      describe "with valid information" do
+
+        let(:name)  { "Laws" }
+        let(:minyear) { 300 }
+        let(:creators) { "Plato, Socrates" }
+        let(:locations) { "Greece, Athens, Attica" }
+        let(:languages) { "Greek, Attic" }
+        let(:societies) { "Ancient Greece, Athens" }
+        let(:media) { "Rhetoric, Writing" }
+
+        before do
+          fill_in "artobject_name", with: name
+          fill_in "artobject_minyear", with: minyear
+          fill_in "artobject_creator_list", with: creators
+          fill_in "artobject_location_list", with: locations
+          fill_in "artobject_language_list", with: languages
+          fill_in "artobject_society_list", with: societies
+          fill_in "artobject_medium_list", with: media
+          #fixture_file_upload(Rails.root + 'spec/fixtures/images/test_image.jpg', 'image/png')     
+          click_button "Done"
+        end
+
+        it { should have_selector('div.alert.alert-success') }
+        it { should have_content(name) }
+        it { should have_content(minyear) }
+        it { should have_link("Plato") }
+        it { should have_link("Socrates") }
+        it { should have_link("Attica") }
+        it { should have_link("Greece")}
+        it { should have_link("Greek") }
+        it { should have_link("Athens") }
+        it { should have_link("Writing") }
+        it { should have_xpath("//img")}
+
+        describe "edit links as art object owner"
+          describe "should be able to edit art object" do
+          
+          before do
+            click_link('Edit', match: :first)
+            fill_in "artobject_name", with: "BOOM"
+            click_button "Done"
+          end
+
+          it { should have_content("BOOM") }
+        end
+      end
+    end
+  end
+
+  describe "edit" do
+    let(:user) { FactoryGirl.create(:user) }
+    let!(:m1) { FactoryGirl.create(:artobject, user: user, name: "Iliad", minyear: -300, creator_list: "Homer", medium_list: "Lyric") }
+    before do
+      log_in user
+      visit edit_artobject_path(m1)
+    end
+
+    describe "should be able to edit art object" do
+      
+
+    end
   end
 
 end

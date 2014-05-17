@@ -3,44 +3,21 @@
 .row
   %aside.span8.offset2
     .search-box
-      %h1 Find and browse works
+      %h1 Discover Works
       = form_for :artobject, :url => { :action => "index" }, html: { method: :get } do |f|
-        = text_field_tag :tags, @tags ? @tags : nil, placeholder: "Add tags separated by comma"
+        = text_field_tag :tags, @tags ? @tags : nil, placeholder: "Separate search terms by comma"
+        %p#count Displaying #{ @artobjects.count } works
         %div
           = f.submit "Submit"
           = link_to "Reset", artobjects_path
-      %h2#count Displaying #{ @artobjects.count } works
-
-
-    
-.row.top-bar
-  .span12   
-    = will_paginate
+          
 
 .row
-  .span12
-    - if signed_in?
-      - flash.each do |key, value|
-        .alert{ class: "alert-#{ key }" }
-          = value
-      = render 'shared/error_messages', object: @artobject
+  .span8.offset2#cta
+    %h2#new_artobject Feel like adding something new? #{ link_to "Create a new work", new_artobject_path }
 
 .row
   %ol.tile-container#artobject_container
-    - if signed_in?
-      = render 'artobject_form'
-    - else
-      %li.span6
-        .artobject.flip 
-          .card 
-            .face.front
-              .text-container
-                .inner-text-container
-                  .center
-                    %h2 #{link_to "Sign up", signup_path} or #{link_to "Log in", signin_path}
-                    %p Add your favorite works now
-                  
-              .image-container
     - if @artobjects.empty?
       .span8
         %h1 We didn't find anything that matched your search.
@@ -52,20 +29,3 @@
 .row
   .span12
     = will_paginate
-
-= javascript_tag do
-  $(".favorite_box").bind('change', function(){
-  if (this.checked) {
-  $.ajax({
-  url: '/favorites/',
-  type: 'POST',
-  data: {"artobject": this.id, "user": #{current_user.id} }
-  });
-  } else {
-  $.ajax({
-  url: '/favorites/' + this.id,
-  type: 'DELETE',
-  data: {"artobject": this.id, "user": #{current_user.id} }
-  });
-  }
-  });

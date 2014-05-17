@@ -6,13 +6,19 @@ describe "User pages" do
 
   describe "index" do
     let(:user) { FactoryGirl.create(:user) }
+    let!(:u1) { FactoryGirl.create(:user, name: "Brandon", email: "papa@email.com", creator_list: "Homer", medium_list: "Lyric") }
+    let!(:u2) { FactoryGirl.create(:user, name: "Santa Claus", email: "mama@email.com", creator_list: "Homer", medium_list: "Writing") }
+    let!(:u3) { FactoryGirl.create(:user, name: "Tooth Fairy", email: "brother@email.com", creator_list: "Plato", language_list: "Rhetoric, Writing") }
+    let!(:u4) { FactoryGirl.create(:user, name: "George Washington", email: "sister@email.com", creator_list: "Plato", society_list: "Classical Athens") }
     before(:each) do
-      sign_in user
+      log_in user
       visit users_path
     end
 
-    it { should have_title('All users') }
-    it { should have_content('All users') }
+    it { should have_title('Contributors') }
+    it { should have_content('Contributors') }
+    it { should have_content(u1.name) }
+    it { should have_content(u2.name) }
 
     describe "pagination" do
 
@@ -28,6 +34,18 @@ describe "User pages" do
       end
     end
 
+    describe "filtered" do
+      before do
+        fill_in "tags", with: "Plato, Rhetoric"
+        click_button "Submit"
+      end
+
+      it { should_not have_content "Iliad" }
+      it { should_not have_content "Odyssey" }
+      it { should have_content "Symposium" }
+      it { should_not have_content "The Republic" }
+    end
+
     describe "delete links" do
 
       it { should_not have_link('delete') }
@@ -35,7 +53,7 @@ describe "User pages" do
       describe "as an admin user" do
         let(:admin) { FactoryGirl.create(:admin) }
         before do
-          sign_in admin
+          log_in admin
           visit users_path
         end
 
@@ -108,7 +126,7 @@ describe "User pages" do
   describe "edit" do
     let(:user) { FactoryGirl.create(:user) }
     before do
-      sign_in user
+      log_in user
       visit edit_user_path(user)
     end
 

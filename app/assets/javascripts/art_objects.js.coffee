@@ -25,3 +25,16 @@ jQuery ->
       theme: "facebook"
       hintText: "Choose an existing entry or create a new one"
     })
+
+$(".favorite_box").bind('change', ->
+  if @.checked
+    $.ajax
+      url: '/favorites/',
+      type: 'POST',
+      data: {"artobject": this.id} 
+  else
+    $.ajax
+      url: '/favorites/' + this.id,
+      type: 'DELETE',
+      data: {"artobject": this.id}
+)

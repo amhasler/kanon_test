@@ -46,6 +46,13 @@ textarea {
   text-align: center;
 }
 
+.button-primary {
+  background: #3b4d81;
+  color: #fff;
+  text-decoration: none;
+  font-size: 18px;
+}
+
 
 
 /* Typography */
@@ -69,7 +76,6 @@ h2 {
   font-weight: 700;
   font-size: 1.2em;
   letter-spacing: -1px;
-  margin-bottom: 30px;
   font-weight: normal;
   color: #999;
 }
@@ -279,6 +285,8 @@ input {
 
 /* index pages */
 ol.tile-container {
+  padding-top:20px;
+  border-top:1px solid black;
   margin:0px;
   list-style:none;
   & > li {
@@ -645,17 +653,22 @@ ol.tile-container {
 .pagination {
   text-align:center;
   width:100%;
-  margin:0px auto;
+  margin:20px auto 40px;
 }
 
 .search-box {
   background: $yellow;
   padding:5px 20px;
-  margin:50px 0px 50px;
+  margin:50px 0px 10px;
+  overflow:hidden;
+  p {
+    width:50%;
+    float:left;
+    color:black;
+    margin-top:5px;
+  }
   div {
-    width:200px;
-    margin:0px auto;
-    padding-left:50px;
+    float:right;
   }
   input[type="submit"] {
       padding:4px 5px;
@@ -674,9 +687,13 @@ ol.tile-container {
     text-decoration:none;
     font-size:18px;
   }
-  #count{
-    text-align:center;
-  }
+}
+
+#cta {
+  text-align:center;
+  margin-bottom:10px;
+  padding-top:10px;
+  padding-bottom:10px;
 }
 
 /* responsive tiles */

@@ -1,6 +1,6 @@
 module SessionsHelper
 
-	def sign_in(user)
+	def log_in(user)
     remember_token = User.new_remember_token
     cookies.permanent[:remember_token] = remember_token
     user.update_attribute(:remember_token, User.encrypt(remember_token))
@@ -27,7 +27,7 @@ module SessionsHelper
   def signed_in_user
     unless signed_in?
       store_location
-      redirect_to signin_url, notice: "Please sign in."
+      redirect_to login_url, notice: "Please sign in."
     end
   end
 

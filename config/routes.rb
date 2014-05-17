@@ -9,7 +9,7 @@ KanonTest::Application.routes.draw do
     end
   end
   resources :sessions, only: [:new, :create, :destroy]
-  resources :artobjects, only: [:create, :destroy, :index, :update] do
+  resources :artobjects do
     member do
       get 'users'
       get 'collections'
@@ -21,7 +21,7 @@ KanonTest::Application.routes.draw do
 
   root  'static_pages#home'
   match '/signup',  to: 'users#new',            via: 'get'
-  match '/signin',  to: 'sessions#new',         via: 'get'
+  match '/login',  to: 'sessions#new',         via: 'get'
   match '/signout', to: 'sessions#destroy',     via: 'delete'
   match '/about',   to: 'static_pages#about',   via: 'get'
   match '/contact', to: 'static_pages#contact', via: 'get'
