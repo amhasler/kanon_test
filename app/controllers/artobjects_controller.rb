@@ -29,11 +29,6 @@ class ArtobjectsController < ApplicationController
 
   def index
     @artobjects = Artobject.paginate(page: params[:page])
-    if params[:id]
-      @artobject = Artobject.find(params[:id])
-    else
-  	  @artobject = current_user.artobjects.build if signed_in?
-    end
     if params[:tags] && !params[:tags].empty?
       @tags = params[:tags].split(', ');
       @tags.each do |t|
@@ -77,21 +72,6 @@ class ArtobjectsController < ApplicationController
   def destroy
     @artobject.destroy
     redirect_to artobjects_url
-  end
-
-  def tags
-    query = params[:q]
-
-    tags = ActsAsTaggableOn::Tag.where("tags.name LIKE ?", "%#{query}%")
-    if tags.empty?
-      respond_to do |format|
-        format.json { render json: [{id: "#{query}", name: "New: \"#{query}\""}] }
-      end
-    else
-      respond_to do |format|
-        format.json { render :json => tags.map{|t| {:id => t.name, :name => t.name }}}
-      end
-    end
   end
 
   def users

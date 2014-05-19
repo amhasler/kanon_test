@@ -3,8 +3,17 @@ require 'spec_helper'
 describe User do
 
   before do 
-  	@user = User.new(name: "Example User", email: "user@example.com",
-                   password: "foobar", password_confirmation: "foobar")
+  	@user = User.new(
+      name: "amhasler", 
+      email: "user@example.com",
+      password: "foobar",
+      password_confirmation: "foobar",
+      creator_list: "Plato", 
+      language_list: "Greek, Attic", 
+      location_list: "Greece, Athens, Attica", 
+      society_list: "Athens", 
+      medium_list: "Rhetoric, Philosophy, Writing"
+    )
   end
 
   subject { @user }
@@ -17,6 +26,11 @@ describe User do
   it { should respond_to(:authenticate) }
   it { should respond_to(:admin) }
   it { should respond_to(:artobjects) }
+  it { should respond_to(:creator_list)}
+  it { should respond_to(:language_list)}
+  it { should respond_to(:location_list)}
+  it { should respond_to(:society_list)}
+  it { should respond_to(:medium_list)}
 
   it { should be_valid }
   it { should_not be_admin }
@@ -114,4 +128,16 @@ describe User do
     before { @user.save }
     its(:remember_token) { should_not be_blank }
   end
+
+  describe "with too many tags" do
+    let(:creators) { "Plato, Socrates, Xenophon, Aristophanes, Parmenides" }
+    before { @user.creator_list = creators }
+    it { should_not be_valid }
+  end
+
+  describe "because tag is too long" do
+    let(:creators) { "Plato Socrates Xenophon Aristophanes Parmenides" }
+    before { @user.creator_list = creators }
+    it { should_not be_valid }
+  end 
 end

@@ -1,4 +1,6 @@
 KanonTest::Application.routes.draw do
+  get "tags/index"
+
   get "artobjects/tags" => "artobjects#tags", :as => :tags
 
   resources :users do

@@ -40,10 +40,10 @@ describe "User pages" do
         click_button "Submit"
       end
 
-      it { should_not have_content "Iliad" }
-      it { should_not have_content "Odyssey" }
-      it { should have_content "Symposium" }
-      it { should_not have_content "The Republic" }
+      it { should_not have_content "Brandon" }
+      it { should_not have_content "Sant Claus" }
+      it { should have_content "Tooth Fairy" }
+      it { should_not have_content "George Washington" }
     end
 
     describe "delete links" do

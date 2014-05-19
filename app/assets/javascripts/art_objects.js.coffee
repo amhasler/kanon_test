@@ -18,7 +18,7 @@ jQuery ->
 
   $(".artobject_tags").each -> 
     el = $(this);
-    el.tokenInput("/artobjects/tags.json", {
+    el.tokenInput("/tags/index.json", {
       crossDomain: false,
       prePopulate: el.data("pre"),
       preventDuplicates: true,

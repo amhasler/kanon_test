@@ -57,7 +57,7 @@ describe "ArtobjectPages" do
 
       it { should have_css("#new_artobject") }
 
-      it { should_not have_link('Edit', href: artobjects_path(id:Artobject.first)) }
+      it { should_not have_link('Edit', href: edit_artobject_path(id:Artobject.first)) }
 
       it { should_not have_css(".make_favorite") }
 
@@ -85,7 +85,7 @@ describe "ArtobjectPages" do
             visit artobjects_path
           end
 
-          it { should have_link('Edit', href: artobjects_path(id:Artobject.first)) }
+          it { should have_link('Edit', href: edit_artobject_path(id:Artobject.first)) }
 
         end
 

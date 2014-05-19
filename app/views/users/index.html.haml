@@ -1,13 +1,41 @@
-- provide(:title, 'All users')
-- flash.each do |key, value|
-  .alert{ class: "alert-#{ key }" }
-    = value
+- provide(:title, "All contributors")
+.row
+  .span12
+    
+.top-bar
+  .container
+    .row
+      .span12
+        - flash.each do |key, value|
+          .alert{ class: "alert-#{ key }" }
+            = value
 
-%h1 All users
+    .row
+      %aside.span8.offset2
+        .search-box
+          %h1 Discover Works
+          = form_for :user, :url => { :action => "index" }, html: { method: :get } do |f|
+            = text_field_tag :tags, @tags ? @tags : nil, placeholder: "Separate search terms by comma"
+            %p#count Displaying #{ @artobjects.count } works
+            %div
+              = f.submit "Submit"
+              = link_to "Reset", artobjects_path
+        #cta
+          %h2#new_artobject Want to add something? #{ link_to "Create a new work", new_artobject_path }
 
-= will_paginate
 
-%ul.users
-  = render @users
+.bottom-bar
+  .container
+    .row
+      %ol.tile-container#artobject_container
+        - if @users.empty?
+          .span8
+            %h1 We didn't find anything that matched your search.
+            %p This is your chance to add a work that we're missing! Or you can always #{ link_to "start over", users_path }.
 
-= will_paginate
+        - else
+          = render @users
+
+    .row
+      .span12
+        = will_paginate

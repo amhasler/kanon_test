@@ -1,5 +1,46 @@
-%li
-  = gravatar_for user
-  = link_to user.name, artobjects_user_path(user)
-  - if current_user.admin? && !current_user?(user)
-    = link_to "delete", user, method: :delete, data: { confirm: "You sure?" }
+
+%li.span6
+  .artobject.flip 
+    .card 
+      .face.front
+        .text-container
+          .top-text-container
+            - if signed_in?
+              .make_favorite
+                  
+          .inner-text-container
+            .center
+              = link_to user.name, artobjects_user_path(user), class: "name" 
+
+          .bottom-link-box
+            %a.flip_back.button More details
+            %i.fa.fa-caret-down
+            
+        .image-container
+          
+      .face.back
+        .top-link-box
+          %a.flip_back.button.flip_front Return to front
+          %i.fa.fa-caret-up
+        .tag-container
+  
+          .inner-tag-container.tab-content
+
+
+            .tags
+              - user.creator_list.each do |t|
+                = link_to t, artobjects_path(params.merge(:tags =>  t)), class: "creator-list-tag"
+              - user.society_list.each do |t|
+                =link_to t, artobjects_path(params.merge(:tags => t)), class: "society-list-tag"
+              - user.language_list.each do |t|
+                =link_to t, artobjects_path(params.merge(:tags => t)), class: "language-list-tag"
+              - user.location_list.each do |t|
+                = link_to t, artobjects_path(params.merge(:tags => t)), class: "location-list-tag"
+              - user.medium_list.each do |t|
+                = link_to t, artobjects_path(params.merge(:tags => t)), class: "media-list-tag"
+
+
+        .empty-container
+
+
+        

@@ -1,4 +1,8 @@
+
+
 class User < ActiveRecord::Base
+  include MaxTagSize
+
   has_many :artobjects
   has_many :favorites, dependent: :destroy
   has_many :favorite_objects, through: :favorites, source: :artobject 
@@ -12,6 +16,10 @@ class User < ActiveRecord::Base
                     uniqueness: { case_sensitive: false }
   has_secure_password
   validates :password, length: { minimum: 6 }
+
+  self.per_page = 14
+
+  acts_as_taggable_on :creators, :locations, :languages, :societies, :mediums
 
   def User.new_remember_token
     SecureRandom.urlsafe_base64

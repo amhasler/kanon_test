@@ -5,6 +5,24 @@ class UsersController < ApplicationController
   
   def index
     @users = User.paginate(page: params[:page])
+    if params[:tags] && !params[:tags].empty?
+      @tags = params[:tags].split(', ');
+      @tags.each do |t|
+        logger.debug(t)
+        if Artobject.search(t).count > 0
+          @tags.delete_at(@tags.find_index(t))
+          @artobjects = Artobject.search(t).paginate(page: params[:page])
+          @query = t
+        end   
+      end
+      if !@tags.empty?
+        @artobjects = @artobjects.tagged_with(@tags).paginate(page: params[:page])
+      end
+      if @query 
+        @tags << @query
+        @tags = @tags.join(', ')
+      end
+    end
   end
 
   def show
