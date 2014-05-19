@@ -62,6 +62,18 @@ describe Artobject do
     it { should_not be_valid }
   end
 
+  describe "with too many tags" do
+    let(:creators) { "Plato, Socrates, Xenophon, Aristophanes, Parmenides" }
+    before { @artobject.creator_list = creators }
+    it { should_not be_valid }
+  end
+
+  describe "because tag is too long" do
+    let(:creators) { "Plato Socrates Xenophon Aristophanes Parmenides" }
+    before { @artobject.creator_list = creators }
+    it { should_not be_valid }
+  end 
+
   #describe "artobject order" do
   #  let!(:older_artobject) do
   #    FactoryGirl.create(:artobject, user: user, name: "Nighthawks", minyear:1923)

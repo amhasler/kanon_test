@@ -1,3 +1,4 @@
+
 %li.span6
   .artobject.flip 
     .card 
@@ -6,82 +7,51 @@
           .top-text-container
             - if signed_in?
               .make_favorite
-                = check_box_tag "favorite", :favorite, Favorite.where(user_id:current_user.id, artobject_id:artobject.id).exists?, id: "#{artobject.id}", class: "favorite_box"
+
+                = check_box_tag "favorite", :favorite, Favorite.where(user_id:current_user.id, artobject_id:artobject.id).exists?, id: "#{artobject.id}", class: "favorite_box vis-hidden"
+                %label{for: "#{artobject.id}"}
+                  %i.fa.fa-heart
+                  
           .inner-text-container
             .center
               = link_to artobject.name, users_artobject_path(artobject), class: "name" 
               %p.timestamp= date_maker(artobject)
+
           .bottom-link-box
-            %a.flip_back See more details
+            %a.flip_back.button More details
+            %i.fa.fa-caret-down
             
         .image-container
           =image_tag artobject.image_url(:index).to_s, class: "artobject_image"
       .face.back
+        .top-link-box
+          %a.flip_back.button.flip_front Return to front
+          %i.fa.fa-caret-up
         .tag-container
-          .menu-tag-group
-            %ul.nav.nav-tabs
-              %li.active
-                
-                %a{href:"#creators#{artobject.id}", data: {toggle: "tab"}}
-                  %i.fa.fa-users
-              %li
-                
-                %a{href:"#languages#{artobject.id}", data: {toggle:"tab"}}
-                  %i.fa.fa-comments
-              %li
-                
-                %a{href:"#locations#{artobject.id}", data: {toggle:"tab"}}
-                  %i.fa.fa-compass
-              %li
-                
-                %a{href:"#society#{artobject.id}", data: {toggle:"tab"}}
-                  %i.fa.fa-music
-              %li
-                
-                %a{href:"#media#{artobject.id}", data: {toggle:"tab"}}
-                  %i.fa.fa-book
-            .inner-tag-container.tab-content
-              .tab-pane.fade.in.active{id:"creators#{artobject.id}"}
-                .title
-                  %p.rotate Creators
-                .tags
-                  - artobject.creator_list.each do |t|
-                    = link_to t, artobjects_path(params.merge(:tags => t)), class: "creator-list-tag"
-              .tab-pane{id:"society#{artobject.id}"}
-                .title
-                  %p.rotate Genres &amp; Periods
-                .tags
-                  -artobject.society_list.each do |t|
-                    =link_to t, artobjects_path(params.merge(:tags => t)), class: "society-list-tag"
-              .tab-pane{id:"languages#{artobject.id}"}
-                .title
-                  %p.rotate Culture &amp; Languages
-                .tags
-                  - artobject.language_list.each do |t|
-                    =link_to t, artobjects_path(params.merge(:tags => t)), class: "language-list-tag"
-              .tab-pane{id:"locations#{artobject.id}"}
-                .title
-                  %p.rotate Locations
-                .tags
-                  - artobject.location_list.each do |t|
-                    = link_to t, artobjects_path(params.merge(:tags => t)), class: "location-list-tag"
-              .tab-pane{id:"media#{artobject.id}"}
-                .title
-                  %p.rotate Media &amp; Methods
-                .tags
-                  - artobject.medium_list.each do |t|
-                    = link_to t, artobjects_path(params.merge(:tags => t)), class: "media-list-tag"
+  
+          .inner-tag-container.tab-content
+
+
+            .tags
+              - artobject.creator_list.each do |t|
+                = link_to t, artobjects_path(params.merge(:tags =>  t)), class: "creator-list-tag"
+              -artobject.society_list.each do |t|
+                =link_to t, artobjects_path(params.merge(:tags => t)), class: "society-list-tag"
+              - artobject.language_list.each do |t|
+                =link_to t, artobjects_path(params.merge(:tags => t)), class: "language-list-tag"
+              - artobject.location_list.each do |t|
+                = link_to t, artobjects_path(params.merge(:tags => t)), class: "location-list-tag"
+              - artobject.medium_list.each do |t|
+                = link_to t, artobjects_path(params.merge(:tags => t)), class: "media-list-tag"
+
         .empty-container
           .to-front
-            .circle-element.arrow
-              %i.fa.fa-arrow-up
-              %a.flip_front Front
             - if signed_in?
               - if current_user.admin? or current_user == artobject.user
                 .circle-element.done
-                  = link_to "Edit", artobjects_path(id:artobject)      
+                  = link_to "Edit", edit_artobject_path(id:artobject), class: "circleb"      
               - if current_user.admin?
                 .circle-element.delete
-                  = link_to "X", artobject, method: :delete, data: { confirm: "You sure?" }, title: artobject.name
+                  = link_to "Delete", artobject, method: :delete, data: { confirm: "You sure?" }, title: artobject.name, class: "circleb"    
 
         

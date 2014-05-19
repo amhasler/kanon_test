@@ -1,31 +1,39 @@
 - provide(:title, "All works")
-
-.row
-  %aside.span8.offset2
-    .search-box
-      %h1 Discover Works
-      = form_for :artobject, :url => { :action => "index" }, html: { method: :get } do |f|
-        = text_field_tag :tags, @tags ? @tags : nil, placeholder: "Separate search terms by comma"
-        %p#count Displaying #{ @artobjects.count } works
-        %div
-          = f.submit "Submit"
-          = link_to "Reset", artobjects_path
-          
-
-.row
-  .span8.offset2#cta
-    %h2#new_artobject Feel like adding something new? #{ link_to "Create a new work", new_artobject_path }
-
-.row
-  %ol.tile-container#artobject_container
-    - if @artobjects.empty?
-      .span8
-        %h1 We didn't find anything that matched your search.
-        %p This is your chance to add a work that we're missing! Or you can always #{ link_to "start over", artobjects_path }.
-
-    - else
-      = render @artobjects
-
 .row
   .span12
-    = will_paginate
+    
+.top-bar
+  .container
+    .row
+      .span12
+        - flash.each do |key, value|
+          .alert{ class: "alert-#{ key }" }
+            = value
+
+    .row
+      %aside.span8.offset2
+        .search-box
+          %h1 Discover Works
+          = form_for :artobject, :url => { :action => "index" }, html: { method: :get } do |f|
+            = text_field_tag :tags, @tags ? @tags : nil, placeholder: "Separate search terms by comma"
+            %p#count Displaying #{ @artobjects.count } works
+            %div
+              = f.submit "Submit"
+              = link_to "Reset", artobjects_path
+        #cta
+          %h2#new_artobject Want to add something? #{ link_to "Create a new work", new_artobject_path }
+.bottom-bar
+  .container
+    .row
+      %ol.tile-container#artobject_container
+        - if @artobjects.empty?
+          .span8
+            %h1 We didn't find anything that matched your search.
+            %p This is your chance to add a work that we're missing! Or you can always #{ link_to "start over", artobjects_path }.
+
+        - else
+          = render @artobjects
+
+    .row
+      .span12
+        = will_paginate

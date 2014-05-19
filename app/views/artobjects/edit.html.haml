@@ -1,6 +1,6 @@
 - provide(:title, 'New Work')
 
-%h1 Add a new work
+%h1 Edit #{ @artobject.name }
 
 = form_for(@artobject) do |f|
   = render 'shared/error_messages', object: f.object

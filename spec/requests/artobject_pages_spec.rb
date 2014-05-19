@@ -93,7 +93,7 @@ describe "ArtobjectPages" do
 
   	  describe "delete links" do
 
-        it { should_not have_link('X') }
+        it { should_not have_link('Delete') }
 
         describe "as an admin user" do
           let(:admin) { FactoryGirl.create(:admin) }
@@ -103,11 +103,11 @@ describe "ArtobjectPages" do
             visit artobjects_path
           end
 
-          it { should have_link('X', href: artobject_path(Artobject.first)) }
+          it { should have_link('Delete', href: artobject_path(Artobject.first)) }
           
           it "should be able to delete art object" do
             expect do
-              click_link('X', match: :first)
+              click_link('Delete', match: :first)
             end.to change(Artobject, :count).by(-1)
           end
         end
@@ -118,7 +118,30 @@ describe "ArtobjectPages" do
   end
 
   describe "new" do
+
+    describe "for non-signed-in users" do
+      let(:user) { FactoryGirl.create(:user) }
+
+      let(:user) { FactoryGirl.create(:user) }
+
+      describe "in the artobjects controller" do
+
+        describe "submitting to the create action" do
+          before { post artobjects_path }
+          specify { expect(response).to redirect_to(login_path) }
+        end
+
+      end
+
+      describe "visiting artobjects#new" do
+        before { get new_artobject_path }
+        specify { expect(response).to redirect_to(login_path) }
+      end
+
+    end
+
     let(:user) { FactoryGirl.create(:user) }
+
 
     before do
       log_in user
@@ -130,13 +153,15 @@ describe "ArtobjectPages" do
       describe "with invalid information" do
 
         it "should not create an artobject" do
-          expect { click_button "Done" }.not_to change(Artobject, :count)
+          expect { click_button "Done" }.not_to change(Artobject, :count)        
+
         end
 
         describe "error messages" do
           before { click_button "Done" }
           it { should have_content('error') }
         end
+
       end
 
       describe "with valid information" do
@@ -173,21 +198,10 @@ describe "ArtobjectPages" do
         it { should have_link("Writing") }
         it { should have_xpath("//img")}
 
-        describe "edit links as art object owner"
-          describe "should be able to edit art object" do
-          
-          before do
-            click_link('Edit', match: :first)
-            fill_in "artobject_name", with: "BOOM"
-            click_button "Done"
-          end
-
-          it { should have_content("BOOM") }
-        end
       end
     end
   end
-
+=begin
   describe "edit" do
     let(:user) { FactoryGirl.create(:user) }
     let!(:m1) { FactoryGirl.create(:artobject, user: user, name: "Iliad", minyear: -300, creator_list: "Homer", medium_list: "Lyric") }
@@ -196,10 +210,16 @@ describe "ArtobjectPages" do
       visit edit_artobject_path(m1)
     end
 
-    describe "should be able to edit art object" do
+    describe "art object owner should be able to edit art object"
       
+      before do
+        click_link('Edit', match: :first)
+        fill_in "artobject_name", with: "BOOM"
+        click_button "Done"
+      end
 
+      it { should have_content("BOOM") }
     end
   end
-
+=end
 end

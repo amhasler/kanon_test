@@ -1,10 +1,14 @@
 require 'file_size_validator' 
 
 class Artobject < ActiveRecord::Base
+	include MaxTagSize
+
 	belongs_to :user
 	has_many :favorites, dependent: :destroy
 	has_many :favorited, through: :favorites, source: :user
+ 
 	mount_uploader :image, ImageUploader
+
 	validates :name, presence: true, length: { maximum: 40 }
 	validates :minyear, presence: true, length: { maximum: 5}
 	default_scope -> { order('created_at DESC') }
@@ -12,6 +16,7 @@ class Artobject < ActiveRecord::Base
 		:file_size => { 
 	    :maximum => 4.megabytes.to_i 
 	}
+	validate :max_tag_size
 	
 	self.per_page = 14
 

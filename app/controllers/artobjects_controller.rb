@@ -1,5 +1,5 @@
 class ArtobjectsController < ApplicationController
-	before_action :signed_in_user, only: [:create, :destroy]
+	before_action :signed_in_user, only: [:new, :create, :destroy]
 	before_action :admin_user, only: :destroy
   before_action :object_editor, only: :update
 
@@ -15,9 +15,16 @@ class ArtobjectsController < ApplicationController
       flash[:success] = "Art object created!"
       redirect_to artobjects_url
     else
-      @artobjects = Artobject.paginate(page: params[:page])
-      render 'index'
+      render 'new'
     end
+  end
+
+  def new
+    @artobject = Artobject.new
+  end
+
+  def edit
+    @artobject = Artobject.find(params[:id])
   end
 
   def index
