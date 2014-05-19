@@ -1,4 +1,4 @@
-- provide(:title, "All contributors")
+- provide(:title, "Contributors")
 .row
   .span12
     
@@ -13,15 +13,16 @@
     .row
       %aside.span8.offset2
         .search-box
-          %h1 Discover Works
+          %h1 Contributors
           = form_for :user, :url => { :action => "index" }, html: { method: :get } do |f|
             = text_field_tag :tags, @tags ? @tags : nil, placeholder: "Separate search terms by comma"
-            %p#count Displaying #{ @artobjects.count } works
+            %p#count #{ @users.count } contributors
             %div
               = f.submit "Submit"
               = link_to "Reset", artobjects_path
         #cta
-          %h2#new_artobject Want to add something? #{ link_to "Create a new work", new_artobject_path }
+        - if signed_in?
+          %h2#new_artobject Want more visibility? #{ link_to "Add more interests", edit_user_path(current_user) }
 
 
 .bottom-bar

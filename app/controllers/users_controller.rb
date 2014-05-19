@@ -9,14 +9,14 @@ class UsersController < ApplicationController
       @tags = params[:tags].split(', ');
       @tags.each do |t|
         logger.debug(t)
-        if Artobject.search(t).count > 0
+        if User.search(t).count > 0
           @tags.delete_at(@tags.find_index(t))
-          @artobjects = Artobject.search(t).paginate(page: params[:page])
+          @users = User.search(t).paginate(page: params[:page])
           @query = t
         end   
       end
       if !@tags.empty?
-        @artobjects = @artobjects.tagged_with(@tags).paginate(page: params[:page])
+        @users = @users.tagged_with(@tags).paginate(page: params[:page])
       end
       if @query 
         @tags << @query
