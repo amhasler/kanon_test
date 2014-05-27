@@ -46,10 +46,10 @@ describe "User pages" do
       it { should_not have_content "George Washington" }
     end
 
-=begin
+
     describe "delete links" do
 
-      it { should_not have_link('delete') }
+      it { should_not have_link('Delete') }
 
       describe "as an admin user" do
         let(:admin) { FactoryGirl.create(:admin) }
@@ -58,42 +58,69 @@ describe "User pages" do
           visit users_path
         end
 
-        it { should have_link('delete', href: user_path(User.first)) }
+        it { should have_link('Delete', href: user_path(User.first)) }
         
         it "should be able to delete another user" do
           expect do
-            click_link('delete', match: :first)
+            click_link('Delete', match: :first)
           end.to change(User, :count).by(-1)
         end
-        it { should_not have_link('delete', href: user_path(admin)) }
+        it { should_not have_link('Delete', href: user_path(admin)) }
       end
     end
-=end
-  end
 
-
-  describe "signup page" do
-    before { visit signup_path }
-
-    it { should have_content('Sign up') }
-    it { should have_title(full_title('Sign up')) }
   end
 
   describe "profile page" do
-    let(:user) { FactoryGirl.create(:user) }
+    let!(:user) { FactoryGirl.create(:user, name: "Tooth Fairy", email: "brother@email.com", creator_list: "Plato", language_list: "Rhetoric, Writing") }
 
     before { visit user_path(user) }
 
-    it { should have_content(user.name) }
-    it { should have_title(user.name) }
+    it { should have_content("Tooth Fairy") }
+    it { should have_title("Tooth Fairy") }
+    it { should have_content("Plato") }
+    it { should have_content("Rhetoric") }
+    it { should have_content("Writing") }
+    it { should have_content("Writing") }
+    it { should have_link('See all works created', href: artobjects_user_path(user)) }
+    it { should have_link('See all favorites', href: favorites_user_path(user)) }
+    it { should_not have_link('Edit profile', href: favorites_user_path(user)) }
 
+    describe "when logged in as user" do
+
+      before { log_in user }
+      before { visit user_path(user) }
+
+      it { should have_link('Edit profile', href: favorites_user_path(user)) }
+
+    end
+
+    describe "when logged in as admin" do
+
+      before { log_in admin }
+      before { visit user_path(user) }
+
+      it { should have_link('Edit profile', href: favorites_user_path(user)) }
+
+    end
+
+
+  end
+
+  describe "login page" do
+    #Logged in user should NOT be able to visit login page
   end
 
 	describe "signup page" do
 
+    #Logged in user should NOT be able to visit signup page
+
     before { visit signup_path }
 
-    let(:submit) { "Create my account" }
+    it { should have_content('Sign up') }
+    it { should have_title(full_title('Sign up')) }
+
+    let(:submit) { "Create my profile" }
 
     describe "with invalid information" do
       it "should not create a user" do
@@ -103,10 +130,10 @@ describe "User pages" do
 
     describe "with valid information" do
       before do
-        fill_in "Name",         with: "Example User"
-        fill_in "Email",        with: "user@example.com"
-        fill_in "Password",     with: "foobar"
-        fill_in "Confirmation", with: "foobar"
+        fill_in "user[name]",         with: "Example User"
+        fill_in "user[email]",     with: "user@example.com"
+        fill_in "user[password]",     with: "foobar"
+        fill_in "user[password_confirmation]", with: "foobar"
       end
 
       it "should create a user" do
@@ -133,34 +160,22 @@ describe "User pages" do
       visit edit_user_path(user)
     end
 
-    describe "page" do
-      it { should have_content("Update your profile") }
-      it { should have_title("Edit user") }
-      it { should have_link('change', href: 'http://gravatar.com/emails') }
-    end
-
     describe "with invalid information" do
-      before { click_button "Save changes" }
-
+      before do
+        fill_in "user[name]", with: " "
+        click_button "Update my profile"
+      end
+ 
       it { should have_content('error') }
     end
 
     describe "with valid information" do
-      let(:new_name)  { "New Name" }
-      let(:new_email) { "new@example.com" }
       before do
-        fill_in "Name",             with: new_name
-        fill_in "Email",            with: new_email
-        fill_in "Password",         with: user.password
-        fill_in "Confirm Password", with: user.password
-        click_button "Save changes"
+        fill_in "user[name]", with: "BOOMBOOMBOOM"
+        click_button "Update my profile"
       end
 
-      it { should have_title(new_name) }
-      it { should have_selector('div.alert.alert-success') }
-      it { should have_link('Sign out', href: signout_path) }
-      specify { expect(user.reload.name).to  eq new_name }
-      specify { expect(user.reload.email).to eq new_email }
+      it { should have_content("BOOMBOOMBOOM") }
     end
   end
 end

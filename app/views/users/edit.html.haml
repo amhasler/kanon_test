@@ -1,28 +1,66 @@
-- provide(:title, "Edit user")
+- provide(:title, 'Edit your profile')
 - flash.each do |key, value|
   .alert{ class: "alert-#{ key }" }
     = value
-    
-%h1 Update your profile
 
-.row
-  .span6.offset3
-    = form_for(@user) do |f|
-      = render 'shared/error_messages', object: f.object
+.container
+  %h1 Edit your profile
 
-      = f.label :name
-      = f.text_field :name
+  = form_for @user, html: {class: "new-form"} do |f|
+    = render 'shared/error_messages', object: f.object
 
-      = f.label :email
-      = f.text_field :email
+    .row
+      %aside.span6
+        %section
 
-      = f.label :password
-      = f.password_field :password
+          .image-container
+            .fileinput{ :class => (@user.image_url != "default.png" ? "fileinput-exists" : "fileinput-new"), :data => {:provides => "fileinput", :name => "myimage"} }
+              .fileinput-new.thumbnail
+                
+              .fileinput-preview.fileinput-exists.thumbnail
+                -if @user.image?
+                  =image_tag @user.image_url(:index).to_s, class: "artobject_image"
+              %div.image-button-box
+                %span.btn-file
+                  %a.fileinput-new Select image
+                  %a.fileinput-exists Change
+                  =f.file_field :image
 
-      = f.label :password_confirmation, "Confirm Password"
-      = f.password_field :password_confirmation
+        %label User name
+        = f.text_field :name, class: "artobject_input"
 
-      = f.submit "Save changes", class: "btn btn-large btn-primary"
+        %label Email address
+        = f.text_field :email, class: "artobject_input"
 
-    = gravatar_for @user
-    %a{href: "http://gravatar.com/emails"} change
+        = f.label :password
+        = f.password_field :password, class: "artobject_input"
+
+        = f.label :password_confirmation, "Confirm password"
+        = f.password_field :password_confirmation, class: "artobject_input"
+
+      .span6
+
+        .tag-boxes
+          .tags
+            %label Who are some of your favorite creative figures?
+            = f.text_field :creator_list, class: "artobject_tags", data: { pre: @user.creator_list.map {|tag| {:id => tag, :name => tag } }.to_json }
+
+          .tags
+            %label What genres or periods interest you most?
+            = f.text_field :society_list, :class => "artobject_tags", data: { pre: @user.society_list.map {|tag| {:id => tag, :name => tag } }.to_json }
+
+          .tags
+            %label In what languages or cultural contexts were your favorite works made?
+            = f.text_field :language_list, :class => "artobject_tags", data: { pre: @user.language_list.map{|tag| {:id => tag, :name => tag } }.to_json }
+
+          .tags
+            %label From what geographical locations do your favorite works originate?
+            = f.text_field :location_list, :class => "artobject_tags", data: { pre: @user.location_list.map{|tag| {:id => tag, :name => tag } }.to_json }
+
+          .tags
+            %label What media do you most enjoy?
+            = f.text_field :medium_list, :class => "artobject_tags", data: { pre: @user.medium_list.map{|tag| {:id => tag, :name => tag } }.to_json }
+    .row
+      .span12
+        #submit-box
+          = f.submit "Update my profile", class: "button-primary"

@@ -41,6 +41,13 @@
 
 
         .empty-container
-
+          .to-front
+            - if signed_in?
+              - if current_user.admin? or current_user == user
+                .circle-element.done
+                  = link_to "Edit", edit_user_path(user), class: "circleb"      
+              - if current_user.admin? && !user.admin? 
+                .circle-element.delete
+                  = link_to "Delete", user, method: :delete, data: { confirm: "You sure?" }, title: user.name, class: "circleb" 
 
         

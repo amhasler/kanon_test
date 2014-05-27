@@ -56,12 +56,8 @@ describe "ArtobjectPages" do
     describe "when not logged in" do
 
       it { should have_css("#new_artobject") }
-
       it { should_not have_link('Edit', href: edit_artobject_path(id:Artobject.first)) }
-
       it { should_not have_css(".make_favorite") }
-
-
 
     end
 
@@ -117,6 +113,10 @@ describe "ArtobjectPages" do
 
   end
 
+  describe "show" do
+
+  end
+
   describe "new" do
 
     describe "for non-signed-in users" do
@@ -153,12 +153,12 @@ describe "ArtobjectPages" do
       describe "with invalid information" do
 
         it "should not create an artobject" do
-          expect { click_button "Done" }.not_to change(Artobject, :count)        
+          expect { click_button "Create this work" }.not_to change(Artobject, :count)        
 
         end
 
         describe "error messages" do
-          before { click_button "Done" }
+          before { click_button "Create this work" }
           it { should have_content('error') }
         end
 
@@ -183,7 +183,7 @@ describe "ArtobjectPages" do
           fill_in "artobject_society_list", with: societies
           fill_in "artobject_medium_list", with: media
           #fixture_file_upload(Rails.root + 'spec/fixtures/images/test_image.jpg', 'image/png')     
-          click_button "Done"
+          click_button "Create this work"
         end
 
         it { should have_selector('div.alert.alert-success') }
@@ -201,7 +201,7 @@ describe "ArtobjectPages" do
       end
     end
   end
-=begin
+
   describe "edit" do
     let(:user) { FactoryGirl.create(:user) }
     let!(:m1) { FactoryGirl.create(:artobject, user: user, name: "Iliad", minyear: -300, creator_list: "Homer", medium_list: "Lyric") }
@@ -210,7 +210,7 @@ describe "ArtobjectPages" do
       visit edit_artobject_path(m1)
     end
 
-    describe "art object owner should be able to edit art object"
+    describe "art object owner should be able to edit art object" do
       
       before do
         click_link('Edit', match: :first)
@@ -220,6 +220,8 @@ describe "ArtobjectPages" do
 
       it { should have_content("BOOM") }
     end
+
+    #Artobject owner should NOT be able to edit artobject
   end
-=end
+
 end

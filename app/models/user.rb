@@ -1,7 +1,9 @@
-
+require 'file_size_validator' 
 
 class User < ActiveRecord::Base
   include MaxTagSize
+
+  mount_uploader :image, ImageUploader
 
   has_many :artobjects
   has_many :favorites, dependent: :destroy
@@ -15,7 +17,13 @@ class User < ActiveRecord::Base
   									format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
   has_secure_password
-  validates :password, length: { minimum: 6 }
+  validates_presence_of :password, :on => :create
+  validates :password, :length => { minimum: 6 }, :on => :create
+  validate :max_tag_size
+  validates :image, 
+    :file_size => { 
+    :maximum => 4.megabytes.to_i 
+  }
 
   self.per_page = 14
 
@@ -33,9 +41,15 @@ class User < ActiveRecord::Base
     where("lower(name) LIKE ?", "%#{query.downcase}%") 
   end
 
+  def password_required?
+    
+  end
+
   private
 
     def create_remember_token
       self.remember_token = User.encrypt(User.new_remember_token)
     end
+
+    
 end

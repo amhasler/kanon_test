@@ -3,17 +3,21 @@
   .alert{ class: "alert-#{ key }" }
     = value
 
-.row
-  %aside.span4
-    %section
-      %h1
-        = gravatar_for @user
-        = @user.name
+.container
+  %h1= @user.name
 
-  .span8
-    - if @user.artobjects.any?
-      %h3 Art objects (#{ @user.artobjects.count })
-      %ol.artobjects
-        = render @artobjects
+  .row
+    %aside.span6
+      %section.show-form
+        .image-container
+          =image_tag @user.image_url(:index).to_s, class: "artobject_image"
 
-      = will_paginate @artobjects
+        %h2 Contributor since #{ @user.created_at.strftime("%B %Y") }
+
+        %ul
+          %li= link_to "Favorite works", artobjects_user_path(@user)
+
+    .span6
+
+      .tag-boxes
+        %h2 #{@user.name}'s interests

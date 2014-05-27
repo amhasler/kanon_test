@@ -6,12 +6,22 @@ namespace :db do
                          password: "coltrane",
                          password_confirmation: "coltrane",
                          admin: true)
+
+    images = []
+    7.times do |n|
+      images << ImageUploader.new()
+    end
+
     99.times do |n|
-      name  = Faker::Name.name
+      @uploader = ImageUploader.new(n.artobjects, :image)
+      @uploader.cache!(File.open(Rails.root + "spec/fixtures/images/image#{(n.id+6)%7}.jpg"))
+
+      name  = "username#{n*3}"
       email = "example-#{n+1}@PP1.com"
       password  = "password"
       User.create!(name: name,
                    email: email,
+                   image: @uploader,
                    password: password,
                    password_confirmation: password)
     end
