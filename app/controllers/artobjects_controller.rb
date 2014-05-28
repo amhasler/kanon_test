@@ -3,30 +3,6 @@ class ArtobjectsController < ApplicationController
 	before_action :admin_user, only: :destroy
   before_action :object_editor, only: :update
 
-  def create
-  	@artobject = current_user.artobjects.build(artobject_params)
-    if params[:min_bce]
-      @artobject.minyear = @artobject.minyear*-1
-    end
-    if params[:max_bce]
-      @artobject.maxyear = @artobject.maxyear*-1
-    end
-    if @artobject.save
-      flash[:success] = "Art object created!"
-      redirect_to artobjects_url
-    else
-      render 'new'
-    end
-  end
-
-  def new
-    @artobject = Artobject.new
-  end
-
-  def edit
-    @artobject = Artobject.find(params[:id])
-  end
-
   def index
     @artobjects = Artobject.paginate(page: params[:page])
     if params[:tags] && !params[:tags].empty?
@@ -51,6 +27,34 @@ class ArtobjectsController < ApplicationController
     render 'index'
   end
 
+  def show
+    @artobject = Artobject.find(params[:id])
+  end
+
+  def create
+  	@artobject = current_user.artobjects.build(artobject_params)
+    if params[:min_bce]
+      @artobject.minyear = @artobject.minyear*-1
+    end
+    if params[:max_bce]
+      @artobject.maxyear = @artobject.maxyear*-1
+    end
+    if @artobject.save
+      flash[:success] = "Art object created!"
+      redirect_to artobjects_url
+    else
+      render 'new'
+    end
+  end
+
+  def new
+    @artobject = Artobject.new
+  end
+
+  def edit
+    @artobject = Artobject.find(params[:id])
+  end
+
   def update
     @artobject = Artobject.find(params[:id])
     if @artobject.update_attributes(artobject_params)
@@ -68,6 +72,8 @@ class ArtobjectsController < ApplicationController
       render 'index'
     end
   end
+
+  
 
   def destroy
     @artobject.destroy

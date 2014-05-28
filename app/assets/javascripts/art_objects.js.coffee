@@ -27,7 +27,6 @@ jQuery ->
     })
 
   $(".favorite_box").bind('change', ->
-    alert('change')
     if @.checked
       $.ajax
         url: '/favorites/',

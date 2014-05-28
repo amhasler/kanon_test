@@ -3,14 +3,14 @@
   .alert{ class: "alert-#{ key }" }
     = value
 
-.container
+.container.show-new-container
   %h1 Sign up
 
   = form_for @user, html: {class: "new-form"} do |f|
     = render 'shared/error_messages', object: f.object
 
     .row
-      %aside.span6
+      %aside.span5.offset1
         %section
 
           .image-container
@@ -38,7 +38,7 @@
         = f.label :password_confirmation, "Confirm password"
         = f.password_field :password_confirmation, class: "artobject_input"
 
-      .span6
+      .span5
 
         .tag-boxes
           .tags

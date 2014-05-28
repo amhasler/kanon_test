@@ -1,29 +1,33 @@
-- provide(:title, @user.name )
+- provide(:title, "#{@user.name}'s Favorites" )
 - flash.each do |key, value|
   .alert{ class: "alert-#{ key }" }
     = value
 
-%h1 Works that #{ @user.name } loves
 
-- if @artobjects
-  .row
-    %ol.tile-container#artobject_container
-      = render @artobjects
+.top-bar
+  .container.show-new-container
+    .row
+      .span12
+        - flash.each do |key, value|
+          .alert{ class: "alert-#{ key }" }
+            = value
+
+    .row
+      %aside.span8.offset2
+        %h1 #{ @user.name }'s Favorites
+        #cta
+          %h2#new_artobject Want to find more works you'll love? #{ link_to "See all works", artobjects_path }
+
+.bottom-bar
+  .container
+    .row
+      %ol.tile-container#artobject_container
+        - if @artobjects.nil?
+          .span8
+            %h1 We didn't find any favorites.
+            %p This is your chance to add a work that we're missing! Or you can always #{ link_to "start over", artobjects_path }.
+
+        - else
+          = render @artobjects
 
 
-= javascript_tag do
-  $(".favorite_box").bind('change', function(){
-  if (this.checked) {
-  $.ajax({
-  url: '/favorites/',
-  type: 'POST',
-  data: {"artobject": this.id, "user": #{current_user.id} }
-  });
-  } else {
-  $.ajax({
-  url: '/favorites/' + this.id,
-  type: 'DELETE',
-  data: {"artobject": this.id, "user": #{current_user.id} }
-  });
-  }
-  });

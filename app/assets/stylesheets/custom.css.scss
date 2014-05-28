@@ -21,7 +21,7 @@ $red: rgb(215,25,32);
 }
 
 /* Universal */
-html,body {
+html, body {
   height:100%;
 }
 
@@ -31,7 +31,6 @@ html {
 
 body {
   font-size: 18px;
-  padding-top:60px;
 }
 
 section {
@@ -40,12 +39,6 @@ section {
 
 textarea {
   resize: vertical;
-}
-
-.main-container {
-  height:100%;
-  margin-bottom:-100px;
-  min-height:700px;
 }
 
 .center {
@@ -65,8 +58,6 @@ textarea {
     text-decoration: none;
   }
 }
-
-
 
 /* Typography */
 
@@ -578,36 +569,6 @@ ol.tile-container {
       margin:0 auto;
     }
   }
-  
-  .inner-tag-container {
-    width:100%;
-    height:100%;
-    padding-top:10px;
-    a {
-      background:$red;
-      color:white;
-      line-height: 1.5em;
-      padding:1px;
-      text-decoration:none;
-    }
-    .title {
-      position:absolute;
-      bottom:30px;
-      left:-20px;
-      text-align:center;
-      max-width:100px;
-    }
-    .tags{
-      float: left;
-      display:block;
-      margin:20px 20px 0px;
-      width:80%;
-      height:100%;
-      textarea {
-        height:80%;
-      }
-    }
-  }
 
   .empty-container {
     position:absolute;
@@ -663,6 +624,36 @@ ol.tile-container {
     -ms-transform: rotate(90deg);
     -o-transform: rotate(90deg);
     transform: rotate(90deg);
+  }
+}
+
+.inner-tag-container {
+  width:100%;
+  height:100%;
+  padding-top:10px;
+  a {
+    background:$red;
+    color:white;
+    line-height: 1.5em;
+    padding:1px;
+    text-decoration:none;
+  }
+  .title {
+    position:absolute;
+    bottom:30px;
+    left:-20px;
+    text-align:center;
+    max-width:100px;
+  }
+  .tags{
+    float: left;
+    display:block;
+    margin:20px 20px 0px;
+    width:80%;
+    height:100%;
+    textarea {
+      height:80%;
+    }
   }
 }
 
@@ -909,7 +900,6 @@ ol.tile-container {
 }
 
 .new-form, .show-form {
-  width:100%;
   section {
     overflow: hidden;
   }
@@ -955,6 +945,7 @@ ol.tile-container {
     box-shadow: inset 0 1px rgba(255,255,255,0.2),0 1px 2px #7082a3;
     background-color:#99ADCF;
     padding:20px 10px;
+    
   }
   .artobject_input {
     border: 1px solid #8496ba;
@@ -972,6 +963,7 @@ ol.tile-container {
       text-decoration:none;
       float:none;
       display:block;
+      margin:auto;
     }
   }
   a.fileinput-exists {
@@ -980,9 +972,11 @@ ol.tile-container {
 }
 
 .show-form {
-  h2 {
-    text-align:center;
-    padding-top:20px;
+  section {
+    h2, p {
+      text-align:center;
+      padding-top: 20px;
+    }
   }
   ul {
     text-align:center;
@@ -990,7 +984,32 @@ ol.tile-container {
     padding-top:20px;
     margin:0px;
   }
+  .show-tags {
+    display: table; 
+    margin: 0 auto;
+    padding-left:-10px;
+    a {
+      margin-left:10px;
+    }
+  }
+  padding-top: 50px;
+  .button-primary {
+    color:white;
+    background:$darkBlue;
+    text-decoration:none;
+    float:none;
+    display:table;
+    margin:auto;
+  }
 }
+
+.show-new-container {
+  height:95%;
+  margin-bottom: -40px;
+  padding-top:40px;
+}
+
+
 
 
 

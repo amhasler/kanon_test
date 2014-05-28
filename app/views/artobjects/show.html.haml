@@ -1,0 +1,56 @@
+- provide(:title, @artobject.name)
+
+
+.container.show-new-container
+  .row
+    .span12
+      - flash.each do |key, value|
+        .alert{ class: "alert-#{ key }" }
+          = value
+
+  .row
+    %aside.span8.offset2
+      %h1 #{ @artobject.name }
+      #cta
+        %h2#new_artobject #{ link_to "See all the fans", artobjects_user_path(@artobject) } of #{ @artobject.name }
+
+
+  .row.show-form
+    %aside.span4.offset2
+      %section
+        .image-container
+          =image_tag @artobject.image_url(:index).to_s, class: "artobject_image"
+        %p.timestamp= date_maker(@artobject)
+
+        - if signed_in?
+          - if current_user.admin? or current_user == @artobject.user
+            = link_to "Edit Profile", edit_artobject_path(@artobject), class: "button-primary"
+
+    .span4
+
+      .inner-tag-container.center
+        -if @artobject.creator_list.count > 0
+          %h2 Creators 
+          .show-tags
+            - @artobject.creator_list.each do |t| 
+              #{ link_to t, artobjects_path(params.merge(:tags =>  t)), class: "creator-list-tag" }
+        -if @artobject.society_list.count > 0
+          %h2 Genres and Periods
+          .show-tags
+            - @artobject.society_list.each do |t|
+              =link_to t, artobjects_path(params.merge(:tags => t)), class: "society-list-tag"
+        -if @artobject.language_list.count > 0
+          %h2 Cultures and languages
+          .show-tags
+            - @artobject.language_list.each do |t|
+              =link_to t, artobjects_path(params.merge(:tags => t)), class: "language-list-tag"
+        -if @artobject.location_list.count > 0
+          %h2 Places
+          .show-tags
+            - @artobject.location_list.each do |t|
+              = link_to t, artobjects_path(params.merge(:tags => t)), class: "location-list-tag"
+        -if @artobject.medium_list.count > 0
+          %h2 Media
+          .show-tags
+            - @artobject.medium_list.each do |t|
+              = link_to t, artobjects_path(params.merge(:tags => t)), class: "media-list-tag"

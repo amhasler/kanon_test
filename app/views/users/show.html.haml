@@ -1,23 +1,56 @@
 - provide(:title, @user.name)
-- flash.each do |key, value|
-  .alert{ class: "alert-#{ key }" }
-    = value
 
-.container
-  %h1= @user.name
+
+.container.show-new-container
+  .row
+    .span12
+      - flash.each do |key, value|
+        .alert{ class: "alert-#{ key }" }
+          = value
 
   .row
-    %aside.span6
-      %section.show-form
+    %aside.span8.offset2
+      %h1 #{ @user.name }
+      #cta
+        %h2#new_artobject Check out #{ link_to "this contributor's favorite works", artobjects_user_path(@user) }
+
+
+  .row.show-form
+    %aside.span4.offset2
+      %section
         .image-container
           =image_tag @user.image_url(:index).to_s, class: "artobject_image"
+        %p Contributor since #{ @user.created_at.strftime("%B %Y") }
 
-        %h2 Contributor since #{ @user.created_at.strftime("%B %Y") }
+      - if signed_in?
+        - if current_user.admin? or current_user == @user
+          = link_to "Edit Profile", edit_user_path(@user), class: "button-primary"
 
-        %ul
-          %li= link_to "Favorite works", artobjects_user_path(@user)
+    .span4
 
-    .span6
-
-      .tag-boxes
-        %h2 #{@user.name}'s interests
+      .inner-tag-container
+        -if @user.creator_list.count > 0
+          %h2.center Creators 
+          .show-tags
+            - @user.creator_list.each do |t| 
+              #{ link_to t, users_path(params.merge(:tags =>  t)), class: "creator-list-tag" }
+        -if @user.society_list.count > 0
+          %h2 Genres and Periods
+          .show-tags
+            - @user.society_list.each do |t|
+              =link_to t, users_path(params.merge(:tags => t)), class: "society-list-tag"
+        -if @user.language_list.count > 0
+          %h2 Cultures and languages
+          .show-tags
+            - @user.language_list.each do |t|
+              =link_to t, users_path(params.merge(:tags => t)), class: "language-list-tag"
+        -if @user.location_list.count > 0
+          %h2 Places
+          .show-tags
+            - @user.location_list.each do |t|
+              = link_to t, users_path(params.merge(:tags => t)), class: "location-list-tag"
+        -if @user.medium_list.count > 0
+          %h2 Media
+          .show-tags
+            - @user.medium_list.each do |t|
+              = link_to t, users_path(params.merge(:tags => t)), class: "media-list-tag"
