@@ -1,10 +1,30 @@
-- provide(:title, 'Fans')
-- flash.each do |key, value|
-  .alert{ class: "alert-#{ key }" }
-    = value
-
-%h1 Users who love #{ @artobject.name }
+- provide(:title, "#{@artobject.name}'s Fans" )
 
 
-%ul.users
-  = render @users
+.top-bar
+  .container.show-new-container
+    .row
+      .span12
+        - flash.each do |key, value|
+          .alert{ class: "alert-#{ key }" }
+            = value
+
+    .row
+      %aside.span8.offset2
+        %h1 #{@artobject.name}'s Fans
+        #cta
+          %h2#new_artobject Want to find more contributors with interests like yours? #{ link_to "See all contributors", users_path }
+
+.bottom-bar
+  .container
+    .row
+      %ol.tile-container#artobject_container
+        - if @users.empty?
+          .span8
+            %h1 We didn't find any favorites.
+            %p This is your chance to add a work that we're missing! Or you can always #{ link_to "start over", artobjects_path }.
+
+        - else
+          = render @users
+
+

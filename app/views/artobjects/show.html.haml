@@ -12,7 +12,7 @@
     %aside.span8.offset2
       %h1 #{ @artobject.name }
       #cta
-        %h2#new_artobject #{ link_to "See all the fans", artobjects_user_path(@artobject) } of #{ @artobject.name }
+        %h2#new_artobject #{ link_to "See all the fans", users_artobject_path(@artobject) } of #{ @artobject.name }
 
 
   .row.show-form

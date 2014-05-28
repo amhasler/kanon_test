@@ -1,7 +1,4 @@
 - provide(:title, "#{@user.name}'s Favorites" )
-- flash.each do |key, value|
-  .alert{ class: "alert-#{ key }" }
-    = value
 
 
 .top-bar
@@ -22,7 +19,7 @@
   .container
     .row
       %ol.tile-container#artobject_container
-        - if @artobjects.nil?
+        - if @artobjects.count == 0
           .span8
             %h1 We didn't find any favorites.
             %p This is your chance to add a work that we're missing! Or you can always #{ link_to "start over", artobjects_path }.
