@@ -20,9 +20,8 @@
     .row
       %ol.tile-container#artobject_container
         - if @artobjects.count == 0
-          .span8
-            %h1 We didn't find any favorites.
-            %p This is your chance to add a work that we're missing! Or you can always #{ link_to "start over", artobjects_path }.
+          %h1 We didn't find any favorites.
+          %p.center This is your chance to add a work that we're missing! Or you can always #{ link_to "start over", artobjects_path }.
 
         - else
           = render @artobjects

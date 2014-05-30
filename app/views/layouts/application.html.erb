@@ -12,13 +12,24 @@
   <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
   <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+    
+</script>
 </head>
 <body>
-  <%= render "layouts/header" %>
+  <div id="wrap" class="push">
+    <%= render "layouts/nav" %>
+    <%= render "layouts/header" %>
+    
+    <div id="main" class="clear-top">
+      
+      <%= yield %>
+    </div>
 
-    <%= yield %>
+    
 
-  <%= render "layouts/footer" %>
+    <%= render "layouts/footer" %>
+  </div>
 
 </body>
 </html>

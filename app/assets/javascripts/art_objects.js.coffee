@@ -1,4 +1,8 @@
 jQuery ->
+
+  $('.menu-link').bigSlide();
+
+
   $('.flip_back').click ->
     $(@).parents('.card').addClass('flipped')
   $('.flip_front').click ->

@@ -32,7 +32,7 @@
         - if @users.empty?
           .span8
             %h1 We didn't find anything that matched your search.
-            %p This is your chance to add a work that we're missing! Or you can always #{ link_to "start over", users_path }.
+            %p This is your chance to #{ link_to "add a work", new_artobject_path } that matches your request! Or you can always #{ link_to "start over", users_path }.
 
         - else
           = render @users

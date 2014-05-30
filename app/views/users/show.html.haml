@@ -30,7 +30,7 @@
 
       .inner-tag-container
         -if @user.creator_list.count > 0
-          %h2.center Creators 
+          %h2 Creators 
           .show-tags
             - @user.creator_list.each do |t| 
               #{ link_to t, users_path(params.merge(:tags =>  t)), class: "creator-list-tag" }

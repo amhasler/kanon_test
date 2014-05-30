@@ -14,7 +14,7 @@
                   
           .inner-text-container
             .center
-              = link_to artobject.name, users_artobject_path(artobject), class: "name" 
+              = link_to artobject.name, artobject_path(artobject), class: "name" 
               %p.timestamp= date_maker(artobject)
 
           .bottom-link-box

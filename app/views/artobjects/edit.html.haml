@@ -1,66 +1,70 @@
 - provide(:title, 'Edit Work')
 
-%h1 Edit #{@artobject.name}
+.container.show-new-container
+  %h1 Edit #{@artobject.name}
 
-= form_for @artobject, html: {class: "new-form"} do |f|
-  = render 'shared/error_messages', object: f.object
+  = form_for @artobject, html: {class: "new-form"} do |f|
+    = render 'shared/error_messages', object: f.object
 
-  .row
-    %aside.span5.offset1
-      %section
+    .row
+      %aside.span5.offset1
+        %section
 
-        .image-container
-          .fileinput{ :class => (@artobject.image_url != "default.png" ? "fileinput-exists" : "fileinput-new"), :data => {:provides => "fileinput", :name => "myimage"} }
-            .fileinput-new.thumbnail
-              
-            .fileinput-preview.fileinput-exists.thumbnail
-              -if @artobject.image?
-                =image_tag @artobject.image_url(:index).to_s, class: "artobject_image"
-            %div.image-button-box
-              %span.btn-file
-                %a.fileinput-new Select image
-                %a.fileinput-exists Change
-                =f.file_field :image
+          .image-container
+            .fileinput{ :class => (@artobject.image_url != "default.png" ? "fileinput-exists" : "fileinput-new"), :data => {:provides => "fileinput", :name => "myimage"} }
+              .fileinput-new.thumbnail
+                
+              .fileinput-preview.fileinput-exists.thumbnail
+                -if @artobject.image?
+                  =image_tag @artobject.image_url(:index).to_s, class: "artobject_image"
+              %div.image-button-box
+                %span.btn-file
+                  %a.fileinput-new Select image
+                  %a.fileinput-exists Change
+                  =f.file_field :image
+          .search-box
+            %label Name or title
+            = f.text_field :name, class: "artobject_input"
 
-        %label Name or title
-        = f.text_field :name, class: "artobject_input"
+            .date-fields
+              %label Date of origin
+              .date-field.min-date
+                = f.text_field :minyear, value: @artobject.minyear ? @artobject.minyear.abs : nil, class: "artobject_input"
+                .checkbox
+                  %label
+                    = check_box_tag :min_bce, @artobject.minyear && @artobject.minyear<0, @artobject.minyear && @artobject.minyear<0
+                    BCE
+              .date-field#max-date
+                = link_to "Range?", "#", id: "max-date-trigger"
 
-        .date-fields
-          %label Date of origin
-          .date-field.min-date
-            = f.text_field :minyear, value: @artobject.minyear ? @artobject.minyear.abs : nil, class: "artobject_input"
-            .checkbox
-              %label
-                = check_box_tag :min_bce, @artobject.minyear && @artobject.minyear<0, @artobject.minyear && @artobject.minyear<0
-                BCE
-          .date-field#max-date
-            = link_to "Range?", "#", id: "max-date-trigger"
+          = link_to "Want to delete this work?", @artobject, method: :delete, data: { confirm: "You sure?" }, title: @artobject.name
 
-    .span5
-      
-      .tag-boxes
-        .tags
-          %label Who created it?
-          = f.text_field :creator_list, class: "artobject_tags", data: { pre: @artobject.creator_list.map {|tag| {:id => tag, :name => tag } }.to_json }
 
-        .tags
-          %label In what genres or periods do we now classify it?
-          = f.text_field :society_list, :class => "artobject_tags", data: { pre: @artobject.society_list.map {|tag| {:id => tag, :name => tag } }.to_json }
+      .span5
+        
+        .tag-boxes
+          .tags
+            %label Who created it?
+            = f.text_field :creator_list, class: "artobject_tags", data: { pre: @artobject.creator_list.map {|tag| {:id => tag, :name => tag } }.to_json }
 
-        .tags
-          %label In what language or cultural context did its creator make it?
-          = f.text_field :language_list, :class => "artobject_tags", data: { pre: @artobject.language_list.map{|tag| {:id => tag, :name => tag } }.to_json }
+          .tags
+            %label In what genres or periods do we now classify it?
+            = f.text_field :society_list, :class => "artobject_tags", data: { pre: @artobject.society_list.map {|tag| {:id => tag, :name => tag } }.to_json }
 
-        .tags
-          %label With what geographical locations is it associated?
-          = f.text_field :location_list, :class => "artobject_tags", data: { pre: @artobject.location_list.map{|tag| {:id => tag, :name => tag } }.to_json }
+          .tags
+            %label In what language or cultural context did its creator make it?
+            = f.text_field :language_list, :class => "artobject_tags", data: { pre: @artobject.language_list.map{|tag| {:id => tag, :name => tag } }.to_json }
 
-        .tags
-          %label What medium/media does it employ?
-          = f.text_field :medium_list, :class => "artobject_tags", data: { pre: @artobject.medium_list.map{|tag| {:id => tag, :name => tag } }.to_json }
+          .tags
+            %label With what geographical locations is it associated?
+            = f.text_field :location_list, :class => "artobject_tags", data: { pre: @artobject.location_list.map{|tag| {:id => tag, :name => tag } }.to_json }
 
-  .row
-    .span10.offset1
-      #submit-box
-        = f.submit "Save changes", class: "button-primary"
+          .tags
+            %label What medium/media does it employ?
+            = f.text_field :medium_list, :class => "artobject_tags", data: { pre: @artobject.medium_list.map{|tag| {:id => tag, :name => tag } }.to_json }
+
+    .row
+      .span10.offset1
+        #submit-box
+          = f.submit "Save changes", class: "button-primary"
         

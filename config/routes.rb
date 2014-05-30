@@ -11,6 +11,7 @@ KanonTest::Application.routes.draw do
     end
   end
   resources :sessions, only: [:new, :create, :destroy]
+
   resources :artobjects do
     member do
       get 'users'

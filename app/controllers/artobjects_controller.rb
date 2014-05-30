@@ -1,7 +1,6 @@
 class ArtobjectsController < ApplicationController
 	before_action :signed_in_user, only: [:new, :create, :destroy]
-	before_action :admin_user, only: :destroy
-  before_action :object_editor, only: :update
+  before_action :object_editor, only: [:edit, :update, :destroy]
 
   def index
     @artobjects = Artobject.paginate(page: params[:page])
@@ -29,6 +28,7 @@ class ArtobjectsController < ApplicationController
 
   def show
     @artobject = Artobject.find(params[:id])
+    add_breadcrumb @artobject.name, artobject_path(@artobject)
   end
 
   def create
@@ -49,10 +49,13 @@ class ArtobjectsController < ApplicationController
 
   def new
     @artobject = Artobject.new
+    add_breadcrumb "New", :new_artobject_path
   end
 
   def edit
     @artobject = Artobject.find(params[:id])
+    add_breadcrumb @artobject.name, artobject_path(@artobject)
+    add_breadcrumb "Edit", edit_artobject_path(@artobject)
   end
 
   def update
@@ -76,13 +79,17 @@ class ArtobjectsController < ApplicationController
   
 
   def destroy
+    @artobject = Artobject.find(params[:id])
     @artobject.destroy
+    flash[:success] = "Work deleted."
     redirect_to artobjects_url
   end
 
   def users
     @artobject = Artobject.find(params[:id])
     @users = @artobject.favorited
+    add_breadcrumb @artobject.name, artobject_path(@artobject)
+    add_breadcrumb "Fans", users_artobject_path(@artobject)
   end
 
   private

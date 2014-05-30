@@ -17,6 +17,7 @@ class Artobject < ActiveRecord::Base
 	    :maximum => 4.megabytes.to_i 
 	}
 	validate :max_tag_size
+	validate :validate_min_date, :if => :minyear
 	
 	self.per_page = 14
 
@@ -25,4 +26,10 @@ class Artobject < ActiveRecord::Base
 	def self.search(query)
 	  where("lower(name) LIKE ?", "%#{query.downcase}%") 
 	end
+
+	private
+
+		def validate_min_date
+		  errors.add("Work's year of origin", "must be at least 30 years in the past.") if (self.minyear - Time.now.year) > -30
+		end
 end

@@ -16,4 +16,6 @@
 //= require turbolinks
 //= require bootstrap-fileupload
 //= require jquery.tokeninput
+//= require jquery.big-slide
+
 //= require_tree .

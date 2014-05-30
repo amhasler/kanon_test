@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
   before_action :signed_in_user, only: [:edit, :update, :index, :destroy ]
-  before_action :correct_user,   only: [:edit, :update]
-  before_action :admin_user,     only: :destroy
+  before_action :correct_user,   only: [:edit, :update, :destroy ]
   
   def index
     @users = User.paginate(page: params[:page])
@@ -27,10 +26,12 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    add_breadcrumb @user.name, user_path(@user)
   end
 
   def new
     @user = User.new
+    add_breadcrumb "New", :new_user_path
   end
 
   def create
@@ -45,6 +46,9 @@ class UsersController < ApplicationController
   end
 
   def edit
+    @user = User.find(params[:id])
+    add_breadcrumb @user.name, user_path(@user)
+    add_breadcrumb "Edit", edit_user_path(@user)
   end
 
   def update
@@ -57,22 +61,23 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    logger.debug('fire1')
     @user = User.find(params[:id])
     if @user.artobjects.count > 0
-      logger.debug('fire2')
       @user.artobjects.each do |a|
         a.update_attributes(user_id:nil)
+        a.save
       end
     end
     @user.destroy
-    flash[:success] = "User deleted."
+    flash[:success] = "Contributor deleted."
     redirect_to users_url
   end
 
   def artobjects
     @user = User.find(params[:id])
     @artobjects = @user.favorite_objects
+    add_breadcrumb @user.name, user_path(@user)
+    add_breadcrumb "Favorite Works", artobjects_user_path(@user)
   end
 
   private
@@ -86,10 +91,7 @@ class UsersController < ApplicationController
 
     def correct_user
       @user = User.find(params[:id])
-      redirect_to(root_url) unless current_user?(@user)
+      redirect_to(root_url) unless current_user?(@user) || current_user.admin?
     end
 
-    def admin_user
-      redirect_to(root_url) unless current_user.admin?
-    end
 end

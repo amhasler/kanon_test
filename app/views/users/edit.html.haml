@@ -3,7 +3,7 @@
   .alert{ class: "alert-#{ key }" }
     = value
 
-.container
+.container.show-new-container
   %h1 Edit your profile
 
   = form_for @user, html: {class: "new-form"} do |f|
@@ -26,17 +26,21 @@
                   %a.fileinput-exists Change
                   =f.file_field :image
 
-        %label User name
-        = f.text_field :name, class: "artobject_input"
+        .search-box
+          %label User name
+          = f.text_field :name, class: "artobject_input"
 
-        %label Email address
-        = f.text_field :email, class: "artobject_input"
+          %label Email address
+          = f.text_field :email, class: "artobject_input"
 
-        = f.label :password
-        = f.password_field :password, class: "artobject_input"
+          = f.label :password
+          = f.password_field :password, class: "artobject_input"
 
-        = f.label :password_confirmation, "Confirm password"
-        = f.password_field :password_confirmation, class: "artobject_input"
+          = f.label :password_confirmation, "Confirm password"
+          = f.password_field :password_confirmation, class: "artobject_input"
+
+        
+        = link_to "Want to delete your profile?", @user, method: :delete, data: { confirm: "You sure?" }, title: @user.name
 
       .span6
 
