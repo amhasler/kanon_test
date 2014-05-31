@@ -11,6 +11,11 @@
                 = check_box_tag "favorite", :favorite, Favorite.where(user_id:current_user.id, artobject_id:artobject.id).exists?, id: "#{artobject.id}", class: "favorite_box vis-hidden"
                 %label{for: "#{artobject.id}"}
                   %i.fa.fa-heart
+            - else
+              .make_favorite
+                = link_to login_path do
+                  %i.fa.fa-heart
+
                   
           .inner-text-container
             .center

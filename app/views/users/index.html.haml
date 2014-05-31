@@ -21,8 +21,8 @@
               = f.submit "Submit"
               = link_to "Reset", artobjects_path
         #cta
-        - if signed_in?
-          %h2#new_artobject Want others to discover you by your interests? #{ link_to "Add or change interests", edit_user_path(current_user) }
+          - if signed_in?
+            %h2#new_artobject Want others to discover you by your interests? #{ link_to "Add or change interests", edit_user_path(current_user) }
 
 
 .bottom-bar

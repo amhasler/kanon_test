@@ -13,8 +13,8 @@ namespace :db do
     end
 
     99.times do |n|
-      @uploader = ImageUploader.new(n.artobjects, :image)
-      @uploader.cache!(File.open(Rails.root + "spec/fixtures/images/image#{(n.id+6)%7}.jpg"))
+      @uploader = ImageUploader.new(n, :image)
+      @uploader.cache!(File.open(Rails.root + "spec/fixtures/images/image#{rand(6)+1}.jpg"))
 
       name  = "username#{n*3}"
       email = "example-#{n+1}@PP1.com"
@@ -47,6 +47,11 @@ namespace :db do
         language_list: tags[rand(6)], 
         medium_list: tags[rand(6)]
       )
+    end
+
+    User.all.each do |n|
+      n.favorite_objects << Artobject.find(rand(50)+1)
+      n.favorite_objects << Artobject.find(rand(51..100))
     end
   end
 end

@@ -1,27 +1,25 @@
 %nav#menu.panel{role:"navigation"}
-  - if signed_in?
-    %p #{ link_to current_user.name, user_path(current_user) }
-    = link_to "Log out", signout_path, method: "delete", class: "button-primary"
-  - else
-    = link_to "Sign up", signup_path, class: "button-primary"
-    = link_to "Log in", login_path, class: "button-primary"
+  .user-block
+    - if signed_in?
+      .image-container
+        =image_tag current_user.image_url(:index).to_s, class: "artobject_image"
+      .user-container
+        %h2 #{ link_to current_user.name, user_path(current_user) }
+        = link_to "Log out", signout_path, method: "delete", class: "button-primary"
+    - else
+      = link_to "Sign up", signup_path, class: "button-primary center"
+      = link_to "Log in", login_path, class: "button-primary center"
     
   %ul.nav.nav-stacked.bcs
     %li #{ link_to "Page One", root_path }
     %div{class: params[:controller]=="users" ? "active" : nil }
       %li #{ link_to "Contributors", users_path }
       - if params[:controller]=="users"
-        = render_breadcrumbs tag: :li, separator: " "
+        = render_breadcrumbs tag: :li, separator: ""
     %div{class: params[:controller]=="artobjects" ? "active" : nil }
       %li #{ link_to "Works", artobjects_path }
       - if params[:controller]=="artobjects"
-        = render_breadcrumbs tag: :li, separator: " "
-
+        = render_breadcrumbs tag: :li, separator: ""
+  
+  .nav-cta
     = link_to "Add a new work", new_artobject_path, class: "button-primary"
-
-
-    /
-    /
-    /
-    /<ol class="breadcrumb">
-      
