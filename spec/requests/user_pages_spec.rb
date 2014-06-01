@@ -82,25 +82,26 @@ describe "User pages" do
     it { should have_content("Rhetoric") }
     it { should have_content("Writing") }
     it { should have_content("Writing") }
-    it { should have_link('See all works created', href: artobjects_user_path(user)) }
-    it { should have_link('See all favorites', href: favorites_user_path(user)) }
-    it { should_not have_link('Edit profile', href: favorites_user_path(user)) }
+    it { should have_link("this contributor's favorite works", href: artobjects_user_path(user)) }
+    it { should_not have_link('Edit Profile', href: artobjects_user_path(user)) }
 
     describe "when logged in as user" do
 
       before { log_in user }
       before { visit user_path(user) }
 
-      it { should have_link('Edit profile', href: favorites_user_path(user)) }
+      it { should have_link('Edit Profile', href: edit_user_path(user)) }
 
     end
 
     describe "when logged in as admin" do
+      let(:admin) { FactoryGirl.create(:admin) }
+      before do 
+        log_in admin
+        visit user_path(user)
+      end
 
-      before { log_in admin }
-      before { visit user_path(user) }
-
-      it { should have_link('Edit profile', href: favorites_user_path(user)) }
+      it { should have_link('Edit Profile', href: edit_user_path(user)) }
 
     end
 
@@ -144,7 +145,7 @@ describe "User pages" do
         before { click_button submit }
         let(:user) { User.find_by(email: 'user@example.com') }
 
-        it { should have_link('Sign out') }
+        it { should have_link('Log out') }
         it { should have_title("All works") }
         it { should have_selector('div.alert.alert-success', text: 'Welcome') }
 

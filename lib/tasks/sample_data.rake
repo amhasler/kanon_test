@@ -22,17 +22,16 @@ namespace :db do
       email = "example-#{n+1}@PP1.com"
       password  = "password"
       User.create!(name: name,
-                   email: email,
-                   image: @uploader,
-                   password: password,
-                   password_confirmation: password),
-                    creator_list: tags[rand(6)], 
-                    location_list: tags[rand(6)], 
-                    society_list: tags[rand(6)], 
-                    language_list: tags[rand(6)], 
-                    medium_list: tags[rand(6)]
-                    )
-                end
+                  email: email,
+                  image: @uploader,
+                  password: password,
+                  password_confirmation: password,
+                  creator_list: tags[rand(6)], 
+                  location_list: tags[rand(6)], 
+                  society_list: tags[rand(6)], 
+                  language_list: tags[rand(6)], 
+                  medium_list: tags[rand(6)])
+    end
 
     
 

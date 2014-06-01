@@ -25,7 +25,7 @@
     .row
       %ol.tile-container#artobject_container
         - if @artobjects.empty?
-          .span8
+          .span8.offset2
             %h1 We didn't find anything that matched your search.
             %p This is your chance to add a work that we're missing! Or you can always #{ link_to "start over", artobjects_path }.
 

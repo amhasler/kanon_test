@@ -57,7 +57,7 @@ describe "ArtobjectPages" do
 
       it { should have_css("#new_artobject") }
       it { should_not have_link('Edit', href: edit_artobject_path(id:Artobject.first)) }
-      it { should_not have_css(".make_favorite") }
+      it { should_not have_css(".favorite_box") }
 
     end
 
@@ -213,9 +213,8 @@ describe "ArtobjectPages" do
     describe "art object owner should be able to edit art object" do
       
       before do
-        click_link('Edit', match: :first)
         fill_in "artobject_name", with: "BOOM"
-        click_button "Done"
+        click_button "Save changes"
       end
 
       it { should have_content("BOOM") }

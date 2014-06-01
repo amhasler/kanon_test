@@ -11,7 +11,7 @@ describe "Static pages" do
 
   describe "Home page" do
     before { visit root_path }
-    let(:heading)    { 'Project Page One' }
+    let(:heading)    { 'Page One' }
     let(:page_title) { '' }
 
     it_should_behave_like "all static pages"
@@ -39,7 +39,7 @@ describe "Static pages" do
     expect(page).to have_title(full_title('About'))
     click_link "Contact"
     expect(page).to have_title(full_title('Contact'))
-    click_link "PP1"
+    click_link "P1"
     expect(page).to have_title(full_title(''))
   end
 

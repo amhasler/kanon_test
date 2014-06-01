@@ -1,4 +1,3 @@
-- provide(:title, "Page One")
 
 .top-bar
   .container
@@ -10,8 +9,9 @@
 
     .row
       %aside.span8.offset2
+        %h1 Page One
         .search-box
-          %h1 What's your favorite cultural work in history?
+          %h1 What's your favorite cultural work from history?
           = form_for :artobject, :url => { :action => "index", controller: "artobjects" }, html: { method: :get } do |f|
             = f.text_field :name
 

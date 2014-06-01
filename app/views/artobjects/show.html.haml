@@ -24,7 +24,7 @@
 
         - if signed_in?
           - if current_user.admin? or current_user == @artobject.user
-            = link_to "Edit Profile", edit_artobject_path(@artobject), class: "button-primary"
+            = link_to "Edit Work", edit_artobject_path(@artobject), class: "button-primary"
 
     .span4
 
