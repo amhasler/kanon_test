@@ -12,9 +12,11 @@ namespace :db do
       images << ImageUploader.new()
     end
 
+    tags = ["Plato", "Socrates", "Greece", "Athens", "Attica", "Rhetoric", "Writing"]
+
     99.times do |n|
       @uploader = ImageUploader.new(n, :image)
-      @uploader.cache!(File.open(Rails.root + "spec/fixtures/images/image#{rand(6)+1}.jpg"))
+      @uploader.cache!(File.open(Rails.root + "spec/fixtures/images/image#{(n.id+6)%7}.jpg"))
 
       name  = "username#{n*3}"
       email = "example-#{n+1}@PP1.com"
@@ -23,15 +25,16 @@ namespace :db do
                    email: email,
                    image: @uploader,
                    password: password,
-                   password_confirmation: password)
-    end
+                   password_confirmation: password),
+                    creator_list: tags[rand(6)], 
+                    location_list: tags[rand(6)], 
+                    society_list: tags[rand(6)], 
+                    language_list: tags[rand(6)], 
+                    medium_list: tags[rand(6)]
+                    )
+                end
 
-    images = []
-    7.times do |n|
-      images << ImageUploader.new()
-    end
-
-    tags = ["Plato", "Socrates", "Greece", "Athens", "Attica", "Rhetoric", "Writing"]
+    
 
     User.all.each do |n|
       @uploader = ImageUploader.new(n.artobjects, :image)
