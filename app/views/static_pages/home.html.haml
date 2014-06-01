@@ -11,9 +11,9 @@
       %aside.span8.offset2
         %h1 Page One
         .search-box
-          %h1 What's your favorite cultural work from history?
-          = form_for :artobject, :url => { :action => "index", controller: "artobjects" }, html: { method: :get } do |f|
-            = f.text_field :name
+          %h1 What's the name of your favorite cultural work?
+          = form_for :artobject, :url => { :action => "index", controller: "artobjects"}, html: { method: :get } do |f|
+            = text_field_tag :tags, @tags ? @tags : nil
 
             %div{style:"display:inline-block;margin-left:45%;"}
               = f.submit "Submit"

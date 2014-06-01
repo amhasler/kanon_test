@@ -12,10 +12,11 @@
       %aside.span8.offset2
         .search-box
           %h1 Discover Works
+          %h2.center Search other works by name or keyword
           = form_for :artobject, :url => { :action => "index" }, html: { method: :get } do |f|
             = text_field_tag :tags, @tags ? @tags : nil, placeholder: "Separate search terms by comma"
             %p#count Displaying #{ @artobjects.count } works
-            %div
+            %div.pull-right
               = f.submit "Submit"
               = link_to "Reset", artobjects_path
         #cta

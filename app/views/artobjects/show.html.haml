@@ -25,6 +25,7 @@
         - if signed_in?
           - if current_user.admin? or current_user == @artobject.user
             = link_to "Edit Work", edit_artobject_path(@artobject), class: "button-primary"
+            %p= link_to "Delete this work", @artobject, method: :delete, data: { confirm: "You sure?" }, title: @artobject.name
 
     .span4
 

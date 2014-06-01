@@ -22,9 +22,10 @@
           =image_tag @user.image_url(:index).to_s, class: "artobject_image"
         %p Contributor since #{ @user.created_at.strftime("%B %Y") }
 
-      - if signed_in?
-        - if current_user.admin? or current_user == @user
-          = link_to "Edit Profile", edit_user_path(@user), class: "button-primary"
+        - if signed_in?
+          - if current_user.admin? or current_user == @user
+            = link_to "Edit Profile", edit_user_path(@user), class: "button-primary"
+            %p= link_to "Delete my profile", @user, method: :delete, data: { confirm: "You sure?" }, title: @user.name
 
     .span4
 

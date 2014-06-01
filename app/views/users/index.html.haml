@@ -13,11 +13,12 @@
     .row
       %aside.span8.offset2
         .search-box
-          %h1 Contributors
+          %h1 Discover Contributors
+          %h2.center Search other contributors by name or interest
           = form_for :user, :url => { :action => "index" }, html: { method: :get } do |f|
             = text_field_tag :tags, @tags ? @tags : nil, placeholder: "Separate search terms by comma"
             %p#count #{ @users.count } contributors
-            %div
+            %div.pull-right
               = f.submit "Submit"
               = link_to "Reset", artobjects_path
         #cta

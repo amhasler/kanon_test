@@ -46,7 +46,7 @@
 
         .tag-boxes
           .tags
-            %label Who are some of your favorite creative figures?
+            %label Who are some of your favorite creative people from history?
             = f.text_field :creator_list, class: "artobject_tags", data: { pre: @user.creator_list.map {|tag| {:id => tag, :name => tag } }.to_json }
 
           .tags

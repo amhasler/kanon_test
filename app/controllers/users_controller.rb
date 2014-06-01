@@ -38,7 +38,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       log_in @user
-    	flash[:success] = "Welcome to Project Page One!"
+    	flash[:success] = "Welcome to Page One!"
       redirect_to artobjects_url
     else
       render 'new'

@@ -10,14 +10,14 @@
       = link_to "Sign up", signup_path, class: "button-primary center"
       = link_to "Log in", login_path, class: "button-primary center"
     
-  %ul.nav.nav-stacked.bcs
+  %ul.bcs
     %li #{ link_to "Page One", root_path }
     %div{class: params[:controller]=="users" ? "active" : nil }
-      %li #{ link_to "Contributors", users_path }
+      %li #{ link_to "All Contributors", users_path }
       - if params[:controller]=="users"
         = render_breadcrumbs tag: :li, separator: ""
     %div{class: params[:controller]=="artobjects" ? "active" : nil }
-      %li #{ link_to "Works", artobjects_path }
+      %li #{ link_to "All Works", artobjects_path }
       - if params[:controller]=="artobjects"
         = render_breadcrumbs tag: :li, separator: ""
   
