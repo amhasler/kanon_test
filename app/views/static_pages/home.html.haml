@@ -1,34 +1,32 @@
+/
+  .row
+    .span12
+      - flash.each do |key, value|
+        .alert{ class: "alert-#{ key }" }
+          = value
 
-.top-bar
-  .container
-    .row
-      .span12
-        - flash.each do |key, value|
-          .alert{ class: "alert-#{ key }" }
-            = value
+  .row
+    %aside.span8.offset2
+      %h1 Page One
+      .search-box
+        %h1 What's the name of your favorite cultural work?
+        = form_for :artobject, :url => { :action => "index", controller: "artobjects"}, html: { method: :get } do |f|
+          = text_field_tag :tags, @tags ? @tags : nil
 
-    .row
-      %aside.span8.offset2
-        %h1 Page One
-        .search-box
-          %h1 What's the name of your favorite cultural work?
-          = form_for :artobject, :url => { :action => "index", controller: "artobjects"}, html: { method: :get } do |f|
-            = text_field_tag :tags, @tags ? @tags : nil
+          %div{style:"display:inline-block;margin-left:45%;"}
+            = f.submit "Submit"
+      - if !signed_in?
+        #cta
+          %h2#new_artobject Page One helps connect you to the greatest historical works of art, philosophy, music, and much more. #{ link_to "Sign up", signup_path } or #{ link_to "Log in", login_path } to add new works, discover new favorites, and connect with other fans of intellectual and cultural history.
+  .bottom-bar{style:"height:100%;"}
+    .container
+      .row
+        .span4.offset2
+          =link_to artobjects_path do
+            .cta-box
+              %h2 Explore all works
 
-            %div{style:"display:inline-block;margin-left:45%;"}
-              = f.submit "Submit"
-        - if !signed_in?
-          #cta
-            %h2#new_artobject Page One helps connect you to the greatest historical works of art, philosophy, music, and much more. #{ link_to "Sign up", signup_path } or #{ link_to "Log in", login_path } to add new works, discover new favorites, and connect with other fans of intellectual and cultural history.
-.bottom-bar{style:"height:100%;"}
-  .container
-    .row
-      .span4.offset2
-        =link_to artobjects_path do
-          .cta-box
-            %h2 Explore all works
-
-      .span4.offset1
-        =link_to users_path do
-          .cta-box
-            %h2 Explore all contributors
+        .span4.offset1
+          =link_to users_path do
+            .cta-box
+              %h2 Explore all contributors

@@ -1,6 +1,6 @@
 jQuery ->
-
-  $('.menu-link').bigSlide();
+  
+  $('.menu-link').bigSlide()
 
 
   $('.flip_back').click ->

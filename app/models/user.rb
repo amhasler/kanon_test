@@ -1,16 +1,21 @@
-require 'file_size_validator' 
-
 class User < ActiveRecord::Base
   include MaxTagSize
+  include FileAttachmentModule
 
-  mount_uploader :image, ImageUploader
+  #==== SAVE ACTIONS ====
+  before_save { self.email = email.downcase }
+  before_create :create_remember_token
 
+  # ==== IMAGES ====
+  mount_uploader :image, UserImageUploader
+
+  # ==== ASSOCIATIONS ====
   has_many :artobjects
   has_many :favorites, dependent: :destroy
   has_many :favorite_objects, through: :favorites, source: :artobject 
-	before_save { self.email = email.downcase }
-	before_create :create_remember_token
+  has_many    :collections, inverse_of: :author, foreign_key: :author_id
 
+  # ==== VALIDATIONS ====
 	validates :name,  presence: true, length: { maximum: 50 }
 	VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true, 
@@ -25,9 +30,12 @@ class User < ActiveRecord::Base
     :maximum => 4.megabytes.to_i 
   }
 
+  # ==== PAGINATION ====
   self.per_page = 14
 
+  # ==== TAGGING ====
   acts_as_taggable_on :creators, :locations, :languages, :societies, :mediums
+
 
   def User.new_remember_token
     SecureRandom.urlsafe_base64

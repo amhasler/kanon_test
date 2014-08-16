@@ -1,5 +1,7 @@
-# For more information see: http://emberjs.com/guides/routing/
+if Modernizr.history
+  PageOne.Logger.info "HTML5 History API supported"
+else
+  PageOne.Logger.info "HTML5 History API not supported"
 
-KanonTest.Router.map ()->
-  # @resource('posts')
 
+PageOne.Router.map ->

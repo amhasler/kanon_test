@@ -1,20 +1,37 @@
-<!DOCTYPE html>
-<html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]> <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]> <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <head>
   <title><%= full_title(yield(:title)) %></title>
-  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+
+  <!DOCTYPE html>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <%= stylesheet_link_tag    "application", media: "all" %>
+  <%= javascript_include_tag "modernizr" %>
   <%= csrf_meta_tags %>
+
   <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
-  <!--[if lt IE 9]>
-  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-  <![endif]-->
-  <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+
   <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script>
-    
-</script>
+
+  <link rel="shortcut icon" href="<%= image_path('favicon.ico') %>" type="image/x-icon" />
+
+  <!-- For non-Retina iPhone, iPod Touch, and Android 2.1+ devices: -->
+  <link rel="apple-touch-icon-precomposed" href="<%= image_path('apple-touch-icon-precomposed.png') %>">
+  <!-- For the iPad mini and the first- and second-generation iPad on iOS ≤ 6: -->
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="<%= image_path('apple-touch-icon-72x72-precomposed.png') %>">
+  <!-- For the iPad mini and the first- and second-generation iPad on iOS ≥ 7: -->
+  <link rel="apple-touch-icon-precomposed" sizes="76x76" href="<%= image_path('apple-touch-icon-76x76-precomposed.png') %>">
+  <!-- For iPhone with high-resolution Retina display running iOS ≤ 6: -->
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="<%= image_path('apple-touch-icon-114x114-precomposed.png') %>">
+  <!-- For iPhone with high-resolution Retina display running iOS ≥ 7: -->
+  <link rel="apple-touch-icon-precomposed" sizes="120x120" href="<%= image_path('apple-touch-icon-120x120-precomposed.png') %>">
+  <!-- For iPad with high-resolution Retina display running iOS ≤ 6: -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="<%= image_path('apple-touch-icon-144x144-precomposed.png') %>">
+  <!-- For iPad with high-resolution Retina display running iOS ≥ 7: -->
+  <link rel="apple-touch-icon-precomposed" sizes="152x152" href="<%= image_path('apple-touch-icon-152x152-precomposed.png') %>">
 </head>
 <body>
   <div id="wrap" class="push">
@@ -29,7 +46,9 @@
     
 
     <%= render "layouts/footer" %>
-  </div>
 
+  </div>
+  <%= javascript_include_tag "application" %>
+  <%= javascript_include_tag "analytics" %>
 </body>
 </html>

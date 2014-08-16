@@ -1,0 +1,158 @@
+/***** SETTINGS ******/
+
+// Periodic polling
+PageOne.POLLING = true;
+PageOne.POLLING_INTERVAL = <%= Rails.application.config.poll_interval %> * 1000;
+
+/* Global query parameters. Used to communicate data between 
+# client and server with each request, namely login data. */
+PageOne.QueryParams = Ember.Object.extend({
+  init: function() {
+    this.set('_params', {});
+  },
+  params: function() {
+    return this.get('_params');
+  }.property('_params'),
+  addParam: function(key, value) {
+    var params = this.get('_params');
+    params[key] = value;
+
+    // Setup jQuery
+    $.ajaxSetup({ data: params });
+
+    this.set('_params', params);
+  }
+}).create();
+
+/* Serialization between API responses and Ember models. API responses are snake case, Ember uses camel case. */
+DS.RESTSerializer.reopen({
+  normalize: function(type, hash, prop) {
+    return this._super(type, PageOne.Utility.normalize(hash), prop);
+  },
+  typeForRoot: function(root) {
+    var camelized = Ember.String.camelize(root);
+    return Ember.String.singularize(camelized);
+  },
+  serializeIntoHash: function(data, type, record, options) {
+    var root = Ember.String.decamelize(type.typeKey);
+    data[root] = this.serialize(record, options);
+  }
+});
+
+/* Override ajaxOptions to add queryParams to all types of requests (GET, POST,...) */
+DS.RESTAdapter.reopen({
+    /* Set the namespace to '/api' */
+  namespace: 'api',
+  ajaxOptions: function(url, type, hash) {
+    hash = hash || {};
+    hash.url = url;
+    hash.type = type;
+    hash.dataType = 'json';
+    hash.context = this;
+
+    if (hash.data && type !== 'GET') {
+      hash.contentType = 'application/json; charset=utf-8';
+
+      /* Add the global params to the hash before it's stringified. */
+      var queryParams = PageOne.QueryParams.get('params');
+      Ember.keys(queryParams).forEach(function(paramKey) {
+        hash.data[paramKey] = queryParams[paramKey];
+      });
+
+      hash.data = JSON.stringify(hash.data);
+    }
+
+    if (this.headers !== undefined) {
+      var headers = this.headers;
+      hash.beforeSend = function (xhr) {
+        forEach.call(Ember.keys(headers), function(key) {
+          xhr.setRequestHeader(key, headers[key]);
+        });
+      };
+    }
+
+    return hash;
+  },
+  /* Decamelize URLs */
+  pathForType: function(type) {
+    var decamelized = Ember.String.decamelize(type);
+    return Ember.String.pluralize(decamelized);
+  },
+  ajaxError: function(jqXHR) {
+    var error = this._super(jqXHR);
+
+    // 401: 'unauthorized' (thrown when not logged in)
+    if (jqXHR && jqXHR.status == 401) {
+      /* This means the server-side session has expired. */
+     // this.get('container').lookup('session:current').send('handleSessionExpired');
+
+      return error;
+    } else {
+      return error;
+    }
+  }
+});
+
+/* Turn any object into a promise */
+Ember.RSVP.makePromise = function(maybePromise) {
+  if (maybePromise.then) {
+    return maybePromise;
+  } else {
+    return Ember.RSVP.resolve(maybePromise);
+  }
+};
+
+/* 'andThen' is like 'then', but it takes a third parameter `always` that is always executed, no matter what the outcome of the Promise. From https://github.com/tildeio/rsvp.js/issues/21 */
+Ember.RSVP.Promise.prototype.andThen = function(success, error, always) {
+  return this.then(function(value) {
+    var ret = success(value);
+    always(value);
+    return ret;
+  }, function(reason) {
+    var ret = error(reason);
+    always(reason);
+    return ret;
+  });
+};
+// See http://stackoverflow.com/a/24164813/1269194
+Ember.PromiseProxyMixin.reopen({
+  andThen: function() {
+    var promise = this.get('promise');
+    return promise['andThen'].apply(promise, arguments);
+  }
+});
+
+/* Scroll to the top when a route changes. From http://stackoverflow.com/questions/13120474/emberjs-scroll-to-top-when-changing-view */
+Ember.Route.reopen({
+  activate: function() {
+    this._super();
+    window.scrollTo(0, 0);
+  }
+});
+
+/* Form elements */
+// This fixes the problem where clicking anywhere on iPad doesn't blur the textfield/textarea.
+Ember.TextField.reopen({
+  _focusIn: function() {
+    if (Modernizr.touch) {
+      Ember.$('body').css('cursor', 'pointer');
+    }
+  }.on('focusIn'),
+  _focusOut: function() {
+    if (Modernizr.touch) {
+      Ember.$('body').css('cursor', '');
+    }
+  }.on('focusOut'),
+});
+Ember.TextArea.reopen({
+  _focusIn: function() {
+    if (Modernizr.touch) {
+      Ember.$('body').css('cursor', 'pointer');
+    }
+  }.on('focusIn'),
+  _focusOut: function() {
+    if (Modernizr.touch) {
+      Ember.$('body').css('cursor', '');
+    }
+  }.on('focusOut'),
+});

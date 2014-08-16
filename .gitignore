@@ -1,6 +1,9 @@
 # Ignore bundler config.
 /.bundle
 
+# Environment variables
+.env
+
 # Ignore the default SQLite database.
 /db/*.sqlite3
 /db/*.sqlite3-journal
@@ -19,3 +22,8 @@ doc/
 .DS_Store
 .idea
 .secret
+
+# ruby versions and gemsets (rvm)
+.ruby-gemset
+.ruby-version
+

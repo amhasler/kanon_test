@@ -8,7 +8,7 @@ gem 'rails', '4.0.5'
 gem 'unicorn'
 # Assets and media
 gem 'carrierwave'
-gem "mini_magick", "~> 3.7.0"
+gem 'rmagick', require: false
 gem 'mime-types'
 #  Unicode Normalization Form
 gem 'unf'
@@ -41,6 +41,11 @@ gem "squeel"
 gem "breadcrumbs_on_rails"
 
 group :assets do
+  # JQuery doesn't load from just ember. I don't
+  # know why.
+  gem 'jquery-rails'
+  # Will get rid of this when I phase out bootstrap
+  gem 'bootstrap-sass', '2.3.2.0'
   # Use SCSS for stylesheets
   gem 'sass-rails'
   # See https://github.com/sass/sass/issues/1162
@@ -59,8 +64,6 @@ group :assets do
   gem 'ember-data-source'
   #lock Sprockets to (2.10.1) http://stackoverflow.com/questions/22391116/nomethoderror-in-pageshome-undefined-method-environment-for-nilnilclass)
   gem 'sprockets', '2.11.0'
-  # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-  gem 'turbolinks'
   # Format dates with moment.js
   gem 'momentjs-rails'
 end

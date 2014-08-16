@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140531123242) do
+ActiveRecord::Schema.define(version: 20140816222318) do
 
   create_table "artobjects", force: true do |t|
     t.string   "name"
@@ -31,6 +31,15 @@ ActiveRecord::Schema.define(version: 20140531123242) do
     t.string   "image"
   end
 
+  create_table "collections", force: true do |t|
+    t.string   "title"
+    t.string   "cover"
+    t.text     "introduction_content"
+    t.integer  "author_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "favorites", force: true do |t|
     t.integer  "user_id"
     t.integer  "artobject_id"
@@ -41,6 +50,15 @@ ActiveRecord::Schema.define(version: 20140531123242) do
   add_index "favorites", ["artobject_id"], name: "index_favorites_on_artobject_id"
   add_index "favorites", ["user_id", "artobject_id"], name: "index_favorites_on_user_id_and_artobject_id", unique: true
   add_index "favorites", ["user_id"], name: "index_favorites_on_user_id"
+
+  create_table "items", force: true do |t|
+    t.text     "content"
+    t.integer  "collection_id"
+    t.integer  "artobject_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "position"
+  end
 
   create_table "taggings", force: true do |t|
     t.integer  "tag_id"

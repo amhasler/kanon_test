@@ -1,21 +1,43 @@
 // This is a manifest file that'll be compiled into application.js, which will include all the files
 // listed below.
-//
-// Any JavaScript/Coffee file within this directory, lib/assets/javascripts, vendor/assets/javascripts,
-// or vendor/assets/javascripts of plugins, if any, can be referenced here using a relative path.
-//
-// It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the
-// compiled file.
-//
-// Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
-// about supported directives.
-//
+
+// ==== Jquery and HTML ==== 
+//= require ./lib/modernizr.custom.min
 //= require jquery
 //= require jquery_ujs
-//= require bootstrap
-//= require turbolinks
+//= require ./lib/jquery-ui-1.10.4.custom
+
+// ==== Handlebars ====
+//= require moment
+//= require handlebars
+
+// ==== Ember ====
+//= require ./ember.configuration
+//= require ember
+//= require ember-data
+
+// === Vendor ====
 //= require bootstrap-fileupload
 //= require jquery.tokeninput
 //= require jquery.big-slide
+
+// ==== Pluralization ====
+//= require ./lib/ember.cldr
+//= require ./lib/ember.i18n
+
+// ==== Client-side validation ====
+//= require ./lib/ember.validations
+
+//= require_self
+//= require page_one
+
+
+PageOne = Ember.Application.create({
+  LOG_TRANSITIONS: true,
+  LOG_ACTIVE_GENERATION: true
+});
+
+Ember.ENV.RAISE_ON_DEPRECATION = true;
+Ember.LOG_STACKTRACE_ON_DEPRECATION = true;
 
 //= require_tree .

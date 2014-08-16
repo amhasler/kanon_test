@@ -3,6 +3,7 @@ class ArtobjectsController < ApplicationController
   before_action :object_editor, only: [:edit, :update, :destroy]
 
   def index
+    json_artobjects = Artobject.all
     @artobjects = Artobject.paginate(page: params[:page])
     if params[:tags] && !params[:tags].empty?
       @tags = params[:tags].split(', ');
@@ -22,8 +23,10 @@ class ArtobjectsController < ApplicationController
         @tags = @tags.join(', ')
       end
     end
-
-    render 'index'
+    respond_to do |format|
+      format.html { render 'index' }
+      format.json { render json: json_artobjects }
+    end
   end
 
   def show
@@ -40,8 +43,13 @@ class ArtobjectsController < ApplicationController
       @artobject.maxyear = @artobject.maxyear*-1
     end
     if @artobject.save
-      flash[:success] = "Art object created!"
-      redirect_to artobjects_url
+      respond_to do |format|
+        format.html { 
+          flash[:success] = "Art object created!"
+          redirect_to artobjects_url
+        }
+        format.json { render json: @artobject }
+      end
     else
       render 'new'
     end
@@ -68,8 +76,13 @@ class ArtobjectsController < ApplicationController
         @artobject.maxyear = @artobject.maxyear*-1
       end
       @artobject.save
-      flash[:success] = "Art object updated"
-      redirect_to artobjects_url
+      respond_to do |format|
+        format.html { 
+          flash[:success] = "Art object updated"
+          redirect_to artobjects_url
+        }
+        format.json { render json: @artobject }
+      end
     else
       @artobjects = Artobject.paginate(page: params[:page])
       render 'index'
@@ -81,8 +94,14 @@ class ArtobjectsController < ApplicationController
   def destroy
     @artobject = Artobject.find(params[:id])
     @artobject.destroy
-    flash[:success] = "Work deleted."
-    redirect_to artobjects_url
+
+    respond_to do |format|
+      format.html { 
+        flash[:success] = "Work deleted."
+        redirect_to artobjects_url
+      }
+      format.json { render json: @artobject, location: '' }
+    end
   end
 
   def users

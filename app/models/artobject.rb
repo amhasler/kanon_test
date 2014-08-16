@@ -1,21 +1,18 @@
-require 'file_size_validator' 
-
 class Artobject < ActiveRecord::Base
 	include MaxTagSize
+	include FileAttachmentModule
 
 	belongs_to :user
 	has_many :favorites, dependent: :destroy
 	has_many :favorited, through: :favorites, source: :user
+	has_many :items
  
-	mount_uploader :image, ImageUploader
+	mount_uploader :image, ArtobjectImageUploader
 
 	validates :name, presence: true, length: { maximum: 40 }
 	validates :minyear, presence: true, length: { maximum: 5}
 	default_scope -> { order('created_at DESC') }
-	validates :image, 
-		:file_size => { 
-	    :maximum => 4.megabytes.to_i 
-	}
+
 	validate :max_tag_size
 	validate :validate_min_date, :if => :minyear
 	
