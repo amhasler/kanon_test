@@ -9,7 +9,6 @@ describe Artobject do
     @artobject = user.artobjects.build(
       name: "The Republic", 
       minyear: 1170, 
-      image: File.new('spec/fixtures/images/test_image.jpg'), 
       creator_list: "Plato", 
       language_list: "Greek, Attic", 
       location_list: "Greece, Athens, Attica", 

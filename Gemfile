@@ -1,25 +1,74 @@
 source 'https://rubygems.org'
+
 ruby '2.1.1'
 
-gem 'rails', '4.0.2'
-gem 'bootstrap-sass', '2.3.2.0'
-gem 'bcrypt-ruby', '3.1.2'
-gem 'faker', '1.1.2'
+# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+gem 'rails', '4.0.5'
+# Unicorn web server
+gem 'unicorn'
+# Assets and media
+gem 'carrierwave'
+gem "mini_magick", "~> 3.7.0"
+gem 'mime-types'
+#  Unicode Normalization Form
+gem 'unf'
+# Use ActiveModel has_secure_password
+gem 'bcrypt', '~> 3.1.7'
+# JSON Serializer
+gem 'active_model_serializers'
+# Customise JSON response for errors
+gem 'responders'
+# For seed data
+gem 'faker'
+# Remove once bootstrap and vanilla rails
+# features gone
 gem 'will_paginate', '3.0.4'
 gem 'bootstrap-will_paginate', '0.0.9'
-gem 'carrierwave'
-gem "sass-rails", "~> 4.0.2"
-gem 'uglifier', '2.1.1'
-gem 'coffee-rails', '4.0.1'
-gem 'jquery-rails', '3.0.4'
-gem 'turbolinks', '1.1.1'
-gem 'jbuilder', '1.0.2'
-gem 'haml', '4.0.3'
-gem "mini_magick", "~> 3.7.0"
+# Acts-as-list
+gem 'acts_as_list'
+# Indent-sensitive preprocessor for html
+gem 'haml-rails'
+# API Documentation
+gem 'apipie-rails'
+# Allow for tagging in the database, could
+# do this better.
 gem 'acts-as-taggable-on'
+# Squeel lets you write your Active Record queries with fewer strings.
+# https://github.com/activerecord-hackery/squeel
 gem "squeel"
+# Allows for nested nav. Remove once converted
+# to ember, when nav will have a controller.
 gem "breadcrumbs_on_rails"
 
+group :assets do
+  # Use SCSS for stylesheets
+  gem 'sass-rails'
+  # See https://github.com/sass/sass/issues/1162
+  gem 'sass', '~> 3.2.0'
+  # Bourbon library for SASS mixins
+  gem 'bourbon', '3.2.0'
+  # Neat library for grid
+  gem 'neat', '~> 1.5.0'
+  # Use Uglifier as compressor for JavaScript assets
+  gem 'uglifier', '>= 1.3.0'
+  # Use CoffeeScript for .js.coffee assets and views
+  gem 'coffee-rails', '~> 4.0.0'
+  # Ember.js
+  gem 'ember-rails'
+  gem 'ember-source', '1.6.1'
+  gem 'ember-data-source'
+  #lock Sprockets to (2.10.1) http://stackoverflow.com/questions/22391116/nomethoderror-in-pageshome-undefined-method-environment-for-nilnilclass)
+  gem 'sprockets', '2.11.0'
+  # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
+  gem 'turbolinks'
+  # Format dates with moment.js
+  gem 'momentjs-rails'
+end
+
+group :doc do
+  # bundle exec rake doc:rails generates the API under doc/api.
+  gem 'sdoc', require: false
+end
 
 group :development, :test do
   gem 'sqlite3', '1.3.8'
@@ -28,13 +77,24 @@ group :development, :test do
   gem 'spork-rails', '4.0.0'
   gem 'guard-spork', '1.5.0'
   gem 'childprocess', '0.3.6'
+  gem 'growl', '1.0.3'
+  # Javascript testing
+  gem 'qunit-rails'
+  gem 'teaspoon'
+  gem 'rails-erd'
 end
 
 group :test do
-  gem 'selenium-webdriver', '2.35.1'
-  gem 'capybara', '2.1.0'
+  gem 'shoulda-matchers'
+  gem 'rspec-its'
+  gem 'launchy'
+  gem 'database_cleaner'
+  gem 'factory_girl_rails'
+  gem 'capybara'
+  gem 'selenium-webdriver'
+  gem 'poltergeist'
   gem 'growl', '1.0.3'
-  gem 'factory_girl_rails', '4.2.1'
+  gem 'webmock'
 end
 
 group :doc do
@@ -45,15 +105,3 @@ group :production do
   gem 'pg', '0.15.1'
   gem 'rails_12factor', '0.0.2'
 end
-
-# Use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
-
-# Use unicorn as the app server
-# gem 'unicorn'
-
-# Use Capistrano for deployment
-# gem 'capistrano', group: :development
-
-# Use debugger
-# gem 'debugger', group: [:development, :test]
