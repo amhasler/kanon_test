@@ -70,21 +70,8 @@ group :doc do
   gem 'sdoc', require: false
 end
 
-group :development, :test do
-  gem 'sqlite3', '1.3.8'
-  gem 'rspec-rails', '2.13.1'
-  gem 'guard-rspec', '2.5.0'
-  gem 'spork-rails', '4.0.0'
-  gem 'guard-spork', '1.5.0'
-  gem 'childprocess', '0.3.6'
-  gem 'growl', '1.0.3'
-  # Javascript testing
-  gem 'qunit-rails'
-  gem 'teaspoon'
-  gem 'rails-erd'
-end
-
 group :test do
+
   gem 'shoulda-matchers'
   gem 'rspec-its'
   gem 'launchy'
@@ -97,8 +84,18 @@ group :test do
   gem 'webmock'
 end
 
-group :doc do
-  gem 'sdoc', '0.3.20', require: false
+group :test, :development do
+  gem 'sqlite3', '1.3.8'
+  gem 'byebug'
+  gem 'rspec-rails'
+  gem 'guard-rspec', '3.1.0'
+  gem 'spork-rails', github: 'sporkrb/spork-rails'
+  gem 'guard-spork'
+  gem 'childprocess'
+  # Javascript testing
+  gem 'qunit-rails'
+  gem 'teaspoon'
+  gem 'rails-erd'
 end
 
 group :production do

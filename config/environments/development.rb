@@ -13,9 +13,6 @@ KanonTest::Application.configure do
   config.consider_all_requests_local       = true
   config.action_controller.perform_caching = false
 
-  # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
-
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 
@@ -26,4 +23,17 @@ KanonTest::Application.configure do
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.
   config.assets.debug = true
+  # Do not compress assets
+  config.assets.compress = false
+
+  # Ember.js configuration
+  config.ember.variant = :development
+
+  # QUnit tests are in /spec
+  config.qunit.tests_path = "spec"
 end
+
+# Enable all web requests (do not mock)
+require 'webmock'
+include WebMock::API
+WebMock.disable!

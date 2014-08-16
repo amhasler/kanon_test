@@ -1,15 +1,13 @@
 require File.expand_path('../boot', __FILE__)
 
 # Pick the frameworks you want:
-require "active_record/railtie"
-require "action_controller/railtie"
-require "action_mailer/railtie"
-require "sprockets/railtie"
-# require "rails/test_unit/railtie"
+require 'rails/all'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
-Bundler.require(:default, Rails.env)
+Bundler.require(:default, Rails.env, :assets)
+# Assets should be precompiled for production (so we don't need the gems loaded then)
+Bundler.require(*Rails.groups(assets: %w(development test)))
 
 module KanonTest
   class Application < Rails::Application
@@ -17,17 +15,21 @@ module KanonTest
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
 
-    # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
-    # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
-    # config.time_zone = 'Central Time (US & Canada)'
-
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
-    # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
-    # config.i18n.default_locale = :de
-    config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
+    config.i18n.available_locales = [:en]
+    config.i18n.enforce_available_locales = true
 
-    config.assets.paths << Rails.root.join('app', 'assets', 'fonts')
+    # Enable the asset pipeline
+    config.assets.enabled = true
+    config.assets.initialize_on_precompile = false
+    # Precompile additional assets
+    config.assets.precompile += ['modernizr.js']
+    config.assets.precompile += %w( .svg .eot .woff .ttf )
 
-    I18n.enforce_available_locales = true
+    # Preload files in the /lib directory
+    config.autoload_paths += %W(#{config.root}/lib)
+
+    # Poll interval for live updates (in seconds)
+    config.poll_interval = 30
   end
 end
