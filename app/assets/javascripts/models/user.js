@@ -1,6 +1,6 @@
 PageOne.User = DS.Model.extend({
   /* Associations */
-  collections: DS.hasMany('collection'),
+  collections: DS.hasMany('collection', { async: true }),
   /* Attributes */
   email: DS.attr('string'),
   name: DS.attr('string'),

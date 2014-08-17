@@ -21,8 +21,6 @@ class ArtobjectSerializer < ActiveModel::Serializer
     nil
   end
 
-
-  # has_one   :item, embed: :id, key: :item
   has_one   :user, embed: :id, key: :user
 end
 

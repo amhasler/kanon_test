@@ -4,10 +4,10 @@ class Collection < ActiveRecord::Base
   # ==== ASSOCIATIONS ====
   # All associations are destroyed when the timeline is destroyed
   has_many :items, dependent: :destroy
-  belongs_to :user, foreign_key: :author_id
+  belongs_to :user
   
   # ==== VALIDATIONS ====
-  validates_presence_of :author
+  validates_presence_of :user
 
   # ==== ATTACHMENTS ====
   # Thumb for the timeline

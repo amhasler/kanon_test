@@ -5,6 +5,6 @@ class ItemSerializer < ActiveModel::Serializer
   attribute   :position
 
   has_one   :collection, embed: :id, key: :collection
-  # has_one   :artobject, embed: :id, include: true, key: :artobject
+  has_one   :artobject, embed: :id, include: true, key: :artobject
 
 end

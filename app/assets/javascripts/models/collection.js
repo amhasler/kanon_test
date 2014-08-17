@@ -1,7 +1,7 @@
 PageOne.Collection = DS.Model.extend({
   /* Associations */
-  items: DS.hasMany('item'),
-  author: DS.belongsTo('user'),
+  items: DS.hasMany('item', { async: true }),
+  user: DS.belongsTo('user'),
   /* Attributes */
   title: DS.attr('string'),
   introductionContent: DS.attr('string'),

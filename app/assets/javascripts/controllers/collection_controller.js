@@ -1,10 +1,7 @@
-PageOne.CollectionController = Ember.ArrayController.extend({
+PageOne.CollectionController = Ember.ObjectController.extend({
   /* Properties */
   isEditing: false,
   isPublishing: false,
-  init: function() {
-    this._super();
-  },
   // If it's either editable or shareable with a class
   canPerformTimelineActions: function() {
     return this.get('isEditable') || this.get('isShareableWithClass');

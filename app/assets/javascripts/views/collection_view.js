@@ -1,10 +1,9 @@
-PageOne.CollectionView = Ember.CollectionView.extend({
+PageOne.CollectionView = Ember.View.extend({
   tagName: 'article',
   classNames: ['collection'],
   itemViewClass: PageOne.CollectionItemView,
   didInsertElement: function() {
     var self = this;
-
     // Recalculate when changing orientation
     Ember.$(window).on('orientationchange', function() {
       Ember.run.once(self, self._performViewActions);

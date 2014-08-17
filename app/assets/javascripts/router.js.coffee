@@ -7,5 +7,4 @@ else
 #  location: 'auto'
 
 PageOne.Router.map ->
-	@resource 'collections', ->
-		@resource('collection', path:'/:id')
+	@resource 'collection', { path: '/collections/:collection_id' }

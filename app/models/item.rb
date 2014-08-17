@@ -4,7 +4,7 @@ class Item < ActiveRecord::Base
   # ==== ASSOCIATIONS ====
   belongs_to    :collection
   acts_as_list  scope: :collection
-  # belongs_to    :artobject, dependent: :destroy
+  belongs_to    :artobject
 
   # ==== VALIDATIONS ====
   validates_presence_of :collection
