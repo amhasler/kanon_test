@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
   has_many :artobjects
   has_many :favorites, dependent: :destroy
   has_many :favorite_objects, through: :favorites, source: :artobject 
-  has_many    :collections, inverse_of: :author, foreign_key: :author_id
+  has_many :collections
 
   # ==== VALIDATIONS ====
 	validates :name,  presence: true, length: { maximum: 50 }

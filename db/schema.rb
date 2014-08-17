@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140816222318) do
+ActiveRecord::Schema.define(version: 20140817044203) do
 
   create_table "artobjects", force: true do |t|
     t.string   "name"
@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(version: 20140816222318) do
     t.string   "title"
     t.string   "cover"
     t.text     "introduction_content"
-    t.integer  "author_id"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

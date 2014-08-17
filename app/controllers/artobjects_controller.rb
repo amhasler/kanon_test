@@ -31,7 +31,13 @@ class ArtobjectsController < ApplicationController
 
   def show
     @artobject = Artobject.find(params[:id])
-    add_breadcrumb @artobject.name, artobject_path(@artobject)
+    respond_to do |format|
+      format.html { 
+        @artobject
+        add_breadcrumb @artobject.name, artobject_path(@artobject)
+      }
+      format.json { render json: @artobject }
+    end
   end
 
   def create
@@ -43,13 +49,8 @@ class ArtobjectsController < ApplicationController
       @artobject.maxyear = @artobject.maxyear*-1
     end
     if @artobject.save
-      respond_to do |format|
-        format.html { 
-          flash[:success] = "Art object created!"
-          redirect_to artobjects_url
-        }
-        format.json { render json: @artobject }
-      end
+      flash[:success] = "Art object created!"
+      redirect_to artobjects_url
     else
       render 'new'
     end

@@ -5,7 +5,7 @@ class Artobject < ActiveRecord::Base
 	belongs_to :user
 	has_many :favorites, dependent: :destroy
 	has_many :favorited, through: :favorites, source: :user
-	has_many :items
+	# has_many :items
  
 	mount_uploader :image, ArtobjectImageUploader
 

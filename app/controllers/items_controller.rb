@@ -12,7 +12,7 @@ class ItemsController < ApplicationController
   # error code: 401, desc: "User is not logged in"
   # ==== ACTION ====
   def index
-    respond_with Collection.find(params.require(:collection)).items
+    respond_with Collection.find(params.require(:collection_id)).items
   end
 
   # ==== DOCUMENTATION ====

@@ -36,6 +36,8 @@ KanonTest::Application.routes.draw do
     resources :items, only: [:create, :update, :destroy, :index]
 
     resources :artobjects, only: [:index, :show, :create, :update, :destroy]
+
+    resources :users, only: [:show]
   end
   
 end

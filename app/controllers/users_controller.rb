@@ -25,8 +25,12 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
+    @user = User.find(params.require(:id))
     add_breadcrumb @user.name, user_path(@user)
+    respond_to do |format|
+      format.html { @user }
+      format.json { render json: @user, root: :user }
+    end
   end
 
   def new
