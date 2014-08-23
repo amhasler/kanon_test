@@ -9,7 +9,7 @@ class UserSerializer < ActiveModel::Serializer
   has_many      :collections, embed: :ids, key: :collections
 
   def image
-    return Image.new(object[:image], object.image.full.url, object.image.thumb.url, object.image_caption) if object.image?
+    return Image.new(object[:image], object.image.full.url, object.image.thumb.url) if object.image?
     nil
   end
 

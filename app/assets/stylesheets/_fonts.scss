@@ -1,0 +1,27 @@
+@include font-face('Antonio', 'Antonio-Regular', normal, normal);
+@include font-face('Open Sans Regular', 'OpenSans-Regular', normal, normal);
+@include font-face('Open Sans Semibold', 'OpenSans-Semibold', bold, normal);
+@include font-face('Open Sans Italic', 'OpenSans-Italic', normal, italic);
+@include font-face('Open Sans Light Italic', 'OpenSans-LightItalic', lighter, italic);
+
+/* Variables */
+$font-size: 16px;
+$antonio: 'Antonio', Helvetica Neue, Helvetica, Arial, sans-serif;
+$open-sans-regular: 'Open Sans Regular', Helvetica Neue, Helvetica, Arial, sans-serif;
+$open-sans-semibold: 'Open Sans Semibold', Helvetica Neue, Helvetica, Arial, sans-serif;
+$open-sans-italic: 'Open Sans Italic', Helvetica Neue, Helvetica, Arial, sans-serif;
+$open-sans-lightitalic: 'Open Sans Light Italic', Helvetica Neue, Helvetica, Arial, sans-serif;
+
+/* Mixins */
+@mixin antonio {
+  font-family: $antonio;
+  font-weight: normal;
+  text-transform: uppercase;
+}
+
+@mixin icon($width, $height) {
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  @include size($width $height);
+}

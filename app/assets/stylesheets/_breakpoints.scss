@@ -1,0 +1,22 @@
+$breakpoint-orientation-portrait: 'orientation: portrait';
+
+/* Generic */
+$breakpoint-full-width: 'max-width: 1024px';
+$breakpoint-form-small-landscape: 'max-width: 550px';
+
+/* Top bar */
+$breakpoint-top-bar-medium-portrait: 'max-width: 800px';
+
+/* Event page */
+$breakpoint-event-medium-landscape: 'max-width: 1024px';
+$breakpoint-event-medium-portrait: 'max-width: 768px';
+$breakpoint-event-small-landscape: 'max-width: 650px';
+$breakpoint-event-small-portrait: 'max-width: 550px';
+
+/* Login page */
+$breakpoint-login-medium-portrait: 'max-width: 950px';
+
+/* Student dashboard page */
+$breakpoint-student-dashboard-medium-portrait: 'max-width: 700px';
+$breakpoint-student-dashboard-small-landscape: 'max-width: 540px';
+$breakpoint-student-dashboard-small-portrait: 'max-width: 400px';

@@ -14,7 +14,7 @@ PageOne.ImageTransform = DS.Transform.extend({
   },
   deserialize: function(value) {
     if (value) {
-      return HstryEd.Image.create({
+      return PageOne.Image.create({
         identifier: value.identifier,
         url: value.url,
         thumbUrl: value.thumbUrl,

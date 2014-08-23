@@ -1,0 +1,15 @@
+/* Container */
+.container {
+  @include outer-container;
+  margin: auto;
+  @include clearfix;
+  @include box-sizing(border-box);
+}
+
+/* Application page split in two columns (5/8 and 3/8) */
+@mixin page($columns-left: 5, $columns-right: 3) {
+  margin-bottom: 40px;
+  @include outer-container;
+  .left-column { @include span-columns($columns-left); }
+  .right-column { @include span-columns($columns-right); }
+}

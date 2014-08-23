@@ -17,7 +17,7 @@ class ArtobjectSerializer < ActiveModel::Serializer
   attribute :image
 
   def image
-    return Image.new(object[:image], object.image.full.url, object.image.thumb.url, object.image_caption) if object.image?
+    return Image.new(object[:image], object.image.full.url, object.image.thumb.url) if object.image?
     nil
   end
 

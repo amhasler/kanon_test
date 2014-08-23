@@ -1,0 +1,93 @@
+/* Users index */
+
+.users {
+  list-style: none;
+  margin: 0;
+  li {
+    overflow: auto;
+    padding: 10px 0;
+    border-top: 1px solid $grayLighter;
+    &:last-child {
+      border-bottom: 1px solid $grayLighter;
+    }
+  }
+}
+
+
+.gravatar {
+  float: left;
+  margin-right: 10px;
+}
+
+.pagination {
+  text-align:center;
+  width:100%;
+  margin:20px auto 0px;
+  ul {
+    & > .active > a, & > .disabled > a {
+      background: #99ADCF;
+      color: white;
+    }
+
+    & > li {
+      & > a {
+        background: $darkBlue;
+        color: #FFF;
+        border: 1px solid #7082a3;
+        &:hover, &:focus {
+          background: #99ADCF;
+        }
+      }
+
+    }
+  }
+}
+
+.search-box {
+  background: $yellow;
+  padding:5px 20px;
+  margin:50px 0px 30px;
+  overflow:hidden;
+}
+
+.search-box, #submit-box {
+  p {
+    width:50%;
+    float:left;
+    color:black;
+    margin-top:5px;
+  }
+  input[type="submit"] {
+      padding:4px 5px;
+      border:1px solid $darkBlue;
+      margin-bottom:0px;
+      margin-left:auto;
+  }
+  a {
+
+    padding:2px 5px 4px;
+    border:1px solid $darkBlue;
+  }
+  a, input[type="submit"] {
+    background: $darkBlue;
+    color:#fff;
+    text-decoration:none;
+    font-size:18px;
+  }
+}
+
+#submit-box {
+  display:table;
+  margin: 20px auto 0px;
+  padding-bottom:40px;
+  input {
+    margin-right:5px;
+  }
+}
+
+#cta {
+  text-align:center;
+  margin-bottom:30px;
+  padding-top:10px;
+  padding-bottom:10px;
+}

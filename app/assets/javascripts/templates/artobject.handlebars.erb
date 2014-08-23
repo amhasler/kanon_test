@@ -1,0 +1,21 @@
+<div class="artobject flip"> 
+  <div class="card"> 
+    <div class="face front">
+      <div class="text-container">
+        <div class="top-text-container"></div>  
+        <div class="inner-text-container"
+          <div class="center">
+            {{#link-to ""}}{{artobject.name}}{{/link-to}}
+            <p class="timestamp">{{dateMaker artobject}}</p>
+          </div>
+        </div>
+        <div class="bottom-link-box"></div>
+        <div class="image-container">
+          <img {{bind-attr src=artobject.image.url image=artobject.image.caption}} class="artobject_image" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

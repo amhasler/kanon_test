@@ -1,0 +1,88 @@
+/* Fonts */
+$font-size: 10px;
+
+@mixin font-size($size, $unit: rem) {
+	font-size: $size + unquote($unit);
+
+	@if ($unit == "rem") {
+		.no-cssremunit & { font-size: rem-to-px($size); }
+	}
+}
+
+@mixin font-face($name, $path, $weight: normal, $style: normal) {
+	@font-face {
+		font-family: $name;
+		src: url(font-path($path + '.eot'));
+		src: url(font-path($path + '.eot?#iefix')) format('embedded-opentype'),
+				 url(font-path($path + '.woff')) format('woff'),
+				 url(font-path($path + '.ttf')) format('truetype'),
+				 url(font-path($path + '.svg##{$name}')) format('svg');
+		font-weight: $weight;
+		font-style: $style;
+	}
+}
+
+/* Text justify. Adds hyphen too. */
+@mixin justify {
+  text-align: justify;
+  @include hyphens(auto);
+}
+
+/* SVG */
+@mixin background-image-svg($img-name, $preload: false, $png-directory: "png-fallback/") {
+  background-image: image-url($img-name + ".svg");
+  background-repeat: no-repeat;
+  .no-svg & { background-image: image-url($png-directory + $img-name + ".png"); }
+  @if $preload {
+    // Preload the image
+    $tmp: preload-image($img-name + ".svg");
+  }
+}
+
+/* CSS Effects */
+@mixin opacity($opacity) {
+	opacity: $opacity;
+  $opacity-ie: $opacity * 100;
+  .lt-ie9 & { -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=#{$opacity-ie})"; } // IE8
+  .lt-ie8 & { filter: alpha(opacity=$opacity-ie); } // IE 5-7
+}
+
+/* For full-width backgrounds */
+@mixin full-width {
+  $width: 9999px;
+  @include position(absolute, 0px 0px 0px (- $width / 2));
+  width: $width;
+  display: block;
+  content: '';
+  z-index: -1;
+}
+
+/* Overwrite Neat's nth-child (see https://github.com/thoughtbot/neat/blob/master/app/assets/stylesheets/grid/_omega.scss) to deal with Ember.js metamorph tags. */
+@mixin nth-child($query, $direction) {
+  $opposite-direction: get-opposite-direction($direction);
+
+  &:nth-of-type(#{$query}) {
+    margin-#{$direction}: 0;
+  }
+
+  @if type-of($query) == number {
+    &:nth-of-type(#{$query}+1) {
+      clear: $opposite-direction;
+    }
+  }
+}
+
+/* Adds a 50% border radius to circle it */
+@mixin circled($circle-size) {
+  border-radius: 50%;
+  @include size($circle-size);
+  display: block;
+  background-color: $grey-athens;
+  color: transparent;
+  @include hide-text;
+}
+
+@mixin art-object-size($size) {
+  font-size: $size + px;
+  font-size: ($size / 10) + rem;
+}

@@ -1,0 +1,175 @@
+#{$all-text-inputs}, textarea {
+  border: 1px solid $grey-whitesmoke;
+  border-radius: 4px;
+  color: $darkgrey;
+  line-height: 2.5em;
+  @include font-size(0.9375);
+  @include box-sizing(border-box);
+  @include appearance(none);
+  @include transition(all $hover-animation-speed);
+  &[disabled] { background-color: $grey-whitesmoke; }
+  @include placeholder {
+    @include transition(all $fast-hover-animation-speed);
+    font-family: $open-sans-lightitalic;
+    font-style: italic;
+    color: $midlightgrey;
+    @include font-size(0.875);
+  }
+}
+#{$all-text-inputs} {
+  height: $input-height;
+  padding: 0 14px;
+  &:focus, &:active { border-color: $blue-malibu; }
+}
+textarea {
+  padding: 10px 14px;
+  font-family: $open-sans-regular;
+  position: relative;
+  resize: none;
+}
+input[type="submit"] {
+  @extend .button-blue;
+  padding: 7px 15px;
+  outline: 0;
+  &[disabled] {
+    @include button(grey);
+  }
+}
+
+label {
+  color: $grey;
+  line-height: $input-height;
+}
+
+.row { @include clearfix; }
+  
+.message {
+  display: block;
+  line-height: 1.4em;
+  @include font-size(0.75);
+  font-family: $open-sans-semibold;
+  text-transform: none;
+  clear: both;
+  padding: 4px 0;
+
+  &.error, &.success { margin-top: 8px; }
+
+  &.error {
+    color: $red-flamingo;
+    text-align: left;
+  }
+  &.success {
+    background-color: rgba($green, 0.05);
+    border: 1px solid $green;
+    color: $green;
+  }
+  strong { font-weight: bold; }
+}
+
+.input-field {
+  margin: 16px 0;
+  @include box-sizing(border-box);
+  @include outer-container;
+
+  &:first-of-type { margin-top: 0; }
+
+  label {
+    $font-family: $open-sans-regular;
+    @include font-size(0.875);
+    @include span-columns(4);
+  }
+
+  input, textarea, .buttons {
+    @include span-columns(8);
+    @include omega;
+  }
+
+}
+
+.error {
+  #{$all-text-inputs}, textarea {
+    box-shadow: 0 0 2px $red;
+    background-color: rgba($red, 0.05);
+    @include placeholder { color: $red-flamingo; }
+  }
+  // .message { @include span-columns(12); }
+  label { color: $red-flamingo; }
+}
+
+/* Input field with a label inside */
+@mixin label-inside($label-width: 40px, $input-field-height: 40px) {
+  position: relative;
+
+  label {
+    @include position(absolute, 1px 0 0 1px);
+    @include size($label-width ($input-field-height - 2px)); // account for borders
+    border-right: 1px solid $lightgrey; 
+  }
+  input {
+    width: 100%;
+    border-color: $lightgrey;
+    padding-left: $label-width + 16px;
+    &:focus { border-color: $blue-malibu; }
+  }
+}
+
+/* Textarea */
+.textarea-container {
+  position: relative;
+  @include spinner;
+  
+  .spinner {
+    $distance-from-edge: 5px;
+    @include position(absolute, auto $distance-from-edge $distance-from-edge auto);
+  }
+  &.waiting { .spinner { display: block; } }
+}
+
+/* Checkbox */
+.checkbox {
+  $checkbox-size: 15px;
+
+  display: block;
+  padding-left: 30px;
+  position: relative;
+  color: $fontlightgrey;
+  @include font-size(0.8125);
+  cursor: pointer;
+  margin: 6px 0;
+
+  &:before {
+    @include position(absolute, 50% 0 0 0px);
+    margin-top: - $checkbox-size / 2;
+    display: block;
+    content: '';
+    @include size($checkbox-size);
+    border: 1px solid #CCCCCC;
+    border-radius: 3px;
+    @include box-sizing(border-box);
+  }
+  &:after {
+    /* Purely for pre-loading semibold font */
+    font-family: $open-sans-semibold;
+    content: "r";
+    display: block;
+    position: absolute;
+    color: transparent;
+  }
+
+  &.checked {
+    color: $grey;
+    font-family: $open-sans-semibold;
+
+    &:after {
+      $square-size: 7px;
+
+      @include position(absolute, 50% 0 0 ($checkbox-size - $square-size)/2);
+      margin-top: - $square-size / 2;
+      display: block;
+      content: '';
+      @include size($square-size);
+      background-color: $darkblue;
+      border-radius: 2px;
+    }
+  }
+}

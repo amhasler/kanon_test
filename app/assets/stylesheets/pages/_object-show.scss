@@ -1,0 +1,32 @@
+.show-form {
+  section {
+    h2, p {
+      text-align:center;
+      padding-top: 20px;
+    }
+  }
+  ul {
+    text-align:center;
+    list-style:none;
+    padding-top:20px;
+    margin:0px;
+  }
+  .show-tags {
+
+  }
+  padding-top: 50px;
+  .button-primary {
+    color:white;
+    background:$darkBlue;
+    text-decoration:none;
+    float:none;
+    display:table;
+    margin:auto;
+  }
+}
+
+.show-new-container {
+  height:95%;
+  margin-bottom: -40px;
+  padding-top:40px;
+}

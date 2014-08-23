@@ -1,0 +1,18 @@
+/* index pages */
+.bottom-bar {
+  background-color:#8696B3;
+  padding:20px 0px 40px;
+}
+
+ol.tile-container {
+  margin:0px;
+  list-style:none;
+  & > li {
+    margin-bottom: 20px;
+  }
+}
+
+.text-container {
+  display:block;
+  float:left;
+}

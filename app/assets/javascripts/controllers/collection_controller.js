@@ -3,6 +3,9 @@ PageOne.CollectionController = Ember.ObjectController.extend({
   isEditing: false,
   isPublishing: false,
   // If it's either editable or shareable with a class
+  init: function() {
+    this._super();
+  },
   canPerformTimelineActions: function() {
     return this.get('isEditable') || this.get('isShareableWithClass');
   }.property('isEditable', 'isShareableWithClass'),

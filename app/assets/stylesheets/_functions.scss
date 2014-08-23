@@ -1,0 +1,16 @@
+/* Functions */
+@function rem-to-px($rem) {
+  @return $rem * $font-size;
+}
+
+/* Data structure for preload images */
+$preloaded-images: null;
+@function preload-image($image-url) {
+  $preloaded-images: $preloaded-images image-url($image-url);
+  @return $preloaded-images;
+}
+
+@function hstry-logo-aspect-ratio() {
+  // @return 2.2;
+  @return 2.035;
+}

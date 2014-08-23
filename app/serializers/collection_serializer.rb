@@ -7,6 +7,7 @@ class CollectionSerializer < ActiveModel::Serializer
   # ==== ASSOCIATIONS ====
   has_one   :user, embed: :id, include: true, key: :user
   attribute :links
+  attribute :cover
 
   def cover
     return Image.new(object[:cover], object.cover.url, object.cover.thumb.url) if object.cover?

@@ -10,6 +10,8 @@ gem 'unicorn'
 gem 'carrierwave'
 gem 'rmagick', require: false
 gem 'mime-types'
+# Icons
+gem "font-awesome-rails"
 #  Unicode Normalization Form
 gem 'unf'
 # Use ActiveModel has_secure_password
@@ -28,6 +30,8 @@ gem 'bootstrap-will_paginate', '0.0.9'
 gem 'acts_as_list'
 # Indent-sensitive preprocessor for html
 gem 'haml-rails'
+# templating alternative for Handlebars.js
+gem 'emblem-rails'
 # API Documentation
 gem 'apipie-rails'
 # Allow for tagging in the database, could
