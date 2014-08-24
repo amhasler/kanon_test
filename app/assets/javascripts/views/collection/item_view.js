@@ -1,7 +1,7 @@
 PageOne.CollectionItemView = Ember.View.extend({
   templateName: 'collection/item',
   classNames: ['item-wrapper'],
-  classNameBindings: ['controller.type', 'itemId', 'isLastItem:last', 'isFirstItem:first'],
+  classNameBindings: ['controller.type', 'itemId', 'isLastItem:last', 'isFirstItem:first', 'controller.isEditing:edit:public'],
   _initialize: function() {
     var content = this.get('content');
     var controller = this.container.lookupFactory('controller:' + this.get('itemControllerType')).create({
@@ -61,17 +61,6 @@ PageOne.CollectionItemView = Ember.View.extend({
     this.set('parentView.itemViews.lastObject.controller.isCreated', true);
     // Disable the show dialog.
     this.set('showDialogCreateNewItem', false);
-  },
-  /* Helper */
-  /* Returns a string containing the opposing side of $item. */
-  getOpposingSide: function($item) {
-    if ($item.hasClass('left')) {
-      return 'right';
-    } else if ($item.hasClass('right')) {
-      return 'left';
-    } else {
-      return '';
-    }
   },
   actions: {
     toggleDialogCreateNewItem: function() {

@@ -9,8 +9,3 @@ $preloaded-images: null;
   $preloaded-images: $preloaded-images image-url($image-url);
   @return $preloaded-images;
 }
-
-@function hstry-logo-aspect-ratio() {
-  // @return 2.2;
-  @return 2.035;
-}

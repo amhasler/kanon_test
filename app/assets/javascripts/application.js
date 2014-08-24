@@ -2,10 +2,19 @@
 // listed below.
 
 // ==== Jquery and HTML ==== 
-//= require ./lib/modernizr.custom.min
 //= require jquery
 //= require jquery_ujs
+//= require ./lib/jquery.autosize
 //= require ./lib/jquery-ui-1.10.4.custom
+
+// ==== File upload ====
+//= require ./lib/load-image
+//= require ./lib/load-image-meta
+//= require ./lib/jquery.iframe-transport
+//= require ./lib/jquery.fileupload
+//= require ./lib/jquery.fileupload-process
+//= require ./lib/jquery.fileupload-image
+//= require ./lib/jquery.fileupload-validate
 
 // ==== Handlebars ====
 //= require moment

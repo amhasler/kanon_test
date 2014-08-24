@@ -38,6 +38,9 @@ KanonTest::Application.routes.draw do
     resources :artobjects, only: [:index, :show, :create, :update, :destroy]
 
     resources :users, only: [:show]
+
+    # Image upload
+    post '/image_upload', to: 'image_upload#create'
   end
   
 end

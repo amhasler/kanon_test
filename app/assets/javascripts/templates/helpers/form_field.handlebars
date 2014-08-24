@@ -1,0 +1,5 @@
+{{#if view.label}}
+  <label {{bind-attr for="view.inputElement.elementId"}}>{{view.label}}</label>
+{{/if}}
+{{input name=view.name valueBinding="view.value" typeBinding="view.type" placeholder=view.placeholder viewName="inputElement" disabled=view.disabled required=view.required accept=view.accept}}
+{{#each error in view.errors}}<span class="message error">{{error}}</span>{{/each}}

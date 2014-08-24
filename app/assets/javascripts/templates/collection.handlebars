@@ -1,28 +1,42 @@
+{{#ajax-button name="edit-timeline" loadingCondition=waitingForTimelineEdit}}
+  <button class="edit-button button-primary" {{action "edit"}} {{bind-attr disabled=waitingForTimelineEdit}}>Edit</button>
+{{/ajax-button}}
+
 <div class="top-bar">
   <div class="container">
-    <div class="row">
-      <aside class="span8 offset2">
-      	<h1>{{title}}</h1>
+    {{#if isEditing}}
+      <aside>
+        <h1 class="collection-title">{{inplace-editor model=content text=title placeholder="Set the title of the timeline" errors=errors.title}}</h1>
       </aside>
-    </div>
-    <div class="row show-form">
-      <section class="span4">
-        <div class="image-container">
-          <img {{bind-attr src=cover.url image=cover.caption}} class="artobject_image" />
+      <div class="show-form">
+        <div class="collection-image-column">
+         <div class="image-container">
+          {{image-uploader image=cover model=model attribute="cover" showLightbox=false}}
         </div>
-        <p class="timestamp">{{cover.caption}}</p>
-      </section>
-      <section class="span8">
-      	<p>{{introductionContent}}</p>
-      </section>
-    </div>
+        <article class="introduction-content">
+          {{inplace-editor model=content text=introductionContent placeholder="Give an introduction to the timeline..."}}
+        </article>
+      </div>
+    {{else}}
+      <aside>
+        <h1>{{title}}</h1>
+      </aside>
+      <div class="show-form">
+        <div class="collection-image-column">
+          <div class="image-container">
+            <img {{bind-attr src=cover.url image=cover.caption}} class="artobject_image" />
+          </div>
+        </div>
+        <article>
+          <p>{{introductionContent}}</p>
+        </article>
+      </div>
+    {{/if}}
   </div>
 </div>
 
 <div class="bottom-bar">
   <div class="container">
-    <div class="row">
-    	{{view PageOne.CollectionItemsView content=items}}
-    </div>
+    {{view PageOne.CollectionItemsView content=items}}
   </div>
 </div>

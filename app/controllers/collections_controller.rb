@@ -82,9 +82,21 @@ class CollectionsController < ApplicationController
   def update
     collection = Collection.find(params[:id])
 
-    collection_title[:title]
-    
+    collection.title = update_params[:title]
+    collection.introduction_content = update_params[:introduction_content]
+    # timeline.is_published = update_params[:is_published]
+    # Set the first publication date if it's not set already, i.e. if it's the first time this timeline is published
+    # timeline.first_published_at = DateTime.now if timeline.first_published_at.nil?
+    # Cover
+    update_attachment(update_params[:cover], collection, :cover, :cover_caption, Collection.uploader_for(:cover))
+
     collection.save!
+
+    if @attachment_uploaded
+      respond_with collection, root: :timeline, responder: Responders::PutWithContentResponder
+    else
+      respond_with collection
+    end
   end
 
 

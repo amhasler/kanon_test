@@ -25,9 +25,8 @@
 
 .item-wrapper {
 	overflow:auto;
-	&:not(:first-child) {
-		padding-top:40px;
-	}
+  @include box-sizing(border-box);
+	padding:40px;
 }
 
 .collection {
@@ -41,7 +40,7 @@
   .artobject {
   	padding-left:10%;
   }
-  & > .item-wrapper {
+  & > .item-wrapper.public {
     & > .item-content:after {
       content: '';
       position: absolute;
@@ -62,5 +61,29 @@
       top:0;
       bottom:0;
     }
+  }
+}
+
+.full-collection {
+  .show-form {
+    overflow:auto;
+    position:relative;
+    margin-bottom:5%;
+    .collection-image-column {
+      @include span-columns(4);
+      .image-container {
+        margin-top:10%;
+      }
+    }
+    article {
+      float:left;
+      @include span-columns(8);
+    }
+  }
+}
+
+.item-wrapper.edit {
+  &:hover {
+    background-color: $blue;
   }
 }

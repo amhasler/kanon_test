@@ -1,4 +1,4 @@
-PageOne.CollectionController = Ember.ObjectController.extend({
+PageOne.CollectionController = Ember.ObjectController.extend(PageOne.EditableCollectionMixin, {
   /* Properties */
   isEditing: false,
   isPublishing: false,

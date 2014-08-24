@@ -24,9 +24,11 @@
 @import "variables";
 
 /* Widgets */
+@import "widgets/spinner";
 @import "widgets/button";
 @import "widgets/alerts";
 @import "widgets/image-uploader";
+@import "widgets/file-uploader";
 
 /* Generic */
 @import "generic";

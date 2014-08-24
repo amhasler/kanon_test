@@ -1,0 +1,6 @@
+<div class="editor">
+  {{inplace-textarea value=text focus-in="edit" focus-out="acceptChanges" insert-newline="newLineInserted" placeholder=placeholder doFocus=doFocus}}
+</div>
+{{#each error in errors}}
+  <span class="error message">{{error}}</span>
+{{/each}}

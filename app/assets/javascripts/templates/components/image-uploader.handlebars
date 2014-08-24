@@ -1,0 +1,27 @@
+<div class="loader">
+  <span class="spinner"></span>
+</div>
+{{#if imageUploaded}}
+  <figure class="image">
+    <button class="button-delete-image" title="Delete the image" {{action "deleteImage"}}></button>
+    {{#if showLightbox}}
+      {{lightbox-image image=image name="image-upload"}}
+    {{else}}
+      <img {{bind-attr src=image.thumbUrl}} />
+    {{/if}}
+    {{! Caption}}
+    {{inplace-editor model=model text=image.caption placeholder="Image credits" tagName="figcaption" name="caption"}}
+  </figure>
+{{else}}
+  <form class="form-upload-url" {{action "uploadUrl" on="submit"}}>
+    {{view PageOne.FieldView type="url" placeholder="Paste a link to an image" name="url" errors=requestMessages.url value=url doFocus=doFocus}}
+    {{input type="submit" class="button-submit-url" value="Upload"}}
+  </form>
+  <div class="form-upload-image">
+    {{! File uploader}}
+    {{file-uploader accept="image/*" initUpload="initFileUpload" success="fileUploadSuccess" failure="fileUploadFailure" authParams=authParams apiUrl=apiUrl errors=requestMessages.file}}
+  </div>
+{{/if}}
+{{#each error in errors}}
+  <span class="error message">{{error}}</span>
+{{/each}}

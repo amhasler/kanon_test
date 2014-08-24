@@ -1,11 +1,6 @@
-
 <div class="item-content"> 
-  <div class="content">
-    {{{#if isEditing}}
-      {{inplace-editor model=content text=content.content placeholder="Insert the text here..." errors=errors.content doFocus=isCreated}}
-    {{else}}
-      {{view PageOne.HandlebarsContentView templateBinding="content.content"}}
-    {{/if}}
+  <div class="content-container">
+  	<p>{{content.content}}</p>
   </div>
   <div class="icon-circle"></div>
 </div>

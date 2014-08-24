@@ -1,0 +1,17 @@
+$spinner-default-size: 30px;
+
+@mixin spinner($size: $spinner-default-size) {
+  .spinner {
+    display: none;
+    @include size($size);
+    margin-top: -$size / 2;
+    @include background-image-svg('icon-loading', true);
+    background-size: contain;
+    @include animation(1s linear 0s normal none infinite spinner-spin);
+  }
+}
+
+@include keyframes(spinner-spin) {
+  0% { @include transform(rotate(0deg)); }
+  100% { @include transform(rotate(359deg)); }
+}

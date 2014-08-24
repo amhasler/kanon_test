@@ -1,1 +1,3 @@
-PageOne.CollectionView = Ember.View.extend({});
+PageOne.CollectionView = Ember.View.extend({
+	classNames: ['full-collection']
+});

@@ -1,0 +1,5 @@
+.file-uploader {
+  .button-upload-from-computer { @extend .button-grey; }
+  .file { margin: 0; }
+  input[type="file"] { display: none; }
+}

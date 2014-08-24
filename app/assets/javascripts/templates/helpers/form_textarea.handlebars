@@ -1,0 +1,10 @@
+{{#if view.label}}
+  <label {{bind-attr for="view.inputElement.elementId"}}>{{view.label}}</label>
+{{/if}}
+<div {{bind-attr class=":textarea-container view.isWaiting:waiting"}}>
+  {{textarea name=view.name valueBinding="view.value" placeholder=view.placeholder viewName="inputElement" classNameBindings="view.autosize:autosize" action=view.action rows=view.rows disabled=view.disabled}}
+  {{#if view.ajax}}
+    {{partial "helpers/spinner"}}
+  {{/if}}
+</div>
+{{#each error in view.errors}}<span class="message error">{{error}}</span>{{/each}}
